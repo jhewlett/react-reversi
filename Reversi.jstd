@@ -1,7 +1,7 @@
 load:
   - qunit-lib/equiv.js
   - qunit-lib/QUnitAdapter.js
-  - src/Reversi.js
+  - src/Board.js
 
 test:
   - test/*.js
