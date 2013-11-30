@@ -5,7 +5,7 @@ Reversi.Game = function() {
     var _board = new Reversi.Board();
 
     var makeMove = function(i, j) {
-        var result = _board.toggle(i, j, _currentPlayer);
+        var result = _board.makeMove(i, j, _currentPlayer);
 
         if (result) {
             switchPlayer();

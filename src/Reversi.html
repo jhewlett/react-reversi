@@ -37,7 +37,6 @@
     var game = new Reversi.Game();
 
     var passBtn = document.getElementById('pass-button');
-
     passBtn.onclick = function() {
         game.switchPlayer();
         updatePlayerLabels();
@@ -46,7 +45,6 @@
     for (var i = 0; i < 8; i++) {
         for (var j = 0; j < 8; j++) {
             var id = i.toString() + j.toString();
-
             var element = document.getElementById(id);
 
             element.onclick = (function (iCopy, jCopy) {

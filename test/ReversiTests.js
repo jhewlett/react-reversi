@@ -1,10 +1,12 @@
 module("Board tests");
 
-test("toggle switches the selected and anything inbetween", function() {
+test("makeMove switches the selected cells and anything in between", function() {
     var board = new Reversi.Board();
 
-    board.toggle(2, 3, Reversi.Player1);
+    var result = board.canMakeMove(2, 3, Reversi.Player1);
+    board.makeMove(2, 3, Reversi.Player1);
 
+    assertTrue(result);
     assertEquals(Reversi.Player1, board.getStatus(2, 3));
     assertEquals(Reversi.Player1, board.getStatus(3, 3));
 });
@@ -12,8 +14,10 @@ test("toggle switches the selected and anything inbetween", function() {
 test("toggling a cell that does not border another of the opposite color does nothing", function() {
     var board = new Reversi.Board();
 
-    board.toggle(2, 3, Reversi.Player2);
+    var result = board.canMakeMove(2, 3, Reversi.Player2);
+    board.makeMove(2, 3, Reversi.Player2);
 
+    assertFalse(result);
     assertEquals(Reversi.Empty, board.getStatus(2, 3));
 });
 
@@ -23,9 +27,29 @@ test("toggling a cell that does not surround a row does nothing", function() {
     board.set(1, 1, Reversi.Player1);
 
     //act
-    board.toggle(2, 1, Reversi.Player2);
+    var result = board.canMakeMove(2, 1, Reversi.Player2);
+    board.makeMove(2, 1, Reversi.Player2);
 
+    assertFalse(result);
     assertEquals(Reversi.Empty, board.getStatus(2, 1));
+});
+
+test("toggling a cell with an empty space on the end does nothing", function() {
+    var board = new Reversi.Board();
+
+    board.set(0, 0, Reversi.Player1);
+    board.set(0, 2, Reversi.Player2);
+    board.set(0, 3, Reversi.Player2);
+
+    //act
+    var result = board.canMakeMove(0, 4, Reversi.Player1);
+    board.makeMove(0, 4, Reversi.Player1);
+
+    assertFalse(result);
+    assertEquals(Reversi.Empty, board.getStatus(0, 1));
+    assertEquals(Reversi.Player2, board.getStatus(0, 2));
+    assertEquals(Reversi.Player2, board.getStatus(0, 3));
+    assertEquals(Reversi.Empty, board.getStatus(0, 4));
 });
 
 test("can capture in all directions in one turn", function() {
@@ -50,7 +74,10 @@ test("can capture in all directions in one turn", function() {
     board.set(3, 2, Reversi.Player2);
     board.set(4, 2, Reversi.Player1);
 
-    board.toggle(2, 2, Reversi.Player1);
+    var result = board.canMakeMove(2, 2, Reversi.Player1);
+    board.makeMove(2, 2, Reversi.Player1);
+
+    assertTrue(result);
 
     assertEquals(Reversi.Player1, board.getStatus(1, 2));
     assertEquals(Reversi.Player1, board.getStatus(2, 1));
@@ -68,20 +95,24 @@ test("can capture in all directions in one turn", function() {
 test("Cannot toggle an occupied cell", function() {
     var board = new Reversi.Board();
 
-    board.toggle(2, 3, Reversi.Player1);
-    board.toggle(2, 3, Reversi.Player2);
+    board.set(2, 3, Reversi.Player1);
 
+    //act
+    var result = board.canMakeMove(2, 3, Reversi.Player2);
+    board.makeMove(2, 3, Reversi.Player2);
+
+    assertFalse(result);
     assertEquals(Reversi.Player1, board.getStatus(2, 3));
 });
 
 test("four squares are set at beginning of game, the rest are empty", function() {
     var board = new Reversi.Board();
 
-    assertEquals(Reversi.Player2, board.getStatus(3, 3));
-    assertEquals(Reversi.Player2, board.getStatus(4, 4));
-
     assertEquals(Reversi.Player1, board.getStatus(3, 4));
     assertEquals(Reversi.Player1, board.getStatus(4, 3));
+
+    assertEquals(Reversi.Player2, board.getStatus(3, 3));
+    assertEquals(Reversi.Player2, board.getStatus(4, 4));
 
     for (var i = 0; i < 8; i++) {
         for (var j = 0; j < 8; j++) {
@@ -92,6 +123,5 @@ test("four squares are set at beginning of game, the rest are empty", function()
     }
 });
 
-//have a move that switches players
-//detect when no moves available (or have option to pass)
+//detect when no moves available?
 //detect when game over
