@@ -40,7 +40,7 @@ table {
     border: 1px solid black;
 }
 
-#pass-button {
+#pass {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -48,8 +48,5 @@ table {
 
 #player-table {
     width: 400;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin: 50px auto;
 }

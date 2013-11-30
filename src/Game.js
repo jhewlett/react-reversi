@@ -15,7 +15,7 @@ Reversi.Game = function() {
     };
 
     var switchPlayer = function () {
-        _currentPlayer = _currentPlayer == Reversi.Player1
+        _currentPlayer = _currentPlayer === Reversi.Player1
             ? Reversi.Player2
             : Reversi.Player1;
     };
@@ -34,14 +34,24 @@ Reversi.Game = function() {
         return score;
     };
 
+    var getStatus = function(i, j) {
+        return _board.getStatus(i, j);
+    };
+
+    var canMakeMove = function(i, j) {
+        return _board.canMakeMove(i, j, _currentPlayer);
+    };
+
+    var getCurrentPlayer = function() {
+        return _currentPlayer;
+    };
+
     return {
-        getPlayer: function() { return _currentPlayer; },
+        getCurrentPlayer: getCurrentPlayer,
         makeMove: makeMove,
         switchPlayer: switchPlayer,
-        getStatus: function(i, j) {
-            return _board.getStatus(i, j);
-        },
+        getStatus: getStatus,
         getScore: getScore,
-        canMakeMove: function(i, j) { return _board.canMakeMove(i, j, _currentPlayer); }
+        canMakeMove: canMakeMove
     };
 };

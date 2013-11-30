@@ -27,8 +27,8 @@
     <tr><td id="60"> </td><td id="61"> </td><td id="62"> </td><td id="63"> </td><td id="64"> </td><td id="65"> </td><td id="66"> </td><td id="67"> </td></tr>
     <tr><td id="70"> </td><td id="71"> </td><td id="72"> </td><td id="73"> </td><td id="74"> </td><td id="75"> </td><td id="76"> </td><td id="77"> </td></tr>
 </table>
-<div id="pass-button">
-    <button onclick="pass()">Pass</button>
+<div id="pass">
+    <button id="pass-button">Pass</button>
 </div>
 </body>
 <script src="Board.js"></script>
@@ -36,9 +36,11 @@
 <script>
     var game = new Reversi.Game();
 
-    var pass = function() {
+    var passBtn = document.getElementById('pass-button');
+
+    passBtn.onclick = function() {
         game.switchPlayer();
-        drawBoard();
+        updatePlayerLabels();
     };
 
     for (var i = 0; i < 8; i++) {
@@ -58,9 +60,9 @@
             element.onmouseover = (function (iCopy, jCopy, elementCopy) {
                 return function(){
                     if (game.canMakeMove(iCopy, jCopy)) {
-                        var player = game.getPlayer();
-
-                        elementCopy.classList.add(player === Reversi.Player1 ? 'player1' : 'player2');
+                        elementCopy.classList.add(game.getCurrentPlayer() === Reversi.Player1
+                                ? 'player1'
+                                : 'player2');
                     }
                 };
             }(i, j, element));
@@ -80,7 +82,6 @@
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
                 var id = i.toString() + j.toString();
-
                 var element = document.getElementById(id);
 
                 var status = game.getStatus(i, j);
@@ -100,12 +101,10 @@
     };
 
     var updatePlayerLabels = function() {
-        var currentPlayer = game.getPlayer();
-
         var player1 = document.getElementById('player1-label');
         var player2 = document.getElementById('player2-label');
 
-        if (currentPlayer === Reversi.Player1) {
+        if (game.getCurrentPlayer() === Reversi.Player1) {
             player2.style.fontWeight = "normal";
             player1.style.fontWeight = "bold";
         } else {
