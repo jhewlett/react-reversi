@@ -1,0 +1,49 @@
+td {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    /*border-spacing: 0px;*/
+}
+
+.player1 {
+    background-color: red;
+}
+
+.player2 {
+    background-color: blue;
+}
+
+#player1-label {
+    font-weight: bold;
+    width: 100px;
+}
+
+#player2-label {
+    width: 100px;
+}
+
+#current-player {
+    text-align: center;
+}
+
+#current-player-swatch {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+#player-table {
+    width: 400;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
