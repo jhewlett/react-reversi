@@ -27,11 +27,19 @@
     <tr><td id="60"> </td><td id="61"> </td><td id="62"> </td><td id="63"> </td><td id="64"> </td><td id="65"> </td><td id="66"> </td><td id="67"> </td></tr>
     <tr><td id="70"> </td><td id="71"> </td><td id="72"> </td><td id="73"> </td><td id="74"> </td><td id="75"> </td><td id="76"> </td><td id="77"> </td></tr>
 </table>
+<div id="pass-button">
+    <button onclick="pass()">Pass</button>
+</div>
 </body>
 <script src="Board.js"></script>
 <script src="Game.js"></script>
 <script>
     var game = new Reversi.Game();
+
+    var pass = function() {
+        game.switchPlayer();
+        drawBoard();
+    };
 
     for (var i = 0; i < 8; i++) {
         for (var j = 0; j < 8; j++) {
@@ -46,6 +54,25 @@
                     }
                 };
             }(i, j));
+
+            element.onmouseover = (function (iCopy, jCopy, elementCopy) {
+                return function(){
+                    if (game.canMakeMove(iCopy, jCopy)) {
+                        var player = game.getPlayer();
+
+                        elementCopy.classList.add(player === Reversi.Player1 ? 'player1' : 'player2');
+                    }
+                };
+            }(i, j, element));
+
+            element.onmouseout = (function (iCopy, jCopy, elementCopy) {
+                return function(){
+                    if (game.getStatus(iCopy, jCopy) === Reversi.Empty) {
+                        elementCopy.classList.remove('player1');
+                        elementCopy.classList.remove('player2');
+                    }
+                };
+            }(i, j, element));
         }
     }
 

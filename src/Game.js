@@ -41,6 +41,7 @@ Reversi.Game = function() {
         getStatus: function(i, j) {
             return _board.getStatus(i, j);
         },
-        getScore: getScore
+        getScore: getScore,
+        canMakeMove: function(i, j) { return _board.canMakeMove(i, j, _currentPlayer); }
     };
 };

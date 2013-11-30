@@ -35,7 +35,6 @@ Reversi.Direction = function(rowIncrement, colIncrement){
 };
 
 Reversi.Board = function() {
-
     var _board = [];
 
     var _directions = [//new Reversi.Direction(1, 1),
@@ -86,6 +85,24 @@ Reversi.Board = function() {
         return success;
     };
 
+    var canMakeMove = function(i, j, color) {
+        if (_board[i][j] === Reversi.Empty) {
+            var oppositeColor = color === Reversi.Player1
+                ? Reversi.Player2
+                : Reversi.Player1;
+
+            for (var d = 0; d < _directions.length; d++) {
+                var next = _directions[d].getNext(i, j);
+
+                if (next !== false && _board[next[0]][next[1]] === oppositeColor && _directions[d].containsColor(i, j, color, _board)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    };
+
     var getStatus = function(i, j) {
         return _board[i][j];
     };
@@ -93,6 +110,7 @@ Reversi.Board = function() {
     return {
         toggle: toggle,
         getStatus: getStatus,
+        canMakeMove: canMakeMove,
         set: function (i, j, color) {   //for testing
             _board[i][j] = color;
         }
