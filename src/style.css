@@ -1,14 +1,17 @@
-td {
-    width: 40px;
-    height: 40px;
-    border: 1px solid black;
-}
-
 table {
     margin-left: auto;
     margin-right: auto;
+}
+
+#board {
+    background-color: #EEEEEE;
     border: 1px solid black;
-    /*border-spacing: 0px;*/
+}
+
+#board td {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
 }
 
 .player1 {
@@ -21,11 +24,19 @@ table {
 
 #player1-label {
     font-weight: bold;
-    width: 100px;
 }
 
-#player2-label {
-    width: 100px;
+#player1-label, #player2-label {
+    width: 120px;
+    font-size: 18pt;
+}
+
+#player1-score, #player2-score {
+    color: white;
+    font-size: 18pt;
+    text-align: center;
+    width: 35px;
+    height: 35px;
 }
 
 #current-player {
@@ -42,11 +53,15 @@ table {
 
 #pass {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+#pass-button {
+    width: 100px;
+    height: 40px;
 }
 
 #player-table {
     width: 400;
-    margin: 50px auto;
+    margin: 30px auto;
 }
