@@ -29,11 +29,11 @@ Reversi.Board = function() {
             }
         }
 
-        _board[3][3] = Reversi.Player2;
-        _board[4][4] = Reversi.Player2;
-
         _board[3][4] = Reversi.Player1;
         _board[4][3] = Reversi.Player1;
+
+        _board[3][3] = Reversi.Player2;
+        _board[4][4] = Reversi.Player2;
     }
 
     var makeMove = function(i, j, color) {
@@ -46,7 +46,7 @@ Reversi.Board = function() {
             for (var d = 0; d < _directions.length; d++) {
                 var next = _directions[d].getNext(i, j);
 
-                if (next !== false && _board[next.row][next.col] === oppositeColor && _directions[d].containsColor(i, j, color, _board)) {
+                if (next !== false && _board[next.row][next.col] === oppositeColor && lineContainsColor(i, j, color, _directions[d])) {
                     _board[i][j] = color;
                     success = true;
                     while (next !== false && _board[next.row][next.col] !== color) {
@@ -69,13 +69,27 @@ Reversi.Board = function() {
             for (var d = 0; d < _directions.length; d++) {
                 var next = _directions[d].getNext(i, j);
 
-                if (next !== false && _board[next.row][next.col] === oppositeColor && _directions[d].containsColor(i, j, color, _board)) {
+                if (next !== false && _board[next.row][next.col] === oppositeColor && lineContainsColor(i, j, color, _directions[d])) {
                     return true;
                 }
             }
         }
 
         return false;
+    };
+
+    var lineContainsColor = function(i, j, color, direction) {
+        var next = direction.getNext(i, j);
+
+        if (next === false || _board[next.row][next.col] === Reversi.Empty) {
+            return false;
+        }
+
+        if (_board[next.row][next.col] === color) {
+            return true;
+        }
+
+        return lineContainsColor(next.row, next.col, color);
     };
 
     var getStatus = function(i, j) {

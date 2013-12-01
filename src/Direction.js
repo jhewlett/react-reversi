@@ -12,22 +12,7 @@ Reversi.Direction = function(rowIncrement, colIncrement){
         return { row: i + rowIncrement, col: j + colIncrement };
     };
 
-    var containsColor = function(i, j, color, board) {
-        var next = getNext(i, j);
-
-        if (next === false || board[next.row][next.col] === Reversi.Empty) {
-            return false;
-        }
-
-        if (board[next.row][next.col] === color) {
-            return true;
-        }
-
-        return containsColor(next.row, next.col, color, board);
-    };
-
     return {
-        getNext: getNext,
-        containsColor: containsColor
+        getNext: getNext
     };
 };
