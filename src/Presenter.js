@@ -92,12 +92,33 @@ Reversi.Presenter = function(game) {
     }
 
     function updateScore() {
-        var player1Score = document.getElementById('player1-score');
-        var player2Score = document.getElementById('player2-score');
+        var scoreBoardPlayer1 = document.getElementById('player1-score');
+        var scoreBoardPlayer2 = document.getElementById('player2-score');
 
-        player1Score.innerHTML = game.getScore(Reversi.Cell.Player1);
-        player2Score.innerHTML = game.getScore(Reversi.Cell.Player2);
+        var player1Score = game.getScore(Reversi.Cell.Player1);
+        var player2Score = game.getScore(Reversi.Cell.Player2);
+
+        scoreBoardPlayer1.innerHTML = player1Score;
+        scoreBoardPlayer2.innerHTML = player2Score;
+
+        checkEndOfGame(player1Score, player2Score);
     }
+
+    var checkEndOfGame = function(player1Score, player2Score) {
+        if (player1Score === 0) {
+            alert('Player 2 wins!');
+        } else if (player2Score === 0) {
+            alert('Player 1 wins!');
+        } else if (player1Score + player2Score === 64) {
+            if (player1Score === player2Score) {
+                alert('Tie!');
+            } else if (player1Score > player2Score) {
+                alert('Player 1 wins!');
+            } else {
+                alert('Player 2 wins!');
+            }
+        }
+    };
 
     return {
         present: present
