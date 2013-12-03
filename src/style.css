@@ -15,11 +15,15 @@ table {
 }
 
 .player1 {
-    background-color: red;
+    background-image:url('red.png');
 }
 
 .player2 {
-    background-color: blue;
+    background-image:url('blue.png');
+}
+
+.player1, .player2 {
+    background: no-repeat center;
 }
 
 #player1-label {
@@ -35,20 +39,12 @@ table {
     color: white;
     font-size: 18pt;
     text-align: center;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
 }
 
 #current-player {
     text-align: center;
-}
-
-#current-player-swatch {
-    margin-left: auto;
-    margin-right: auto;
-    width: 30px;
-    height: 30px;
-    border: 1px solid black;
 }
 
 #pass {
