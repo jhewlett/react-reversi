@@ -23,7 +23,8 @@ table {
 }
 
 .player1, .player2 {
-    background: no-repeat center;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #player1-label {

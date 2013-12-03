@@ -39,7 +39,7 @@ Reversi.Presenter = function(game) {
         element.onmouseover = (function (iCopy, jCopy, elementCopy) {
             return function(){
                 if (game.canMakeMove(iCopy, jCopy)) {
-                    elementCopy.classList.add(game.getCurrentPlayer() === Reversi.Player1
+                    elementCopy.classList.add(game.getCurrentPlayer() === Reversi.Cell.Player1
                         ? 'player1'
                         : 'player2');
                 }
@@ -48,7 +48,7 @@ Reversi.Presenter = function(game) {
 
         element.onmouseout = (function (iCopy, jCopy, elementCopy) {
             return function(){
-                if (game.getStatus(iCopy, jCopy) === Reversi.Empty) {
+                if (game.getStatus(iCopy, jCopy) === Reversi.Cell.Empty) {
                     elementCopy.classList.remove('player1');
                     elementCopy.classList.remove('player2');
                 }
@@ -64,10 +64,10 @@ Reversi.Presenter = function(game) {
 
                 var status = game.getStatus(i, j);
 
-                if (status === Reversi.Player1) {
+                if (status === Reversi.Cell.Player1) {
                     element.classList.remove('player2');
                     element.classList.add('player1');
-                } else if (status === Reversi.Player2) {
+                } else if (status === Reversi.Cell.Player2) {
                     element.classList.remove('player1');
                     element.classList.add('player2');
                 }
@@ -82,7 +82,7 @@ Reversi.Presenter = function(game) {
         var player1 = document.getElementById('player1-label');
         var player2 = document.getElementById('player2-label');
 
-        if (game.getCurrentPlayer() === Reversi.Player1) {
+        if (game.getCurrentPlayer() === Reversi.Cell.Player1) {
             player2.style.fontWeight = "normal";
             player1.style.fontWeight = "bold";
         } else {
@@ -95,8 +95,8 @@ Reversi.Presenter = function(game) {
         var player1Score = document.getElementById('player1-score');
         var player2Score = document.getElementById('player2-score');
 
-        player1Score.innerHTML = game.getScore(Reversi.Player1);
-        player2Score.innerHTML = game.getScore(Reversi.Player2);
+        player1Score.innerHTML = game.getScore(Reversi.Cell.Player1);
+        player2Score.innerHTML = game.getScore(Reversi.Cell.Player2);
     }
 
     return {

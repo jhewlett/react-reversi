@@ -1,7 +1,7 @@
 var Reversi = Reversi || {};
 
 Reversi.Game = function() {
-    var _currentPlayer = Reversi.Player1;
+    var _currentPlayer = Reversi.Cell.Player1;
     var _board = new Reversi.Board();
 
     var makeMove = function(i, j) {
@@ -15,9 +15,9 @@ Reversi.Game = function() {
     };
 
     var switchPlayer = function () {
-        _currentPlayer = _currentPlayer === Reversi.Player1
-            ? Reversi.Player2
-            : Reversi.Player1;
+        _currentPlayer = _currentPlayer === Reversi.Cell.Player1
+            ? Reversi.Cell.Player2
+            : Reversi.Cell.Player1;
     };
 
     var getScore = function(player) {
