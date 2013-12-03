@@ -109,32 +109,13 @@ Reversi.Presenter = function(game) {
     };
 
     var updateScore = function() {
-        var player1Score = game.getScore(Reversi.Cell.Player1);
-        var player2Score = game.getScore(Reversi.Cell.Player2);
+        var score = game.getScore(endOfGameCallback);
 
-        _player1ScoreHolder.innerHTML = player1Score;
-        _player2ScoreHolder.innerHTML = player2Score;
-
-        checkEndOfGame(player1Score, player2Score);
+        _player1ScoreHolder.innerHTML = score.Player1;
+        _player2ScoreHolder.innerHTML = score.Player2;
     };
 
-    var checkEndOfGame = function(player1Score, player2Score) {
-        if (player1Score === 0) {
-            endGame('Player 2 wins!');
-        } else if (player2Score === 0) {
-            endGame('Player 1 wins!');
-        } else if (player1Score + player2Score === 64) {
-            if (player1Score === player2Score) {
-                endGame('Tie!');
-            } else if (player1Score > player2Score) {
-                endGame('Player 1 wins!');
-            } else {
-                endGame('Player 2 wins!');
-            }
-        }
-    };
-
-    var endGame = function(message) {
+    var endOfGameCallback = function(message) {
         alert(message);
 
         var passButton = document.getElementById('pass-button');

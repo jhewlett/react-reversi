@@ -20,7 +20,18 @@ Reversi.Game = function() {
             : Reversi.Cell.Player1;
     };
 
-    var getScore = function(player) {
+    var getScore = function(endOfGameCallback) {
+        var score = {
+            Player1: getScoreForPlayer(Reversi.Cell.Player1),
+            Player2: getScoreForPlayer(Reversi.Cell.Player2)
+        };
+
+        checkEndOfGame(score, endOfGameCallback);
+
+        return score;
+    };
+
+    var getScoreForPlayer = function(player) {
         var score = 0;
 
         for (var i = 0; i < 8; i++) {
@@ -32,6 +43,22 @@ Reversi.Game = function() {
         }
 
         return score;
+    };
+
+    var checkEndOfGame = function(score, endOfGameCallback) {
+        if (score.Player1 === 0) {
+            endOfGameCallback('Player 2 wins!');
+        } else if (score.Player2 === 0) {
+            endOfGameCallback('Player 1 wins!');
+        } else if (score.Player1 + score.Player2 === 64) {
+            if (score.Player1 === score.Player2) {
+                endOfGameCallback('Tie!');
+            } else if (score.Player1 > score.Player2) {
+                endOfGameCallback('Player 1 wins!');
+            } else {
+                endOfGameCallback('Player 2 wins!');
+            }
+        }
     };
 
     var getStatus = function(i, j) {
