@@ -3,6 +3,7 @@ var Reversi = Reversi || {};
 Reversi.Presenter = function(game) {
     function present() {
         wireUpPassButton();
+        wireUpResetButton();
         wireUpMouseEvents();
 
         drawBoard();
@@ -13,6 +14,14 @@ Reversi.Presenter = function(game) {
         passBtn.onclick = function() {
             game.switchPlayer();
             updatePlayerLabels();
+        };
+    }
+
+    function wireUpResetButton() {
+        var passBtn = document.getElementById('reset-button');
+        passBtn.onclick = function() {
+            game.reset();
+            drawBoard();
         };
     }
 
@@ -70,6 +79,9 @@ Reversi.Presenter = function(game) {
                 } else if (status === Reversi.Cell.Player2) {
                     element.classList.remove('player1');
                     element.classList.add('player2');
+                } else {
+                    element.classList.remove('player1');
+                    element.classList.remove('player2');
                 }
             }
         }

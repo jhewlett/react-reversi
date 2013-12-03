@@ -46,12 +46,18 @@ Reversi.Game = function() {
         return _currentPlayer;
     };
 
+    var reset = function() {
+        _board = new Reversi.Board();
+        _currentPlayer = Reversi.Cell.Player1;
+    };
+
     return {
         getCurrentPlayer: getCurrentPlayer,
         makeMove: makeMove,
         switchPlayer: switchPlayer,
         getStatus: getStatus,
         getScore: getScore,
-        canMakeMove: canMakeMove
+        canMakeMove: canMakeMove,
+        reset: reset
     };
 };

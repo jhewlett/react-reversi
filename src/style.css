@@ -48,14 +48,18 @@ table {
     text-align: center;
 }
 
-#pass {
+.button-container {
     text-align: center;
     margin-top: 30px;
 }
 
-#pass-button {
+.button {
     width: 100px;
     height: 40px;
+}
+
+.button:hover {
+    cursor: pointer;
 }
 
 #player-table {
