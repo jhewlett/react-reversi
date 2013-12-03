@@ -62,6 +62,10 @@ table {
     cursor: pointer;
 }
 
+.button:disabled {
+    cursor: default;
+}
+
 #player-table {
     width: 400;
     margin: 30px auto;

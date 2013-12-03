@@ -1,39 +1,47 @@
 var Reversi = Reversi || {};
 
 Reversi.Presenter = function(game) {
-    function present() {
+    var _passButton = document.getElementById('pass-button');
+    var _resetButton = document.getElementById('reset-button');
+
+    var _player1Label = document.getElementById('player1-label');
+    var _player2Label = document.getElementById('player2-label');
+
+    var _player1ScoreHolder = document.getElementById('player1-score');
+    var _player2ScoreHolder = document.getElementById('player2-score');
+
+    var present = function() {
         wireUpPassButton();
         wireUpResetButton();
         wireUpMouseEvents();
 
         drawBoard();
-    }
+    };
 
-    function wireUpPassButton() {
-        var passBtn = document.getElementById('pass-button');
-        passBtn.onclick = function() {
+    var wireUpPassButton = function() {
+        _passButton.onclick = function() {
             game.switchPlayer();
             updatePlayerLabels();
         };
-    }
+    };
 
-    function wireUpResetButton() {
-        var passBtn = document.getElementById('reset-button');
-        passBtn.onclick = function() {
+    var wireUpResetButton = function() {
+        _resetButton.onclick = function() {
             game.reset();
             drawBoard();
+            _passButton.disabled = false;
         };
-    }
+    };
 
-    function wireUpMouseEvents() {
+    var wireUpMouseEvents = function() {
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
                 wireUpCell(i, j);
             }
         }
-    }
+    };
 
-    function wireUpCell(i, j) {
+    var wireUpCell = function(i, j) {
         var id = i.toString() + j.toString();
         var element = document.getElementById(id);
 
@@ -63,9 +71,9 @@ Reversi.Presenter = function(game) {
                 }
             };
         }(i, j, element));
-    }
+    };
 
-    function drawBoard() {
+    var drawBoard = function() {
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
                 var id = i.toString() + j.toString();
@@ -88,48 +96,49 @@ Reversi.Presenter = function(game) {
 
         updatePlayerLabels();
         updateScore();
-    }
+    };
 
-    function updatePlayerLabels() {
-        var player1 = document.getElementById('player1-label');
-        var player2 = document.getElementById('player2-label');
-
+    var updatePlayerLabels = function() {
         if (game.getCurrentPlayer() === Reversi.Cell.Player1) {
-            player2.style.fontWeight = "normal";
-            player1.style.fontWeight = "bold";
+            _player2Label.style.fontWeight = "normal";
+            _player1Label.style.fontWeight = "bold";
         } else {
-            player1.style.fontWeight = "normal";
-            player2.style.fontWeight = "bold";
+            _player1Label.style.fontWeight = "normal";
+            _player2Label.style.fontWeight = "bold";
         }
-    }
+    };
 
-    function updateScore() {
-        var scoreBoardPlayer1 = document.getElementById('player1-score');
-        var scoreBoardPlayer2 = document.getElementById('player2-score');
-
+    var updateScore = function() {
         var player1Score = game.getScore(Reversi.Cell.Player1);
         var player2Score = game.getScore(Reversi.Cell.Player2);
 
-        scoreBoardPlayer1.innerHTML = player1Score;
-        scoreBoardPlayer2.innerHTML = player2Score;
+        _player1ScoreHolder.innerHTML = player1Score;
+        _player2ScoreHolder.innerHTML = player2Score;
 
         checkEndOfGame(player1Score, player2Score);
-    }
+    };
 
     var checkEndOfGame = function(player1Score, player2Score) {
         if (player1Score === 0) {
-            alert('Player 2 wins!');
+            endGame('Player 2 wins!');
         } else if (player2Score === 0) {
-            alert('Player 1 wins!');
+            endGame('Player 1 wins!');
         } else if (player1Score + player2Score === 64) {
             if (player1Score === player2Score) {
-                alert('Tie!');
+                endGame('Tie!');
             } else if (player1Score > player2Score) {
-                alert('Player 1 wins!');
+                endGame('Player 1 wins!');
             } else {
-                alert('Player 2 wins!');
+                endGame('Player 2 wins!');
             }
         }
+    };
+
+    var endGame = function(message) {
+        alert(message);
+
+        var passButton = document.getElementById('pass-button');
+        passButton.disabled = true;
     };
 
     return {
