@@ -47,9 +47,7 @@ Reversi.Presenter = function(game) {
 
         element.onclick = (function (iCopy, jCopy) {
             return function(){
-                if (game.makeMove(iCopy, jCopy, drawBoard)) {
-                    //drawBoard();
-                }
+                game.makeMove(iCopy, jCopy, drawBoard, endOfTurn);
             };
         }(i, j));
 
@@ -95,7 +93,11 @@ Reversi.Presenter = function(game) {
         }
 
         updatePlayerLabels();
+    };
+
+    var endOfTurn = function() {
         updateScore();
+        updatePlayerLabels();
     };
 
     var updatePlayerLabels = function() {

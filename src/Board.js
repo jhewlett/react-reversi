@@ -38,13 +38,15 @@ Reversi.Board = function() {
         _board[4][4] = Reversi.Cell.Player2;
     }
 
-    var makeMove = function(i, j, color, drawCallback) {
+    var makeMove = function(i, j, color, drawCallback, endOfTurnCallback) {
         var success = false;
 
         if (_board[i][j] === Reversi.Cell.Empty) {
             for (var d = 0; d < _directions.length; d++) {
                 if (surroundsOppositePlayer(i, j, color, _directions[d])) {
-                    colorCapturedCells(i, j, color, _directions[d], drawCallback);
+                    _board[i][j] = color;
+
+                    colorCapturedCell(i, j, color, _directions[d], drawCallback, endOfTurnCallback);
 
                     success = true;
                 }
@@ -54,24 +56,20 @@ Reversi.Board = function() {
         return success;
     };
 
-    var colorCapturedCells = function(i, j, color, direction, drawCallback) {
-        _board[i][j] = color;
-
+    var colorCapturedCell = function(i, j, color, direction, drawCallback, endOfTurnCallback) {
         var next = direction.getNext(i, j);
 
-        recurse(next, color, direction, drawCallback);
-    };
+        if (next === false || _board[next.row][next.col] === color) {
+            endOfTurnCallback();
 
-    var recurse = function(current, color, direction, drawCallback) {
-        if (current === false || _board[current.row][current.col] === color) return;
+            return;
+        }
 
-        _board[current.row][current.col] = color;
+        _board[next.row][next.col] = color;
         drawCallback();
 
-        var next = direction.getNext(current.row, current.col);
-
         setTimeout(function() {
-            recurse(next, color, direction, drawCallback);
+            colorCapturedCell(next.row, next.col, color, direction, drawCallback, endOfTurnCallback);
         }, 200);
     };
 
