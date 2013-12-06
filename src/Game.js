@@ -4,8 +4,8 @@ Reversi.Game = function() {
     var _currentPlayer = Reversi.Cell.Player1;
     var _board = new Reversi.Board();
 
-    var makeMove = function(i, j) {
-        var result = _board.makeMove(i, j, _currentPlayer);
+    var makeMove = function(i, j, drawCallback) {
+        var result = _board.makeMove(i, j, _currentPlayer, drawCallback);
 
         if (result) {
             switchPlayer();

@@ -47,8 +47,8 @@ Reversi.Presenter = function(game) {
 
         element.onclick = (function (iCopy, jCopy) {
             return function(){
-                if (game.makeMove(iCopy, jCopy)) {
-                    drawBoard();
+                if (game.makeMove(iCopy, jCopy, drawBoard)) {
+                    //drawBoard();
                 }
             };
         }(i, j));

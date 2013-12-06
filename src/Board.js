@@ -38,13 +38,13 @@ Reversi.Board = function() {
         _board[4][4] = Reversi.Cell.Player2;
     }
 
-    var makeMove = function(i, j, color) {
+    var makeMove = function(i, j, color, drawCallback) {
         var success = false;
 
         if (_board[i][j] === Reversi.Cell.Empty) {
             for (var d = 0; d < _directions.length; d++) {
                 if (surroundsOppositePlayer(i, j, color, _directions[d])) {
-                    colorCapturedCells(i, j, color, _directions[d]);
+                    colorCapturedCells(i, j, color, _directions[d], drawCallback);
 
                     success = true;
                 }
@@ -54,15 +54,25 @@ Reversi.Board = function() {
         return success;
     };
 
-    var colorCapturedCells = function(i, j, color, direction) {
+    var colorCapturedCells = function(i, j, color, direction, drawCallback) {
         _board[i][j] = color;
 
         var next = direction.getNext(i, j);
 
-        while (next !== false && _board[next.row][next.col] !== color) {
-            _board[next.row][next.col] = color;
-            next = direction.getNext(next.row, next.col);
-        }
+        recurse(next, color, direction, drawCallback);
+    };
+
+    var recurse = function(current, color, direction, drawCallback) {
+        if (current === false || _board[current.row][current.col] === color) return;
+
+        _board[current.row][current.col] = color;
+        drawCallback();
+
+        var next = direction.getNext(current.row, current.col);
+
+        setTimeout(function() {
+            recurse(next, color, direction, drawCallback);
+        }, 200);
     };
 
     var canMakeMove = function(i, j, color) {
