@@ -15,6 +15,9 @@ Reversi.Presenter = function(game) {
         wireUpResetButton();
         wireUpMouseEvents();
 
+        radio('endOfTurn').subscribe(endOfTurn);
+        radio('cellChanged').subscribe(drawBoard);
+
         drawBoard();
     };
 
@@ -47,7 +50,7 @@ Reversi.Presenter = function(game) {
 
         element.onclick = (function (iCopy, jCopy) {
             return function(){
-                game.makeMove(iCopy, jCopy, drawBoard, endOfTurn);
+                game.makeMove(iCopy, jCopy);
             };
         }(i, j));
 
@@ -91,8 +94,6 @@ Reversi.Presenter = function(game) {
                 }
             }
         }
-
-        updatePlayerLabels();
     };
 
     var endOfTurn = function() {
