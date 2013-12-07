@@ -24,7 +24,7 @@ test("toggling a cell that does not border another of the opposite color does no
 test("toggling a cell that does not surround a row does nothing", function() {
     var board = new Reversi.Board();
 
-    board.set(1, 1, Reversi.Player1);
+    board.setCell(1, 1, Reversi.Player1);
 
     //act
     var result = board.canMakeMove(2, 1, Reversi.Player2);
@@ -37,9 +37,9 @@ test("toggling a cell that does not surround a row does nothing", function() {
 test("toggling a cell with an empty space on the end does nothing", function() {
     var board = new Reversi.Board();
 
-    board.set(0, 0, Reversi.Player1);
-    board.set(0, 2, Reversi.Player2);
-    board.set(0, 3, Reversi.Player2);
+    board.setCell(0, 0, Reversi.Player1);
+    board.setCell(0, 2, Reversi.Player2);
+    board.setCell(0, 3, Reversi.Player2);
 
     //act
     var result = board.canMakeMove(0, 4, Reversi.Player1);
@@ -55,24 +55,24 @@ test("toggling a cell with an empty space on the end does nothing", function() {
 test("can capture in all directions in one turn", function() {
     var board = new Reversi.Board();
 
-    board.set(0, 0, Reversi.Player1);
-    board.set(0, 2, Reversi.Player1);
-    board.set(0, 4, Reversi.Player1);
-    board.set(4, 0, Reversi.Player1);
-    board.set(4, 4, Reversi.Player1);
+    board.setCell(0, 0, Reversi.Player1);
+    board.setCell(0, 2, Reversi.Player1);
+    board.setCell(0, 4, Reversi.Player1);
+    board.setCell(4, 0, Reversi.Player1);
+    board.setCell(4, 4, Reversi.Player1);
 
-    board.set(1, 1, Reversi.Player2);
-    board.set(3, 3, Reversi.Player2);
-    board.set(3, 1, Reversi.Player2);
-    board.set(1, 3, Reversi.Player2);
+    board.setCell(1, 1, Reversi.Player2);
+    board.setCell(3, 3, Reversi.Player2);
+    board.setCell(3, 1, Reversi.Player2);
+    board.setCell(1, 3, Reversi.Player2);
 
-    board.set(1, 2, Reversi.Player2);
-    board.set(2, 0, Reversi.Player1);
-    board.set(2, 1, Reversi.Player2);
-    board.set(2, 3, Reversi.Player2);
-    board.set(2, 4, Reversi.Player1);
-    board.set(3, 2, Reversi.Player2);
-    board.set(4, 2, Reversi.Player1);
+    board.setCell(1, 2, Reversi.Player2);
+    board.setCell(2, 0, Reversi.Player1);
+    board.setCell(2, 1, Reversi.Player2);
+    board.setCell(2, 3, Reversi.Player2);
+    board.setCell(2, 4, Reversi.Player1);
+    board.setCell(3, 2, Reversi.Player2);
+    board.setCell(4, 2, Reversi.Player1);
 
     var result = board.canMakeMove(2, 2, Reversi.Player1);
     board.makeMove(2, 2, Reversi.Player1);
@@ -95,7 +95,7 @@ test("can capture in all directions in one turn", function() {
 test("Cannot toggle an occupied cell", function() {
     var board = new Reversi.Board();
 
-    board.set(2, 3, Reversi.Player1);
+    board.setCell(2, 3, Reversi.Player1);
 
     //act
     var result = board.canMakeMove(2, 3, Reversi.Player2);

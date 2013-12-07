@@ -18,7 +18,7 @@ Reversi.Presenter = function(game) {
         wireUpMouseEvents();
 
         radio('endOfTurn').subscribe(endOfTurn);
-        radio('cellChanged').subscribe(drawBoard);
+        radio('cellChanged').subscribe(drawCell);
         radio('endOfGame').subscribe(endOfGame);
 
         drawBoard();
@@ -82,22 +82,26 @@ Reversi.Presenter = function(game) {
     var drawBoard = function() {
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
-                var id = i.toString() + j.toString();
-                var element = document.getElementById(id);
-
                 var status = game.getStatus(i, j);
 
-                if (status === Reversi.Cell.Player1) {
-                    element.classList.remove('player2');
-                    element.classList.add('player1');
-                } else if (status === Reversi.Cell.Player2) {
-                    element.classList.remove('player1');
-                    element.classList.add('player2');
-                } else {
-                    element.classList.remove('player1');
-                    element.classList.remove('player2');
-                }
+                drawCell(i, j, status);
             }
+        }
+    };
+
+    var drawCell = function(i, j, status) {
+        var id = i.toString() + j.toString();
+        var element = document.getElementById(id);
+
+        if (status === Reversi.Cell.Player1) {
+            element.classList.remove('player2');
+            element.classList.add('player1');
+        } else if (status === Reversi.Cell.Player2) {
+            element.classList.remove('player1');
+            element.classList.add('player2');
+        } else {
+            element.classList.remove('player1');
+            element.classList.remove('player2');
         }
     };
 

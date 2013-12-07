@@ -44,8 +44,7 @@ Reversi.Board = function() {
         if (_board[i][j] === Reversi.Cell.Empty) {
             for (var d = 0; d < _directions.length; d++) {
                 if (surroundsOppositePlayer(i, j, color, _directions[d])) {
-
-                    _board[i][j] = color;
+                    setCell(i, j, color);
                     colorCapturedCell(i, j, color, _directions[d]);
 
                     success = true;
@@ -65,8 +64,7 @@ Reversi.Board = function() {
             return;
         }
 
-        _board[next.row][next.col] = color;
-        radio('cellChanged').broadcast();
+        setCell(next.row, next.col, color);
 
         setTimeout(function() {
             colorCapturedCell(next.row, next.col, color, direction);
@@ -113,14 +111,15 @@ Reversi.Board = function() {
         return _board[i][j];
     };
 
-    var set =  function (i, j, color) {
+    var setCell =  function (i, j, color) {
         _board[i][j] = color;
+        radio('cellChanged').broadcast(i, j, color);
     };
 
     return {
         getStatus: getStatus,
         canMakeMove: canMakeMove,
         makeMove: makeMove,
-        set: set //for testing
+        setCell: setCell
     };
 };
