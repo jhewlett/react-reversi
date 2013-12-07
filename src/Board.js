@@ -44,8 +44,8 @@ Reversi.Board = function() {
         if (_board[i][j] === Reversi.Cell.Empty) {
             for (var d = 0; d < _directions.length; d++) {
                 if (surroundsOppositePlayer(i, j, color, _directions[d])) {
-                    _board[i][j] = color;
 
+                    _board[i][j] = color;
                     colorCapturedCell(i, j, color, _directions[d]);
 
                     success = true;

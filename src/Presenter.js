@@ -10,6 +10,8 @@ Reversi.Presenter = function(game) {
     var _player1ScoreHolder = document.getElementById('player1-score');
     var _player2ScoreHolder = document.getElementById('player2-score');
 
+    var _winnerMessage = document.getElementById('winner-message');
+
     var present = function() {
         wireUpPassButton();
         wireUpResetButton();
@@ -33,6 +35,8 @@ Reversi.Presenter = function(game) {
         _resetButton.onclick = function() {
             game.reset();
             drawBoard();
+            endOfTurn();
+            _winnerMessage.style.visibility = "hidden";
             _passButton.disabled = false;
         };
     };
@@ -120,7 +124,8 @@ Reversi.Presenter = function(game) {
     };
 
     var endOfGame = function(message) {
-        alert(message);
+        _winnerMessage.innerHTML = message;
+        _winnerMessage.style.visibility = "visible";
 
         _passButton.disabled = true;
     };

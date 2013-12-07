@@ -27,6 +27,13 @@ table {
     background-position: center;
 }
 
+#player-table {
+    width: 400;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
 #player1-label {
     font-weight: bold;
 }
@@ -44,8 +51,11 @@ table {
     height: 40px;
 }
 
-#current-player {
+#winner-message {
     text-align: center;
+    font-size: 14pt;
+    font-weight: bold;
+    visibility: hidden;
 }
 
 .button-container {
@@ -64,9 +74,4 @@ table {
 
 .button:disabled {
     cursor: default;
-}
-
-#player-table {
-    width: 400;
-    margin: 30px auto;
 }

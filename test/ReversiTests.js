@@ -4,7 +4,7 @@ test("makeMove switches the selected cells and anything in between", function() 
     var board = new Reversi.Board();
 
     var result = board.canMakeMove(2, 3, Reversi.Player1);
-    board.makeMove(2, 3, Reversi.Player1, function() {});
+    board.makeMove(2, 3, Reversi.Player1);
 
     assertTrue(result);
     assertEquals(Reversi.Player1, board.getStatus(2, 3));
@@ -75,7 +75,7 @@ test("can capture in all directions in one turn", function() {
     board.set(4, 2, Reversi.Player1);
 
     var result = board.canMakeMove(2, 2, Reversi.Player1);
-    board.makeMove(2, 2, Reversi.Player1, function() {});
+    board.makeMove(2, 2, Reversi.Player1);
 
     assertTrue(result);
 
