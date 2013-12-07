@@ -3,6 +3,7 @@ load:
   - qunit-lib/QUnitAdapter.js
   - src/Board.js
   - src/Direction.js
+  - lib/radio.min.js
 
 test:
   - test/*.js

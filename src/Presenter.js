@@ -17,6 +17,7 @@ Reversi.Presenter = function(game) {
 
         radio('endOfTurn').subscribe(endOfTurn);
         radio('cellChanged').subscribe(drawBoard);
+        radio('endOfGame').subscribe(endOfGame);
 
         drawBoard();
     };
@@ -112,17 +113,16 @@ Reversi.Presenter = function(game) {
     };
 
     var updateScore = function() {
-        var score = game.getScore(endOfGameCallback);
+        var score = game.getScore();
 
         _player1ScoreHolder.innerHTML = score.Player1;
         _player2ScoreHolder.innerHTML = score.Player2;
     };
 
-    var endOfGameCallback = function(message) {
+    var endOfGame = function(message) {
         alert(message);
 
-        var passButton = document.getElementById('pass-button');
-        passButton.disabled = true;
+        _passButton.disabled = true;
     };
 
     return {
