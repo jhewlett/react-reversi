@@ -7,7 +7,9 @@ Reversi.Game = function() {
     var makeMove = function(i, j) {
         var result = _board.makeMove(i, j, _currentPlayer);
 
-        if (result) {
+        var gameEnded = checkEndOfGame();
+
+        if (result && !gameEnded) {
             switchPlayer();
         }
     };
@@ -23,8 +25,6 @@ Reversi.Game = function() {
             Player1: getScoreForPlayer(Reversi.Cell.Player1),
             Player2: getScoreForPlayer(Reversi.Cell.Player2)
         };
-
-        checkEndOfGame(score);
 
         return score;
     };
@@ -43,20 +43,29 @@ Reversi.Game = function() {
         return score;
     };
 
-    var checkEndOfGame = function(score) {
+    var checkEndOfGame = function() {
+        var score = getScore();
+
+        var message = "";
+
         if (score.Player1 === 0) {
-            radio('endOfGame').broadcast('Player 2 wins!');
+            message = "Player 2 wins!";
         } else if (score.Player2 === 0) {
-            radio('endOfGame').broadcast('Player 1 wins!');
+            message = "Player 1 wins!";
         } else if (score.Player1 + score.Player2 === 64) {
             if (score.Player1 === score.Player2) {
-                radio('endOfGame').broadcast('Tie!');
+                message = "Tie!";
             } else if (score.Player1 > score.Player2) {
-                radio('endOfGame').broadcast('Player 1 wins!');
+                message = "Player 1 wins!";
             } else {
-                radio('endOfGame').broadcast('Player 2 wins!');
+                message = "Player 2 wins!";
             }
+        } else {
+            return false;
         }
+
+        radio('endOfGame').broadcast(message);
+        return true;
     };
 
     var getStatus = function(i, j) {
