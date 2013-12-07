@@ -1,9 +1,9 @@
 load:
   - qunit-lib/equiv.js
   - qunit-lib/QUnitAdapter.js
+  - lib/radio.min.js
   - src/Board.js
   - src/Direction.js
-  - lib/radio.min.js
 
 test:
   - test/*.js
