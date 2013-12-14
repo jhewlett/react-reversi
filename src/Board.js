@@ -39,35 +39,32 @@ Reversi.Board = function() {
     }
 
     var makeMove = function(i, j, color) {
+        var success = false;
+
         if (_board[i][j] === Reversi.Cell.Empty) {
             for (var d = 0; d < _directions.length; d++) {
-                captureCells(i, j, color, d)
+                if (surroundsOppositePlayer(i, j, color, _directions[d])) {
+                    colorCapturedCells(i, j, color, _directions[d]);
+
+                    success = true;
+                }
             }
 
             radio('endOfTurn').broadcast();
         }
 
-        //todo: dont hardcode
-        return true;
+        return success;
     };
 
-    var captureCells = function(i, j, color, d) {
-        if (surroundsOppositePlayer(i, j, color, _directions[d])) {
-            setCell(i, j, color);
-            colorCapturedCell(i, j, color, d);
+    var colorCapturedCells = function(i, j, color, direction) {
+        setCell(i, j, color);
+
+        var next = direction.getNext(i, j);
+
+        while (next !== false && _board[next.row][next.col] !== color) {
+            setCell(next.row, next.col, color);
+            next = direction.getNext(next.row, next.col);
         }
-    };
-
-    var colorCapturedCell = function(i, j, color, d) {
-        var next = _directions[d].getNext(i, j);
-
-        if (next === false || _board[next.row][next.col] === color) {
-            return;
-        }
-
-        setCell(next.row, next.col, color);
-
-        colorCapturedCell(next.row, next.col, color, d);
     };
 
     var canMakeMove = function(i, j, color) {
