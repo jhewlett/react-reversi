@@ -17,9 +17,10 @@ Reversi.Presenter = function(game) {
         wireUpResetButton();
         wireUpMouseEvents();
 
-        radio('endOfTurn').subscribe(endOfTurn);
+        radio('endOfTurn').subscribe(updateScore);
         radio('cellChanged').subscribe(drawCell);
         radio('endOfGame').subscribe(endOfGame);
+        radio('switchedPlayers').subscribe(updatePlayerLabels);
 
         drawBoard();
     };

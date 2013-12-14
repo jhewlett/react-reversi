@@ -7,10 +7,14 @@ Reversi.Game = function() {
     var makeMove = function(i, j) {
         var result = _board.makeMove(i, j, _currentPlayer);
 
-        var gameEnded = checkEndOfGame();
+        if (result) {
+            radio('endOfTurn').broadcast();
 
-        if (result && !gameEnded) {
-            switchPlayer();
+            var gameEnded = checkEndOfGame();
+
+            if (!gameEnded) {
+                switchPlayer();
+            }
         }
     };
 
@@ -18,6 +22,8 @@ Reversi.Game = function() {
         _currentPlayer = _currentPlayer === Reversi.Cell.Player1
             ? Reversi.Cell.Player2
             : Reversi.Cell.Player1;
+
+        radio('switchedPlayers').broadcast();
     };
 
     var getScore = function() {
@@ -65,6 +71,7 @@ Reversi.Game = function() {
         }
 
         radio('endOfGame').broadcast(message);
+
         return true;
     };
 
