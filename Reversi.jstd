@@ -2,7 +2,6 @@ load:
   - src/Board.js
   - src/Direction.js
   - lib/radio.js
-  - src/TaskCollection.js
   - qunit-lib/equiv.js
   - qunit-lib/QUnitAdapter.js
 
