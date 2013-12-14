@@ -16,8 +16,8 @@ test("makeMove captures the cells and fires 'endOfTurn' event", function() {
 
     var score = game.getScore();
 
-    assertEquals(4, score.Player1)
-    assertEquals(1, score.Player2)
+    assertEquals(4, score.Player1);
+    assertEquals(1, score.Player2);
 
     assertTrue(fired);
 });
@@ -41,8 +41,8 @@ test("makeMove with invalid move does not fire any events or switch players", fu
 
     var score = game.getScore();
 
-    assertEquals(2, score.Player1)
-    assertEquals(2, score.Player2)
+    assertEquals(2, score.Player1);
+    assertEquals(2, score.Player2);
 
     assertFalse(firedEndOfTurn);
     assertFalse(switchedPlayers);
@@ -55,8 +55,8 @@ test("getScore", function() {
 
     var score = game.getScore();
 
-    assertEquals(4, score.Player1)
-    assertEquals(1, score.Player2)
+    assertEquals(4, score.Player1);
+    assertEquals(1, score.Player2);
 });
 
 test("checkEndOfGame fires 'endOfGame' event", function() {
