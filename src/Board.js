@@ -38,54 +38,59 @@ Reversi.Board = function() {
         _board[4][4] = Reversi.Cell.Player2;
     }
 
-    var _directionFinished;
-
     var makeMove = function(i, j, color) {
-        var success = false;
-
-        _directionFinished = new Array(8);
+        var tasks = new Reversi.TaskCollection();
 
         if (_board[i][j] === Reversi.Cell.Empty) {
             for (var d = 0; d < _directions.length; d++) {
-                if (surroundsOppositePlayer(i, j, color, _directions[d])) {
-                    setCell(i, j, color);
-                    colorCapturedCell(i, j, color, d);
-
-                    success = true;
-                } else {
-                    _directionFinished[d] = true;
-                }
+                tasks.addTask(createTask(i, j, color, d));
             }
 
-            waitUntilFinished();
+            tasks.waitAll();
 
             radio('endOfTurn').broadcast();
         }
 
-        return success;
-    };
-
-    var waitUntilFinished = function() {
-        if (!allDirectionsAreFinished()) {
-            setTimeout(waitUntilFinished, 100);
-        }
-    };
-
-    var allDirectionsAreFinished = function() {
-        for (var d = 0; d < _directions.length; d++) {
-            if (_directionFinished[d] !== true) {
-                return false;
-            }
-        }
-
+        //todo: dont hardcode
         return true;
     };
+
+    var createTask = function(i, j, color, d) {
+        return function() {
+            captureCells(i, j, color, d)
+        }
+    };
+
+    var captureCells = function(i, j, color, d) {
+        if (surroundsOppositePlayer(i, j, color, _directions[d])) {
+            setCell(i, j, color);
+            colorCapturedCell(i, j, color, d);
+        } else {
+            radio('taskFinished').broadcast();
+        }
+    };
+
+//    var waitUntilFinished = function() {
+//        if (!allDirectionsAreFinished()) {
+//            setTimeout(waitUntilFinished, 100);
+//        }
+//    };
+
+//    var allDirectionsAreFinished = function() {
+//        for (var d = 0; d < _directions.length; d++) {
+//            if (_directionFinished[d] !== true) {
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    };
 
     var colorCapturedCell = function(i, j, color, d) {
         var next = _directions[d].getNext(i, j);
 
         if (next === false || _board[next.row][next.col] === color) {
-            _directionFinished[d] = true;
+            radio('taskFinished').broadcast();
 
             return;
         }
