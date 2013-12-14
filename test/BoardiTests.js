@@ -3,21 +3,42 @@ module("Board tests");
 test("makeMove switches the selected cells and anything in between", function() {
     var board = new Reversi.Board();
 
+    var cellChangeCalls = [];
+    radio('cellChanged').subscribe(function(i, j, color) {
+        cellChangeCalls.push([i, j, color]);
+    });
+
     var result = board.canMakeMove(2, 3, Reversi.Cell.Player1);
     board.makeMove(2, 3, Reversi.Cell.Player1);
 
     assertTrue(result);
     assertEquals(Reversi.Cell.Player1, board.getStatus(2, 3));
     assertEquals(Reversi.Cell.Player1, board.getStatus(3, 3));
+
+    assertEquals(2, cellChangeCalls.length);
+
+    assertEquals(2, cellChangeCalls[0][0]);
+    assertEquals(3, cellChangeCalls[0][1]);
+    assertEquals(Reversi.Cell.Player1, cellChangeCalls[0][2]);
+
+    assertEquals(3, cellChangeCalls[1][0]);
+    assertEquals(3, cellChangeCalls[1][1]);
+    assertEquals(Reversi.Cell.Player1, cellChangeCalls[1][2]);
 });
 
 test("toggling a cell that does not border another of the opposite color does nothing", function() {
     var board = new Reversi.Board();
 
+    var fired = false;
+    radio('cellChanged').subscribe(function() {
+        fired = true;
+    });
+
     var result = board.canMakeMove(2, 3, Reversi.Cell.Player2);
     board.makeMove(2, 3, Reversi.Cell.Player2);
 
     assertFalse(result);
+    assertFalse(fired);
     assertEquals(Reversi.Cell.Empty, board.getStatus(2, 3));
 });
 
@@ -122,5 +143,3 @@ test("four squares are set at beginning of game, the rest are empty", function()
         }
     }
 });
-
-//detect when no moves available?

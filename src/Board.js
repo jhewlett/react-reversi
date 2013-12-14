@@ -49,8 +49,6 @@ Reversi.Board = function() {
                     success = true;
                 }
             }
-
-            radio('endOfTurn').broadcast();
         }
 
         return success;

@@ -1,4 +1,5 @@
 load:
+  - src/Game.js
   - src/Board.js
   - src/Direction.js
   - lib/radio.js
