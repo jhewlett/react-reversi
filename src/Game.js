@@ -89,6 +89,7 @@ Reversi.Game = function() {
 
     var reset = function() {
         _board = new Reversi.Board();
+
         _currentPlayer = Reversi.Player.One;
     };
 

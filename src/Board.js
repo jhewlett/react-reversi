@@ -2,7 +2,6 @@ var Reversi = Reversi || {};
 
 Reversi.Board = function() {
     var _board = [];
-
     var _directions = new Reversi.Direction.AllDirections();
 
     setupBoard();

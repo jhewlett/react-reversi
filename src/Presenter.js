@@ -28,7 +28,6 @@ Reversi.Presenter = function(game) {
     var wireUpPassButton = function() {
         _passButton.onclick = function() {
             game.switchPlayer();
-            updatePlayerLabels();
         };
     };
 
@@ -36,7 +35,8 @@ Reversi.Presenter = function(game) {
         _resetButton.onclick = function() {
             game.reset();
             drawBoard();
-            endOfTurn();
+            updateScore();
+            updatePlayerLabels();
             _winnerMessage.style.visibility = "hidden";
             _passButton.disabled = false;
         };
@@ -104,11 +104,6 @@ Reversi.Presenter = function(game) {
             element.classList.remove('player1');
             element.classList.remove('player2');
         }
-    };
-
-    var endOfTurn = function() {
-        updateScore();
-        updatePlayerLabels();
     };
 
     var updatePlayerLabels = function() {
