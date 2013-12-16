@@ -63,7 +63,7 @@ Reversi.Presenter = function(game) {
         element.onmouseover = (function (iCopy, jCopy, elementCopy) {
             return function(){
                 if (game.canMakeMove(iCopy, jCopy)) {
-                    elementCopy.classList.add(game.getCurrentPlayer() === Reversi.Cell.Player1
+                    elementCopy.classList.add(game.getCurrentPlayer() === Reversi.Player.One
                         ? 'player1'
                         : 'player2');
                 }
@@ -72,7 +72,7 @@ Reversi.Presenter = function(game) {
 
         element.onmouseout = (function (iCopy, jCopy, elementCopy) {
             return function(){
-                if (game.getStatus(iCopy, jCopy) === Reversi.Cell.Empty) {
+                if (game.getStatus(iCopy, jCopy) === Reversi.Player.None) {
                     elementCopy.classList.remove('player1');
                     elementCopy.classList.remove('player2');
                 }
@@ -94,10 +94,10 @@ Reversi.Presenter = function(game) {
         var id = i.toString() + j.toString();
         var element = document.getElementById(id);
 
-        if (status === Reversi.Cell.Player1) {
+        if (status === Reversi.Player.One) {
             element.classList.remove('player2');
             element.classList.add('player1');
-        } else if (status === Reversi.Cell.Player2) {
+        } else if (status === Reversi.Player.Two) {
             element.classList.remove('player1');
             element.classList.add('player2');
         } else {
@@ -112,7 +112,7 @@ Reversi.Presenter = function(game) {
     };
 
     var updatePlayerLabels = function() {
-        if (game.getCurrentPlayer() === Reversi.Cell.Player1) {
+        if (game.getCurrentPlayer() === Reversi.Player.One) {
             _player2Label.style.fontWeight = "normal";
             _player1Label.style.fontWeight = "bold";
         } else {

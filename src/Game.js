@@ -1,7 +1,7 @@
 var Reversi = Reversi || {};
 
 Reversi.Game = function() {
-    var _currentPlayer = Reversi.Cell.Player1;
+    var _currentPlayer = Reversi.Player.One;
     var _board = new Reversi.Board();
 
     var makeMove = function(i, j) {
@@ -19,17 +19,17 @@ Reversi.Game = function() {
     };
 
     var switchPlayer = function () {
-        _currentPlayer = _currentPlayer === Reversi.Cell.Player1
-            ? Reversi.Cell.Player2
-            : Reversi.Cell.Player1;
+        _currentPlayer = _currentPlayer === Reversi.Player.One
+            ? Reversi.Player.Two
+            : Reversi.Player.One;
 
         radio('switchedPlayers').broadcast();
     };
 
     var getScore = function() {
         var score = {
-            Player1: getScoreForPlayer(Reversi.Cell.Player1),
-            Player2: getScoreForPlayer(Reversi.Cell.Player2)
+            Player1: getScoreForPlayer(Reversi.Player.One),
+            Player2: getScoreForPlayer(Reversi.Player.Two)
         };
 
         return score;
@@ -89,7 +89,7 @@ Reversi.Game = function() {
 
     var reset = function() {
         _board = new Reversi.Board();
-        _currentPlayer = Reversi.Cell.Player1;
+        _currentPlayer = Reversi.Player.One;
     };
 
     return {

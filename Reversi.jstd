@@ -1,4 +1,5 @@
 load:
+  - src/Player.js
   - src/Game.js
   - src/Board.js
   - src/Direction.js

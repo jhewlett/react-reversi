@@ -1,11 +1,5 @@
 var Reversi = Reversi || {};
 
-Reversi.Cell = {
-    Player1: "Player 1",
-    Player2: "Player 2",
-    Empty: "Empty"
-};
-
 Reversi.Board = function() {
     var _board = [];
 
@@ -27,21 +21,21 @@ Reversi.Board = function() {
             _board[i] = new Array(8);
 
             for (var j = 0; j < 8; j++) {
-                _board[i][j] = Reversi.Cell.Empty;
+                _board[i][j] = Reversi.Player.None;
             }
         }
 
-        _board[3][4] = Reversi.Cell.Player1;
-        _board[4][3] = Reversi.Cell.Player1;
+        _board[3][4] = Reversi.Player.One;
+        _board[4][3] = Reversi.Player.One;
 
-        _board[3][3] = Reversi.Cell.Player2;
-        _board[4][4] = Reversi.Cell.Player2;
+        _board[3][3] = Reversi.Player.Two;
+        _board[4][4] = Reversi.Player.Two;
     }
 
     var makeMove = function(i, j, color) {
         var success = false;
 
-        if (_board[i][j] === Reversi.Cell.Empty) {
+        if (_board[i][j] === Reversi.Player.None) {
             for (var d = 0; d < _directions.length; d++) {
                 if (surroundsOppositePlayer(i, j, color, _directions[d])) {
                     colorCapturedCells(i, j, color, _directions[d]);
@@ -66,7 +60,7 @@ Reversi.Board = function() {
     };
 
     var canMakeMove = function(i, j, color) {
-        if (_board[i][j] === Reversi.Cell.Empty) {
+        if (_board[i][j] === Reversi.Player.None) {
             for (var d = 0; d < _directions.length; d++) {
                 if (surroundsOppositePlayer(i, j, color, _directions[d])) {
                     return true;
@@ -78,9 +72,9 @@ Reversi.Board = function() {
     };
 
     var surroundsOppositePlayer = function(i, j, color, direction) {
-        var oppositeColor = color === Reversi.Cell.Player1
-            ? Reversi.Cell.Player2
-            : Reversi.Cell.Player1;
+        var oppositeColor = color === Reversi.Player.One
+            ? Reversi.Player.Two
+            : Reversi.Player.One;
 
         var next = direction.getNext(i, j);
 
@@ -90,7 +84,7 @@ Reversi.Board = function() {
     var lineContainsColor = function(i, j, color, direction) {
         var next = direction.getNext(i, j);
 
-        if (next === false || _board[next.row][next.col] === Reversi.Cell.Empty) {
+        if (next === false || _board[next.row][next.col] === Reversi.Player.None) {
             return false;
         }
 
