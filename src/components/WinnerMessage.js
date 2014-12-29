@@ -2,6 +2,13 @@ var React = require('React');
 
 module.exports = React.createClass({
     render: function() {
-        return <p id="winner-message">{this.props.message}</p>;
+        var styles = {
+            textAlign: 'center',
+            fontSize: '14pt',
+            fontWeight: 'bold',
+            height: 22
+        };
+
+        return <p style={styles}>{this.props.message}</p>;
     }
 });

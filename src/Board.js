@@ -92,7 +92,6 @@ module.exports = function() {
 
     var setCell =  function (i, j, color) {
         _board[i][j] = color;
-        //radio('cellChanged').broadcast(i, j, color);
     };
 
     return {

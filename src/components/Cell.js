@@ -2,7 +2,6 @@ var React = require('React');
 var Player = require('../Player');
 
 module.exports = React.createClass({
-    displayName: "Cell",
     getInitialState: function() {
         return {playerHint: Player.None};
     },
@@ -30,7 +29,10 @@ module.exports = React.createClass({
         var styles = {
             backgroundImage: this.getBackgroundImage(),
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            width: '40',
+            height: '40',
+            border: '1px solid black'
         };
 
         return <td style={styles} onClick={this.handleClick} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}></td>;

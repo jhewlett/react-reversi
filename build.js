@@ -18712,7 +18712,6 @@ module.exports = function() {
 
     var setCell =  function (i, j, color) {
         _board[i][j] = color;
-        //radio('cellChanged').broadcast(i, j, color);
     };
 
     return {
@@ -18881,12 +18880,31 @@ var React = require('React');
 var Game = require('./components/Game');
 
 React.render(React.createElement(Game, null), document.body);
-},{"./components/Game":155,"React":146}],154:[function(require,module,exports){
+},{"./components/Game":156,"React":146}],154:[function(require,module,exports){
+var React = require('React');
+var Row = require('./Row');
+
+module.exports = React.createClass({displayName: "exports",
+    render: function() {
+        var styles = {
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            backgroundColor: '#EEEEEE',
+            border: '1px solid black'
+        };
+
+        return React.createElement("table", {style: styles}, 
+            [0,1,2,3,4,5,6,7].map(
+                function(r)  {return React.createElement(Row, {row: r, board: this.props.board, currentPlayer: this.props.currentPlayer, onCellClicked: this.props.onCellClicked, key: r});}.bind(this)
+            )
+        );
+    }
+});
+},{"./Row":158,"React":146}],155:[function(require,module,exports){
 var React = require('React');
 var Player = require('../Player');
 
-module.exports = React.createClass({
-    displayName: "Cell",
+module.exports = React.createClass({displayName: "exports",
     getInitialState: function() {
         return {playerHint: Player.None};
     },
@@ -18914,29 +18932,31 @@ module.exports = React.createClass({
         var styles = {
             backgroundImage: this.getBackgroundImage(),
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            width: '40',
+            height: '40',
+            border: '1px solid black'
         };
 
         return React.createElement("td", {style: styles, onClick: this.handleClick, onMouseOver: this.handleMouseOver, onMouseOut: this.handleMouseOut});
     }
 });
-},{"../Player":152,"React":146}],155:[function(require,module,exports){
+},{"../Player":152,"React":146}],156:[function(require,module,exports){
 var React = require('React');
-var ReversiBoard = require('./ReversiBoard');
+var Board = require('./Board');
 var PlayerInfo = require('./PlayerInfo');
 var WinnerMessage = require('./WinnerMessage');
 var Game = require('../Game');
 
-module.exports = React.createClass({
-    displayName: 'Game',
-    handleGameChange: function() {
-        this.setState(Game.getState());
+module.exports = React.createClass({displayName: "exports",
+    getInitialState: function() {
+        return Game.getState()
     },
     componentDidMount: function() {
         Game.addChangeListener(this.handleGameChange);
     },
-    getInitialState: function() {
-        return Game.getState()
+    handleGameChange: function() {
+        this.setState(Game.getState());
     },
     handleCellClicked: function(row, col) {
         Game.makeMove(row, col);
@@ -18948,67 +18968,104 @@ module.exports = React.createClass({
         Game.reset();
     },
     render: function() {
+        var buttonContainer = {
+            textAlign: 'center',
+            marginTop: 30
+        };
+
+        var resetButtonStyle = {
+            width: 100,
+            height: 40,
+            cursor: 'pointer'
+        };
+
+        var passButtonStyle = {
+            width: 100,
+            height: 40,
+            cursor: this.state.winnerMessage === ''
+                ? 'pointer'
+                : 'default'
+        };
+
+        var passButton = this.state.winnerMessage === ''
+            ? React.createElement("button", {style: passButtonStyle, onClick: this.handlePassClicked}, "Pass")
+            : React.createElement("button", {style: passButtonStyle, disabled: true}, "Pass")
+
         return React.createElement("div", null, 
             React.createElement(PlayerInfo, {currentPlayer: this.state.currentPlayer, player1Score: this.state.player1Score, player2Score: this.state.player2Score}), 
             React.createElement(WinnerMessage, {message: this.state.winnerMessage}), 
-            React.createElement(ReversiBoard, {currentPlayer: this.state.currentPlayer, board: this.state.board, onCellClicked: this.handleCellClicked}), 
-            React.createElement("div", {className: "button-container"}, 
-                React.createElement("button", {id: "pass-button", className: "button", onClick: this.handlePassClicked}, "Pass"), 
-                React.createElement("button", {id: "reset-button", className: "button", onClick: this.handleResetClicked}, "Reset")
+            React.createElement(Board, {currentPlayer: this.state.currentPlayer, board: this.state.board, onCellClicked: this.handleCellClicked}), 
+            React.createElement("div", {style: buttonContainer}, 
+                passButton, 
+                React.createElement("button", {style: resetButtonStyle, onClick: this.handleResetClicked}, "Reset")
             )
         );
     }
 });
-},{"../Game":151,"./PlayerInfo":156,"./ReversiBoard":157,"./WinnerMessage":159,"React":146}],156:[function(require,module,exports){
+},{"../Game":151,"./Board":154,"./PlayerInfo":157,"./WinnerMessage":159,"React":146}],157:[function(require,module,exports){
 var React = require('React');
+var Player = require('../Player');
 
 module.exports = React.createClass({displayName: "exports",
     render: function() {
-        var player1Style = {
-            fontWeight: this.props.currentPlayer === 1 ? 'bold' : 'normal',
+        var player1Label = {
+            fontWeight: this.props.currentPlayer === Player.One ? 'bold' : 'normal',
             width: '120',
             fontSize: '24'
         };
 
-        var player2Style = {
-            fontWeight: this.props.currentPlayer === 2 ? 'bold' : 'normal',
+        var player1Score = {
+            backgroundImage: 'url("red.png")',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            color: 'white',
+            fontSize: '18pt',
+            textAlign: 'center',
+            width: 40,
+            height: 40
+        };
+
+        var player2Label = {
+            fontWeight: this.props.currentPlayer === Player.Two ? 'bold' : 'normal',
             width: '120',
             fontSize: '24'
         };
 
-        return React.createElement("table", {id: "player-table"}, 
+        var player2Score = {
+            backgroundImage: 'url("blue.png")',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            color: 'white',
+            fontSize: '18pt',
+            textAlign: 'center',
+            width: 40,
+            height: 40
+        };
+
+        var playerTable = {
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginTop: 30
+        };
+
+        return React.createElement("table", {style: playerTable}, 
             React.createElement("tr", null, 
-                React.createElement("td", {style: player1Style}, "Player 1"), 
-                React.createElement("td", {id: "player1-score", className: "player1"}, this.props.player1Score)
+                React.createElement("td", {style: player1Label}, "Player 1"), 
+                React.createElement("td", {style: player1Score}, this.props.player1Score)
             ), 
             React.createElement("tr", null, 
-                React.createElement("td", {style: player2Style}, "Player 2"), 
-                React.createElement("td", {id: "player2-score", className: "player2"}, this.props.player2Score)
+                React.createElement("td", {style: player2Label}, "Player 2"), 
+                React.createElement("td", {style: player2Score}, this.props.player2Score)
             )
         );
     }
 });
 
-},{"React":146}],157:[function(require,module,exports){
-var React = require('React');
-var Row = require('./Row');
-
-var ReversiBoard = module.exports = React.createClass({
-    displayName: "ReversiBoard",
-    render: function() {
-        return React.createElement("table", {id: "board"}, 
-            [0,1,2,3,4,5,6,7].map(
-                function(r)  {return React.createElement(Row, {row: r, board: this.props.board, currentPlayer: this.props.currentPlayer, onCellClicked: this.props.onCellClicked, key: r});}.bind(this)
-            )
-        );
-    }
-});
-},{"./Row":158,"React":146}],158:[function(require,module,exports){
+},{"../Player":152,"React":146}],158:[function(require,module,exports){
 var React = require('React');
 var Cell = require('./Cell');
 
-module.exports = React.createClass({
-    displayName: "Row",
+module.exports = React.createClass({displayName: "exports",
     render: function() {
         var cells = [0,1,2,3,4,5,6,7].map(function(c) 
             {return React.createElement(Cell, {row: this.props.row, owner: this.props.board.getStatus(this.props.row, c), board: this.props.board, currentPlayer: this.props.currentPlayer, col: c, onCellClicked: this.props.onCellClicked, key: c});}.bind(this)
@@ -19017,12 +19074,19 @@ module.exports = React.createClass({
         return React.createElement("tr", null, cells)
     }
 });
-},{"./Cell":154,"React":146}],159:[function(require,module,exports){
+},{"./Cell":155,"React":146}],159:[function(require,module,exports){
 var React = require('React');
 
 module.exports = React.createClass({displayName: "exports",
     render: function() {
-        return React.createElement("p", {id: "winner-message"}, this.props.message);
+        var styles = {
+            textAlign: 'center',
+            fontSize: '14pt',
+            fontWeight: 'bold',
+            height: 22
+        };
+
+        return React.createElement("p", {style: styles}, this.props.message);
     }
 });
 },{"React":146}]},{},[153]);

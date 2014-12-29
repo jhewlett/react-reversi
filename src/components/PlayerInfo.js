@@ -1,27 +1,56 @@
 var React = require('React');
+var Player = require('../Player');
 
 module.exports = React.createClass({
     render: function() {
-        var player1Style = {
-            fontWeight: this.props.currentPlayer === 1 ? 'bold' : 'normal',
+        var player1Label = {
+            fontWeight: this.props.currentPlayer === Player.One ? 'bold' : 'normal',
             width: '120',
             fontSize: '24'
         };
 
-        var player2Style = {
-            fontWeight: this.props.currentPlayer === 2 ? 'bold' : 'normal',
+        var player1Score = {
+            backgroundImage: 'url("red.png")',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            color: 'white',
+            fontSize: '18pt',
+            textAlign: 'center',
+            width: 40,
+            height: 40
+        };
+
+        var player2Label = {
+            fontWeight: this.props.currentPlayer === Player.Two ? 'bold' : 'normal',
             width: '120',
             fontSize: '24'
         };
 
-        return <table id="player-table">
+        var player2Score = {
+            backgroundImage: 'url("blue.png")',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            color: 'white',
+            fontSize: '18pt',
+            textAlign: 'center',
+            width: 40,
+            height: 40
+        };
+
+        var playerTable = {
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginTop: 30
+        };
+
+        return <table style={playerTable}>
             <tr>
-                <td style={player1Style}>Player 1</td>
-                <td id="player1-score" className="player1">{this.props.player1Score}</td>
+                <td style={player1Label}>Player 1</td>
+                <td style={player1Score}>{this.props.player1Score}</td>
             </tr>
             <tr>
-                <td style={player2Style}>Player 2</td>
-                <td id="player2-score" className="player2">{this.props.player2Score}</td>
+                <td style={player2Label}>Player 2</td>
+                <td style={player2Score}>{this.props.player2Score}</td>
             </tr>
         </table>;
     }
