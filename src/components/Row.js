@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require('React');
 var Cell = require('./Cell');
 

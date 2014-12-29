@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     One: 1,
     Two: 2,

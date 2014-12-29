@@ -1,3 +1,5 @@
+'use strict';
+
 var Direction = function(rowIncrement, colIncrement){
     var getNext = function(i, j) {
         var nextI = i + rowIncrement;

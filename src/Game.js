@@ -1,3 +1,5 @@
+'use strict';
+
 var Player = require('./Player');
 var Board = require('./Board');
 var EventEmitter = require('events').EventEmitter;

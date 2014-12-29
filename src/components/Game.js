@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require('React');
 var Board = require('./Board');
 var PlayerInfo = require('./PlayerInfo');
@@ -24,37 +26,43 @@ module.exports = React.createClass({
         Game.reset();
     },
     render: function() {
-        var buttonContainer = {
+        var gameOver = this.state.winnerMessage !== '';
+
+        var styles = buildStyles(gameOver);
+
+        var passButton = gameOver
+            ? <button style={styles.pass} disabled>Pass</button>
+            : <button style={styles.pass} onClick={this.handlePassClicked}>Pass</button>;
+
+        return (
+            <div>
+                <PlayerInfo currentPlayer={this.state.currentPlayer} player1Score={this.state.player1Score} player2Score={this.state.player2Score} />
+                <WinnerMessage message={this.state.winnerMessage} />
+                <Board currentPlayer={this.state.currentPlayer} board={this.state.board} onCellClicked={this.handleCellClicked} />
+                <div style={styles.buttonContainer}>
+                    {passButton}
+                    <button style={styles.reset} onClick={this.handleResetClicked}>Reset</button>
+                </div>
+            </div>
+        );
+    }
+});
+
+function buildStyles(gameOver) {
+    return {
+        buttonContainer: {
             textAlign: 'center',
             marginTop: 30
-        };
-
-        var resetButtonStyle = {
+        },
+        reset: {
             width: 100,
             height: 40,
             cursor: 'pointer'
-        };
-
-        var passButtonStyle = {
+        },
+        pass: {
             width: 100,
             height: 40,
-            cursor: this.state.winnerMessage === ''
-                ? 'pointer'
-                : 'default'
-        };
-
-        var passButton = this.state.winnerMessage === ''
-            ? <button style={passButtonStyle} onClick={this.handlePassClicked}>Pass</button>
-            : <button style={passButtonStyle} disabled>Pass</button>
-
-        return <div>
-            <PlayerInfo currentPlayer={this.state.currentPlayer} player1Score={this.state.player1Score} player2Score={this.state.player2Score} />
-            <WinnerMessage message={this.state.winnerMessage} />
-            <Board currentPlayer={this.state.currentPlayer} board={this.state.board} onCellClicked={this.handleCellClicked} />
-            <div style={buttonContainer}>
-                {passButton}
-                <button style={resetButtonStyle} onClick={this.handleResetClicked}>Reset</button>
-            </div>
-        </div>;
-    }
-});
+            cursor: gameOver ? 'default' : 'pointer'
+        }
+    };
+}

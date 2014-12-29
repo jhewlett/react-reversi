@@ -1,3 +1,5 @@
+'use strict';
+
 var Directions = require('./Direction');
 var Player = require('./Player');
 
