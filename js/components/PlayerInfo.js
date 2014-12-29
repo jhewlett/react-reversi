@@ -4,6 +4,7 @@ var React = require('React');
 var Player = require('../lib/Player');
 var extend = require('object-assign');
 var cellStyle = require('../styles/cell');
+var globals = require('../styles/globals');
 
 module.exports = React.createClass({
     render: function() {
@@ -35,12 +36,12 @@ function buildStyles(currentPlayer) {
             label: {
                 fontWeight: currentPlayer === Player.One ? 'bold' : 'normal',
                 width: 120,
-                fontSize: 24
+                fontSize: globals.fontSize
             },
             score: extend({
                 backgroundImage: 'url("img/red.png")',
                 color: 'white',
-                fontSize: 24,
+                fontSize: globals.fontSize,
                 textAlign: 'center'
             }, cellStyle)
         },
@@ -48,12 +49,12 @@ function buildStyles(currentPlayer) {
             label: {
                 fontWeight: currentPlayer === Player.Two ? 'bold' : 'normal',
                 width: 120,
-                fontSize: 24
+                fontSize: globals.fontSize
             },
             score: extend({
                 backgroundImage: 'url("img/blue.png")',
                 color: 'white',
-                fontSize: 24,
+                fontSize: globals.fontSize,
                 textAlign: 'center'
             }, cellStyle)
         }

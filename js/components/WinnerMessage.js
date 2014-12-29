@@ -6,8 +6,8 @@ module.exports = React.createClass({
     render: function() {
         var styles = {
             textAlign: 'center',
-            fontSize: '14pt',
             fontWeight: 'bold',
+            fontSize: 19,
             height: 22
         };
 
