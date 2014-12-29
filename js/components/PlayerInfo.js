@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('React');
-var Player = require('../Player');
+var Player = require('../lib/Player');
 
 module.exports = React.createClass({
     render: function() {
@@ -36,7 +36,7 @@ function buildStyles(currentPlayer) {
                 fontSize: '24'
             },
             score: {
-                backgroundImage: 'url("red.png")',
+                backgroundImage: 'url("img/red.png")',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 color: 'white',
@@ -53,7 +53,7 @@ function buildStyles(currentPlayer) {
                 fontSize: '24'
             },
             score: {
-                backgroundImage: 'url("blue.png")',
+                backgroundImage: 'url("img/blue.png")',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 color: 'white',

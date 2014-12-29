@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('React');
-var Player = require('../Player');
+var Player = require('../lib/Player');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -18,25 +18,30 @@ module.exports = React.createClass({
     handleMouseOut: function() {
         this.setState({playerHint: Player.None});
     },
-    getBackgroundImage: function() {
-        if (this.props.owner === Player.One || this.state.playerHint === Player.One) {
-            return 'url("red.png")';
-        } else if (this.props.owner === Player.Two || this.state.playerHint === Player.Two) {
-            return 'url("blue.png")';
-        }
-
-        return 'none';
-    },
     render: function() {
-        var styles = {
-            backgroundImage: this.getBackgroundImage(),
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            width: '40',
-            height: '40',
-            border: '1px solid black'
-        };
+        var styles = buildStyles(this.props.owner, this.state.playerHint);
 
         return <td style={styles} onClick={this.handleClick} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}></td>;
     }
 });
+
+function buildStyles(owner, playerHint) {
+    return {
+        backgroundImage: getBackgroundImage(owner, playerHint),
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        width: '40',
+        height: '40',
+        border: '1px solid black'
+    };
+}
+
+function getBackgroundImage(owner, playerHint) {
+    if (owner === Player.One || playerHint === Player.One) {
+        return 'url("img/red.png")';
+    } else if (owner === Player.Two || playerHint === Player.Two) {
+        return 'url("img/blue.png")';
+    }
+
+    return 'none';
+}

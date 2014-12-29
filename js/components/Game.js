@@ -4,7 +4,7 @@ var React = require('React');
 var Board = require('./Board');
 var PlayerInfo = require('./PlayerInfo');
 var WinnerMessage = require('./WinnerMessage');
-var Game = require('../Game');
+var Game = require('../lib/Game');
 
 module.exports = React.createClass({
     getInitialState: function() {
