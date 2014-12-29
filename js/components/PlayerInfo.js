@@ -2,6 +2,8 @@
 
 var React = require('React');
 var Player = require('../lib/Player');
+var extend = require('object-assign');
+var cellStyle = require('../styles/cell');
 
 module.exports = React.createClass({
     render: function() {
@@ -32,36 +34,28 @@ function buildStyles(currentPlayer) {
         player1: {
             label: {
                 fontWeight: currentPlayer === Player.One ? 'bold' : 'normal',
-                width: '120',
-                fontSize: '24'
+                width: 120,
+                fontSize: 24
             },
-            score: {
+            score: extend({
                 backgroundImage: 'url("img/red.png")',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
                 color: 'white',
-                fontSize: '18pt',
-                textAlign: 'center',
-                width: 40,
-                height: 40
-            }
+                fontSize: 24,
+                textAlign: 'center'
+            }, cellStyle)
         },
         player2: {
             label: {
                 fontWeight: currentPlayer === Player.Two ? 'bold' : 'normal',
-                width: '120',
-                fontSize: '24'
+                width: 120,
+                fontSize: 24
             },
-            score: {
+            score: extend({
                 backgroundImage: 'url("img/blue.png")',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
                 color: 'white',
-                fontSize: '18pt',
-                textAlign: 'center',
-                width: 40,
-                height: 40
-            }
+                fontSize: 24,
+                textAlign: 'center'
+            }, cellStyle)
         }
     };
 }

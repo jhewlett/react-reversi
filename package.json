@@ -1,28 +1,34 @@
 {
-    "name": "Reversi",
-    "version": "0.1.0",
-    "description": "",
-    "main": "index.js",
-    "directories": {
-        "test": "test"
-    },
-    "scripts": {
-        "build": "browserify -t reactify ./js/app.js > ./build.js",
-        "watch": "watchify -t reactify ./js/app.js -o ./build.js -v"
-    },
-    "author": "Justin Hewlett",
-    "license": "MIT",
-    "devDependencies": {
-        "browserify": "^8.0.2",
-        "reactify": "^0.17.1",
-        "watchify": "^2.2.1"
-    },
-    "dependencies": {
-        "react": "^0.12.2"
-    },
-    "browserify": {
-        "transform": [
-            ["reactify", {"es6": true}]
-        ]
-    }
+  "name": "Reversi",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "browserify -t reactify ./js/app.js > ./build.js",
+    "watch": "watchify -t reactify ./js/app.js -o ./build.js -v"
+  },
+  "author": "Justin Hewlett",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^8.0.2",
+    "reactify": "^0.17.1",
+    "watchify": "^2.2.1"
+  },
+  "dependencies": {
+    "object-assign": "^2.0.0",
+    "react": "^0.12.2"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
+    ]
+  }
 }

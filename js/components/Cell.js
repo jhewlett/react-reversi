@@ -2,6 +2,8 @@
 
 var React = require('React');
 var Player = require('../lib/Player');
+var cellStyle = require('../styles/cell');
+var extend = require('object-assign');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -26,14 +28,10 @@ module.exports = React.createClass({
 });
 
 function buildStyles(owner, playerHint) {
-    return {
+    return extend({
         backgroundImage: getBackgroundImage(owner, playerHint),
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        width: '40',
-        height: '40',
         border: '1px solid black'
-    };
+    }, cellStyle);
 }
 
 function getBackgroundImage(owner, playerHint) {
