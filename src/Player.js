@@ -1,7 +1,5 @@
-var Reversi = Reversi || {};
-
-Reversi.Player = {
-    One: "Player 1",
-    Two: "Player 2",
-    None: "None"
+module.exports = {
+    One: 1,
+    Two: 2,
+    None: 0
 };

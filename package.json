@@ -1,0 +1,28 @@
+{
+    "name": "Reversi",
+    "version": "0.0.0",
+    "description": "",
+    "main": "index.js",
+    "directories": {
+    "test": "test"
+    },
+    "scripts": {
+        "build": "browserify -t reactify ./src/app.js > ./build.js",
+        "watch": "watchify -t reactify ./src/app.js -o ./build.js -v"
+    },
+    "author": "Justin Hewlett",
+    "license": "ISC",
+    "devDependencies": {
+        "browserify": "^8.0.2",
+        "reactify": "^0.17.1",
+        "watchify": "^2.2.1"
+    },
+    "dependencies": {
+        "react": "^0.12.2"
+    },
+    "browserify": {
+        "transform": [
+            ["reactify", {"es6": true}]
+        ]
+    }
+}

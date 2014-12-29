@@ -1,8 +1,9 @@
-var Reversi = Reversi || {};
+var Directions = require('./Direction');
+var Player = require('./Player');
 
-Reversi.Board = function() {
+module.exports = function() {
     var _board = [];
-    var _directions = new Reversi.Direction.AllDirections();
+    var _directions = Directions();
 
     setupBoard();
 
@@ -11,21 +12,21 @@ Reversi.Board = function() {
             _board[i] = new Array(8);
 
             for (var j = 0; j < 8; j++) {
-                _board[i][j] = Reversi.Player.None;
+                _board[i][j] = Player.None;
             }
         }
 
-        _board[3][4] = Reversi.Player.One;
-        _board[4][3] = Reversi.Player.One;
+        _board[3][4] = Player.One;
+        _board[4][3] = Player.One;
 
-        _board[3][3] = Reversi.Player.Two;
-        _board[4][4] = Reversi.Player.Two;
+        _board[3][3] = Player.Two;
+        _board[4][4] = Player.Two;
     }
 
     var makeMove = function(i, j, color) {
         var success = false;
 
-        if (_board[i][j] === Reversi.Player.None) {
+        if (_board[i][j] === Player.None) {
             for (var d = 0; d < _directions.length; d++) {
                 if (surroundsOppositePlayer(i, j, color, _directions[d])) {
                     colorCapturedCells(i, j, color, _directions[d]);
@@ -50,7 +51,7 @@ Reversi.Board = function() {
     };
 
     var canMakeMove = function(i, j, color) {
-        if (_board[i][j] === Reversi.Player.None) {
+        if (_board[i][j] === Player.None) {
             for (var d = 0; d < _directions.length; d++) {
                 if (surroundsOppositePlayer(i, j, color, _directions[d])) {
                     return true;
@@ -62,9 +63,9 @@ Reversi.Board = function() {
     };
 
     var surroundsOppositePlayer = function(i, j, color, direction) {
-        var oppositeColor = color === Reversi.Player.One
-            ? Reversi.Player.Two
-            : Reversi.Player.One;
+        var oppositeColor = color === Player.One
+            ? Player.Two
+            : Player.One;
 
         var next = direction.getNext(i, j);
 
@@ -74,7 +75,7 @@ Reversi.Board = function() {
     var lineContainsColor = function(i, j, color, direction) {
         var next = direction.getNext(i, j);
 
-        if (next === false || _board[next.row][next.col] === Reversi.Player.None) {
+        if (next === false || _board[next.row][next.col] === Player.None) {
             return false;
         }
 
@@ -91,7 +92,7 @@ Reversi.Board = function() {
 
     var setCell =  function (i, j, color) {
         _board[i][j] = color;
-        radio('cellChanged').broadcast(i, j, color);
+        //radio('cellChanged').broadcast(i, j, color);
     };
 
     return {
