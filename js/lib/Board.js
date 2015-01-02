@@ -29,13 +29,13 @@ module.exports = function() {
         var success = false;
 
         if (_board[i][j] === Player.None) {
-            for (var d = 0; d < _directions.length; d++) {
-                if (surroundsOppositePlayer(i, j, color, _directions[d])) {
-                    colorCapturedCells(i, j, color, _directions[d]);
+            _directions.forEach(function(direction) {
+                if (surroundsOppositePlayer(i, j, color, direction)) {
+                    colorCapturedCells(i, j, color, direction);
 
                     success = true;
                 }
-            }
+            });
         }
 
         return success;

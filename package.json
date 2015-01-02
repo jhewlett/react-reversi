@@ -4,17 +4,20 @@
   "description": "",
   "main": "index.js",
   "directories": {
-    "test": "test"
+    "test": "specs"
   },
   "scripts": {
     "build": "browserify -t reactify ./js/app.js > ./build.js",
-    "watch": "watchify -t reactify ./js/app.js -o ./build.js -v"
+    "watch": "watchify -t reactify ./js/app.js -o ./build.js -v",
+    "specs": "jasmine-node specs/"
   },
   "author": "Justin Hewlett",
   "license": "MIT",
   "devDependencies": {
     "browserify": "^8.0.2",
+    "jasmine-node": "^1.14.5",
     "reactify": "^0.17.1",
+    "sinon": "^1.12.2",
     "watchify": "^2.2.1"
   },
   "dependencies": {

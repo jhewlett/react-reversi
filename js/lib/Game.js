@@ -6,7 +6,9 @@ var EventEmitter = require('events').EventEmitter;
 
 var events = new EventEmitter();
 
-var getInitialState = function() {
+var state = getInitialState();
+
+function getInitialState() {
     return {
         currentPlayer: Player.One,
         player1Score: 2,
@@ -14,9 +16,7 @@ var getInitialState = function() {
         board: new Board(),
         winnerMessage: ''
     };
-};
-
-var state = getInitialState();
+}
 
 function updateScores() {
     state.player1Score = getScoreForPlayer(Player.One);
@@ -40,9 +40,9 @@ function makeMove(row, col) {
 }
 
 function switchPlayer() {
-    state.currentPlayer = (state.currentPlayer === Player.One
+    state.currentPlayer = (state.currentPlayer === Player.One)
         ? Player.Two
-        : Player.One);
+        : Player.One;
 
     notifyChange();
 }
@@ -63,6 +63,7 @@ function getScoreForPlayer(player) {
 
 function updateMessage(message) {
     state.winnerMessage = message;
+
     notifyChange();
 }
 
