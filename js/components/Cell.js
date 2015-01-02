@@ -28,13 +28,11 @@ module.exports = React.createClass({
 });
 
 function buildStyles(owner, playerHint) {
+    var cellAppearance = (owner !== Player.None)
+        ? owner
+        : playerHint;
+
     return extend({
         border: '1px solid black'
-    }, cellStyle(getCellAppearance(owner, playerHint)));
-}
-
-function getCellAppearance(owner, playerHint) {
-    if (owner !== Player.None) return owner;
-
-    return playerHint;
+    }, cellStyle(cellAppearance));
 }
