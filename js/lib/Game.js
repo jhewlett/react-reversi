@@ -97,6 +97,10 @@ function addChangeListener(fn) {
     events.addListener('change', fn);
 }
 
+function removeChangeListener(fn) {
+    events.removeListener(fn);
+}
+
 function notifyChange() {
     events.emit('change');
 }
@@ -104,6 +108,7 @@ function notifyChange() {
 module.exports = {
     getState: function() { return state; },
     addChangeListener: addChangeListener,
+    removeChangeListener: removeChangeListener,
     makeMove: makeMove,
     switchPlayer: switchPlayer,
     reset: reset

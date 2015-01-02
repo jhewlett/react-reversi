@@ -18,6 +18,9 @@ module.exports = React.createClass({
     componentDidMount: function() {
         Game.addChangeListener(this.handleGameChange);
     },
+    componentWillUnmount: function() {
+        Game.removeChangeListener(this.handleGameChange());
+    },
     handleGameChange: function() {
         this.setState(Game.getState());
     },
