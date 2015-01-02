@@ -4,6 +4,8 @@ var React = require('React');
 var Board = require('./Board');
 var PlayerInfo = require('./PlayerInfo');
 var WinnerMessage = require('./WinnerMessage');
+var PassButton = require('./PassButton');
+
 var Game = require('../lib/Game');
 
 module.exports = React.createClass({
@@ -26,13 +28,7 @@ module.exports = React.createClass({
         Game.reset();
     },
     render: function() {
-        var gameOver = this.state.winnerMessage !== '';
-
-        var styles = buildStyles(gameOver);
-
-        var passButton = gameOver
-            ? <button style={styles.pass} disabled>Pass</button>
-            : <button style={styles.pass} onClick={this.handlePassClicked}>Pass</button>;
+        var styles = buildStyles();
 
         return (
             <div>
@@ -40,7 +36,7 @@ module.exports = React.createClass({
                 <WinnerMessage message={this.state.winnerMessage} />
                 <Board currentPlayer={this.state.currentPlayer} board={this.state.board} onCellClicked={this.handleCellClicked} />
                 <div style={styles.buttonContainer}>
-                    {passButton}
+                    <PassButton gameOver={this.state.winnerMessage !== ''} onPassClicked={this.handlePassClicked} />
                     <button style={styles.reset} onClick={this.handleResetClicked}>Reset</button>
                 </div>
             </div>
@@ -48,7 +44,7 @@ module.exports = React.createClass({
     }
 });
 
-function buildStyles(gameOver) {
+function buildStyles() {
     return {
         buttonContainer: {
             textAlign: 'center',
@@ -58,11 +54,6 @@ function buildStyles(gameOver) {
             width: 100,
             height: 40,
             cursor: 'pointer'
-        },
-        pass: {
-            width: 100,
-            height: 40,
-            cursor: gameOver ? 'default' : 'pointer'
         }
     };
 }
