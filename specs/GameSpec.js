@@ -1,5 +1,4 @@
 var Game = require('../js/lib/Game');
-var sinon = require('sinon');
 var Player = require('../js/lib/Player');
 
 describe('Game', function() {
