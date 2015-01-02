@@ -1,3 +1,5 @@
+'use strict';
+
 var Player = require('../lib/Player');
 
 function getBackgroundImage(player) {
@@ -12,7 +14,7 @@ module.exports = function(player) {
         backgroundImage: getBackgroundImage(player),
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        width: '40',
-        height: '40'
+        width: 40,
+        height: 40
     };
 };
