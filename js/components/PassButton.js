@@ -1,12 +1,12 @@
 var React = require('React');
+var extend = require('object-assign');
+var buttonStyle = require('../styles/button');
 
 module.exports = React.createClass({
     render: function() {
-        var styles = {
-            width: 100,
-            height: 40,
+        var styles = extend({
             cursor: this.props.gameOver ? 'default' : 'pointer'
-        };
+        }, buttonStyle);
 
         var passButton = this.props.gameOver
             ? <button style={styles} disabled>Pass</button>

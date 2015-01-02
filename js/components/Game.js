@@ -6,6 +6,9 @@ var PlayerInfo = require('./PlayerInfo');
 var WinnerMessage = require('./WinnerMessage');
 var PassButton = require('./PassButton');
 
+var extend = require('object-assign');
+var buttonStyle = require('../styles/button');
+
 var Game = require('../lib/Game');
 
 module.exports = React.createClass({
@@ -50,10 +53,8 @@ function buildStyles() {
             textAlign: 'center',
             marginTop: 30
         },
-        reset: {
-            width: 100,
-            height: 40,
+        reset: extend({
             cursor: 'pointer'
-        }
+        }, buttonStyle)
     };
 }
