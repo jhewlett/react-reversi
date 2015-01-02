@@ -39,11 +39,10 @@ function buildStyles(currentPlayer) {
                 fontSize: globals.fontSize
             },
             score: extend({
-                backgroundImage: 'url("img/red.png")',
                 color: 'white',
                 fontSize: globals.fontSize,
                 textAlign: 'center'
-            }, cellStyle)
+            }, cellStyle(Player.One))
         },
         player2: {
             label: {
@@ -52,11 +51,10 @@ function buildStyles(currentPlayer) {
                 fontSize: globals.fontSize
             },
             score: extend({
-                backgroundImage: 'url("img/blue.png")',
                 color: 'white',
                 fontSize: globals.fontSize,
                 textAlign: 'center'
-            }, cellStyle)
+            }, cellStyle(Player.Two))
         }
     };
 }

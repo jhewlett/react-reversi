@@ -29,17 +29,12 @@ module.exports = React.createClass({
 
 function buildStyles(owner, playerHint) {
     return extend({
-        backgroundImage: getBackgroundImage(owner, playerHint),
         border: '1px solid black'
-    }, cellStyle);
+    }, cellStyle(getCellAppearance(owner, playerHint)));
 }
 
-function getBackgroundImage(owner, playerHint) {
-    if (owner === Player.One || playerHint === Player.One) {
-        return 'url("img/red.png")';
-    } else if (owner === Player.Two || playerHint === Player.Two) {
-        return 'url("img/blue.png")';
-    }
+function getCellAppearance(owner, playerHint) {
+    if (owner !== Player.None) return owner;
 
-    return 'none';
+    return playerHint;
 }
