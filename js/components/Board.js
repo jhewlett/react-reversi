@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('React');
+var React = require('react');
 var Row = require('./Row');
 
 module.exports = React.createClass({

@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('React');
+var React = require('react');
 var Player = require('../lib/Player');
 var extend = require('object-assign');
 var cellStyle = require('../styles/cell');

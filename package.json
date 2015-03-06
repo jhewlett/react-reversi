@@ -14,23 +14,13 @@
   "author": "Justin Hewlett",
   "license": "MIT",
   "devDependencies": {
-    "browserify": "^8.0.2",
     "jasmine-node": "^1.14.5",
-    "reactify": "^0.17.1",
-    "watchify": "^2.2.1"
+    "webpack": "~1.7.2",
+    "babel-core": "~4.7.0",
+    "babel-loader": "~4.1.0"
   },
   "dependencies": {
     "object-assign": "^2.0.0",
     "react": "^0.12.2"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "reactify",
-        {
-          "es6": true
-        }
-      ]
-    ]
   }
 }

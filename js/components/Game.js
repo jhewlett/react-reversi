@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('React');
+var React = require('react');
 var Board = require('./Board');
 var PlayerInfo = require('./PlayerInfo');
 var WinnerMessage = require('./WinnerMessage');

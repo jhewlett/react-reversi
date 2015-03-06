@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('React');
+var React = require('react');
 var extend = require('object-assign');
 var buttonStyle = require('../styles/button');
 
