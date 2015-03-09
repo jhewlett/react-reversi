@@ -1,8 +1,6 @@
-'use strict';
-
-var Player = require('./Player');
-var Board = require('./Board');
-var EventEmitter = require('events').EventEmitter;
+import Player from './Player'
+import Board from './Board'
+import { EventEmitter } from 'events'
 
 var events = new EventEmitter();
 
@@ -105,7 +103,7 @@ function notifyChange() {
     events.emit('change');
 }
 
-module.exports = {
+export default {
     getState: function() { return state; },
     addChangeListener: addChangeListener,
     removeChangeListener: removeChangeListener,

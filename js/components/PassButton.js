@@ -1,16 +1,14 @@
-'use strict';
+import React from 'react'
+import extend from 'object-assign'
+import buttonStyle from '../styles/button'
 
-var React = require('react');
-var extend = require('object-assign');
-var buttonStyle = require('../styles/button');
-
-module.exports = React.createClass({
-    render: function() {
-        var styles = extend({
+export default React.createClass({
+    render() {
+        const styles = extend({
             cursor: this.props.gameOver ? 'default' : 'pointer'
         }, buttonStyle);
 
-        var passButton = this.props.gameOver
+        const passButton = this.props.gameOver
             ? <button style={styles} disabled>Pass</button>
             : <button style={styles} onClick={this.props.onPassClicked}>Pass</button>;
 

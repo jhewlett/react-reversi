@@ -1,10 +1,8 @@
-'use strict';
+import React from 'react'
+import Cell from './Cell'
 
-var React = require('react');
-var Cell = require('./Cell');
-
-module.exports = React.createClass({
-    render: function() {
+export default React.createClass({
+    render() {
         return (
             <tr>
                 {[0,1,2,3,4,5,6,7].map(c =>
@@ -12,6 +10,6 @@ module.exports = React.createClass({
                         currentPlayer={this.props.currentPlayer} col={c} onCellClicked={this.props.onCellClicked} key={c} />
                 )}
             </tr>
-        );
-    }
+          );
+      }
 });

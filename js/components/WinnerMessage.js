@@ -1,10 +1,8 @@
-'use strict';
+import React from 'react'
 
-var React = require('react');
-
-module.exports = React.createClass({
-    render: function() {
-        var styles = {
+export default React.createClass({
+    render() {
+        const styles = {
             textAlign: 'center',
             fontWeight: 'bold',
             fontSize: 19,

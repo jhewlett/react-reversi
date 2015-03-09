@@ -1,40 +1,38 @@
-'use strict';
+import React from 'react'
+import Board from './Board'
+import PlayerInfo from './PlayerInfo'
+import WinnerMessage from './WinnerMessage'
+import PassButton from './PassButton'
 
-var React = require('react');
-var Board = require('./Board');
-var PlayerInfo = require('./PlayerInfo');
-var WinnerMessage = require('./WinnerMessage');
-var PassButton = require('./PassButton');
+import extend from 'object-assign'
+import buttonStyle from '../styles/button'
 
-var extend = require('object-assign');
-var buttonStyle = require('../styles/button');
+import Game from '../lib/Game'
 
-var Game = require('../lib/Game');
-
-module.exports = React.createClass({
-    getInitialState: function() {
+export default React.createClass({
+    getInitialState () {
         return Game.getState()
     },
-    componentDidMount: function() {
+    componentDidMount() {
         Game.addChangeListener(this.handleGameChange);
     },
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         Game.removeChangeListener(this.handleGameChange());
     },
-    handleGameChange: function() {
+    handleGameChange() {
         this.setState(Game.getState());
     },
-    handleCellClicked: function(row, col) {
+    handleCellClicked(row, col) {
         Game.makeMove(row, col);
     },
-    handlePassClicked: function() {
+    handlePassClicked() {
         Game.switchPlayer();
     },
-    handleResetClicked: function() {
+    handleResetClicked() {
         Game.reset();
     },
-    render: function() {
-        var styles = buildStyles();
+    render() {
+        const styles = buildStyles();
 
         return (
             <div>

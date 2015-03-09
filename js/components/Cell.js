@@ -1,34 +1,32 @@
-'use strict';
+import React from 'react'
+import Player from '../lib/Player'
+import cellStyle from '../styles/cell'
+import extend from 'object-assign'
 
-var React = require('react');
-var Player = require('../lib/Player');
-var cellStyle = require('../styles/cell');
-var extend = require('object-assign');
-
-module.exports = React.createClass({
-    getInitialState: function() {
-        return {playerHint: Player.None};
+export default React.createClass({
+    getInitialState() {
+        return { playerHint: Player.None };
     },
-    handleClick: function() {
+    handleClick() {
         this.props.onCellClicked(this.props.row, this.props.col);
     },
-    handleMouseOver: function() {
+    handleMouseOver() {
         if (this.props.board.canMakeMove(this.props.row, this.props.col, this.props.currentPlayer)) {
             this.setState({playerHint: this.props.currentPlayer});
         }
     },
-    handleMouseOut: function() {
-        this.setState({playerHint: Player.None});
+    handleMouseOut() {
+        this.setState({ playerHint: Player.None });
     },
-    render: function() {
-        var styles = buildStyles(this.props.owner, this.state.playerHint);
+    render() {
+        const styles = buildStyles(this.props.owner, this.state.playerHint);
 
         return <td style={styles} onClick={this.handleClick} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}></td>;
     }
 });
 
 function buildStyles(owner, playerHint) {
-    var cellAppearance = (owner !== Player.None)
+    const cellAppearance = (owner !== Player.None)
         ? owner
         : playerHint;
 

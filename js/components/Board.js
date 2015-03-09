@@ -1,11 +1,9 @@
-'use strict';
+import React from 'react'
+import Row from './Row'
 
-var React = require('react');
-var Row = require('./Row');
-
-module.exports = React.createClass({
-    render: function() {
-        var styles = {
+export default React.createClass({
+    render() {
+        const styles = {
             marginLeft: 'auto',
             marginRight: 'auto',
             backgroundColor: '#EEEEEE',

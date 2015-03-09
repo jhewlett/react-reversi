@@ -1,5 +1,3 @@
-'use strict';
-
 var Direction = function(rowIncrement, colIncrement){
     var getNext = function(i, j) {
         var nextI = i + rowIncrement;
@@ -26,7 +24,7 @@ var UpRight = function() { return new Direction(-1, 1); };
 var DownLeft = function() { return new Direction(1, -1); };
 var DownRight = function() { return new Direction(1, 1); };
 
-module.exports = function() {
+export default function() {
     return [
         new Up(),
         new Down(),
