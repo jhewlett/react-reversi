@@ -1,15 +1,15 @@
-import React from 'react'
-import Board from './Board'
-import PlayerInfo from './PlayerInfo'
-import WinnerMessage from './WinnerMessage'
-import PassButton from './PassButton'
+var React = require('react');
+var Board = require('./Board');
+var PlayerInfo = require('./PlayerInfo');
+var WinnerMessage = require('./WinnerMessage');
+var PassButton = require('./PassButton');
 
-import extend from 'object-assign'
-import buttonStyle from '../styles/button'
+var extend = require('object-assign');
+var buttonStyle = require('../styles/button');
 
-import Game from '../lib/Game'
+var Game = require('../lib/Game');
 
-export default React.createClass({
+module.exports = React.createClass({
     getInitialState () {
         return Game.getState()
     },

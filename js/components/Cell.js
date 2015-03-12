@@ -1,9 +1,9 @@
-import React from 'react'
-import Player from '../lib/Player'
-import cellStyle from '../styles/cell'
-import extend from 'object-assign'
+var React = require('react');
+var Player = require('../lib/Player');
+var cellStyle = require('../styles/cell');
+var extend = require('object-assign');
 
-export default React.createClass({
+module.exports = React.createClass({
     getInitialState() {
         return { playerHint: Player.None };
     },
@@ -12,7 +12,7 @@ export default React.createClass({
     },
     handleMouseOver() {
         if (this.props.board.canMakeMove(this.props.row, this.props.col, this.props.currentPlayer)) {
-            this.setState({playerHint: this.props.currentPlayer});
+            this.setState({ playerHint: this.props.currentPlayer });
         }
     },
     handleMouseOut() {

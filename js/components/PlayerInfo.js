@@ -1,10 +1,10 @@
-import React from 'react'
-import Player from '../lib/Player'
-import extend from 'object-assign'
-import cellStyle from '../styles/cell'
-import globals from '../styles/globals'
+var React = require('react');
+var Player = require('../lib/Player');
+var extend = require('object-assign');
+var cellStyle = require('../styles/cell');
+var globals = require('../styles/globals');
 
-export default React.createClass({
+module.exports = React.createClass({
     render() {
         const styles = buildStyles(this.props.currentPlayer);
 

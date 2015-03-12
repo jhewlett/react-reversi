@@ -1,6 +1,6 @@
-import React from 'react'
+var React = require('react');
 
-export default React.createClass({
+module.exports = React.createClass({
     render() {
         const styles = {
             textAlign: 'center',

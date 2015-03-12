@@ -1,7 +1,7 @@
-import React from 'react'
-import Cell from './Cell'
+var React = require('react');
+var Cell = require('./Cell');
 
-export default React.createClass({
+module.exports = React.createClass({
     render() {
         return (
             <tr>

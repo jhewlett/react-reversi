@@ -1,8 +1,8 @@
-import React from 'react'
-import extend from 'object-assign'
-import buttonStyle from '../styles/button'
+var React = require('react');
+var extend = require('object-assign');
+var buttonStyle = require('../styles/button');
 
-export default React.createClass({
+module.exports = React.createClass({
     render() {
         const styles = extend({
             cursor: this.props.gameOver ? 'default' : 'pointer'

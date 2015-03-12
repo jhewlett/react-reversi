@@ -1,4 +1,4 @@
-import Player from '../lib/Player'
+var Player = require('../lib/Player');
 
 function getBackgroundImage(player) {
     if (player === Player.One) return 'url("img/red.png")';
@@ -7,7 +7,7 @@ function getBackgroundImage(player) {
     return 'none';
 }
 
-export default function(player) {
+module.exports = function(player) {
     return {
         backgroundImage: getBackgroundImage(player),
         backgroundRepeat: 'no-repeat',

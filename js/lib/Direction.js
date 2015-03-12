@@ -24,7 +24,7 @@ var UpRight = function() { return new Direction(-1, 1); };
 var DownLeft = function() { return new Direction(1, -1); };
 var DownRight = function() { return new Direction(1, 1); };
 
-export default function() {
+module.exports = function() {
     return [
         new Up(),
         new Down(),

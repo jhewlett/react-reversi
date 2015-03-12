@@ -1,7 +1,7 @@
-import React from 'react'
-import Row from './Row'
+var React = require('react');
+var Row = require('./Row');
 
-export default React.createClass({
+module.exports = React.createClass({
     render() {
         const styles = {
             marginLeft: 'auto',

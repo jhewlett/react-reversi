@@ -1,7 +1,7 @@
-import Directions from './Direction'
-import Player from './Player'
+var Directions = require('./Direction');
+var Player = require('./Player');
 
-export default function() {
+module.exports = function() {
     var _board = [];
     var _directions = Directions();
 
@@ -27,7 +27,7 @@ export default function() {
         var success = false;
 
         if (_board[i][j] === Player.None) {
-            _directions.forEach((direction) => {
+            _directions.forEach(function(direction) {
                 if (surroundsOppositePlayer(i, j, color, direction)) {
                     colorCapturedCells(i, j, color, direction);
 

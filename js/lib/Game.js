@@ -1,6 +1,6 @@
-import Player from './Player'
-import Board from './Board'
-import { EventEmitter } from 'events'
+var Player = require('./Player');
+var Board = require('./Board');
+var EventEmitter = require('events').EventEmitter;
 
 var events = new EventEmitter();
 
@@ -103,7 +103,7 @@ function notifyChange() {
     events.emit('change');
 }
 
-export default {
+module.exports = {
     getState: function() { return state; },
     addChangeListener: addChangeListener,
     removeChangeListener: removeChangeListener,
