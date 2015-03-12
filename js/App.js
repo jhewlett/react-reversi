@@ -1,4 +1,4 @@
 var React = require('react');
 var Game = require('./components/Game');
 
-React.render(<Game />, document.body);
+React.render(<Game />, document.getElementById('react-app'));
