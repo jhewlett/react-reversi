@@ -3,12 +3,14 @@ var Player = require('../lib/Player');
 var cellStyle = require('../styles/cell');
 var extend = require('object-assign');
 
+var GameActions = require('../actions/GameActions');
+
 module.exports = React.createClass({
     getInitialState() {
         return { playerHint: Player.None };
     },
     handleClick() {
-        this.props.onCellClicked(this.props.row, this.props.col);
+      GameActions.makeMove(this.props.row, this.props.col);
     },
     handleMouseOver() {
         if (this.props.board.canMakeMove(this.props.row, this.props.col, this.props.currentPlayer)) {

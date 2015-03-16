@@ -7,29 +7,23 @@ var PassButton = require('./PassButton');
 var extend = require('object-assign');
 var buttonStyle = require('../styles/button');
 
-var Game = require('../lib/Game');
+var GameActions = require('../actions/GameActions');
+var GameStore = require('../stores/GameStore');
+
+var Reflux = require('reflux');
 
 module.exports = React.createClass({
-    getInitialState () {
-        return Game.getState()
+    getInitialState() {
+        return GameStore.getInitialState();
     },
     componentDidMount() {
-        Game.addChangeListener(this.handleGameChange);
+        this.unsubscribe = GameStore.listen(this.onStateChange);
     },
     componentWillUnmount() {
-        Game.removeChangeListener(this.handleGameChange());
+        this.unsubscribe();
     },
-    handleGameChange() {
-        this.setState(Game.getState());
-    },
-    handleCellClicked(row, col) {
-        Game.makeMove(row, col);
-    },
-    handlePassClicked() {
-        Game.switchPlayer();
-    },
-    handleResetClicked() {
-        Game.reset();
+    onStateChange(state) {
+        this.setState(state);
     },
     render() {
         const styles = buildStyles();
@@ -38,10 +32,10 @@ module.exports = React.createClass({
             <div>
                 <PlayerInfo currentPlayer={this.state.currentPlayer} player1Score={this.state.player1Score} player2Score={this.state.player2Score} />
                 <WinnerMessage message={this.state.winnerMessage} />
-                <Board currentPlayer={this.state.currentPlayer} board={this.state.board} onCellClicked={this.handleCellClicked} />
+                <Board currentPlayer={this.state.currentPlayer} board={this.state.board} />
                 <div style={styles.buttonContainer}>
-                    <PassButton gameOver={this.state.winnerMessage !== ''} onPassClicked={this.handlePassClicked} />
-                    <button style={styles.reset} onClick={this.handleResetClicked}>Reset</button>
+                    <PassButton gameOver={this.state.winnerMessage !== ''} />
+                    <button style={styles.reset} onClick={GameActions.reset}>Reset</button>
                 </div>
             </div>
         );
