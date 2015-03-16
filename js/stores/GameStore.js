@@ -5,6 +5,8 @@ var Board = require('../lib/Board');
 
 var GameActions = require('../actions/GameActions');
 
+var merge = require('object-assign');
+
 module.exports = Reflux.createStore({
     listenables: [GameActions],
     init() {
@@ -14,10 +16,10 @@ module.exports = Reflux.createStore({
         return this.state;
     },
     onSwitchPlayer() {
-        this.state.currentPlayer = (this.state.currentPlayer === Player.One)
-          ? Player.Two
-          : Player.One;
-        this.trigger(this.state);
+        this.update({
+          currentPlayer: this.state.currentPlayer === Player.One
+            ? Player.Two
+            : Player.One });
     },
     onMakeMove(row, col) {
       var result = this.state.board.makeMove(row, col, this.state.currentPlayer);
@@ -33,8 +35,7 @@ module.exports = Reflux.createStore({
       }
     },
     onReset() {
-        this.state = this.newGame();
-        this.trigger(this.state);
+      this.update(this.newGame());
     },
     newGame() {
       return {
@@ -46,10 +47,10 @@ module.exports = Reflux.createStore({
       };
     },
     updateScores() {
-          this.state.player1Score = this.getScoreForPlayer(Player.One);
-          this.state.player2Score = this.getScoreForPlayer(Player.Two);
-
-          this.trigger(this.state);
+        this.update({
+          player1Score: this.getScoreForPlayer(Player.One),
+          player2Score: this.getScoreForPlayer(Player.Two)
+        });
     },
     getScoreForPlayer(player) {
       var score = 0;
@@ -66,16 +67,16 @@ module.exports = Reflux.createStore({
     },
     checkEndOfGame() {
       if (this.state.player1Score === 0) {
-          this.updateMessage("Player 2 wins!");
+          this.update({ winnerMessage: "Player 2 wins!" });
       } else if (this.state.player2Score === 0) {
-          this.updateMessage("Player 1 wins!");
+          this.update({ winnerMessage: "Player 1 wins!" });
       } else if (this.state.player1Score + this.state.player2Score === 64) {
           if (this.state.player1Score === this.state.player2Score) {
-              this.updateMessage("Tie!");
+              this.update({ winnerMessage: "Tie!" });
           } else if (this.state.player1Score > this.state.player2Score) {
-              this.updateMessage("Player 1 wins!");
+              this.update({ winnerMessage: "Player 1 wins!" });
           } else {
-              this.updateMessage("Player 2 wins!");
+              this.update({ winnerMessage: "Player 2 wins!" });
           }
       } else {
           return false;
@@ -83,9 +84,8 @@ module.exports = Reflux.createStore({
 
       return true;
     },
-    updateMessage(message) {
-      this.state.winnerMessage = message;
-
+    update(newState) {
+      this.state = merge(this.state, newState);
       this.trigger(this.state);
     }
 });

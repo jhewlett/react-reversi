@@ -20,7 +20,7 @@
     "babel-loader": "~4.1.0"
   },
   "dependencies": {
-    "object-assign": "^2.0.0",
+    "object-assign": "~2.0.0",
     "react": "^0.13.0",
     "reflux": "~0.2.7"
   }
