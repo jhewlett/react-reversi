@@ -90,6 +90,20 @@ module.exports = function() {
         return _board[i][j];
     };
 
+    var getScoreForPlayer = function(player, board) {
+      var score = 0;
+
+      for (var i = 0; i < 8; i++) {
+          for (var j = 0; j < 8; j++) {
+              if (getStatus(i, j) === player) {
+                  score += 1;
+              }
+          }
+      }
+
+      return score;
+    }
+
     var setCell =  function (i, j, color) {
         _board[i][j] = color;
     };
@@ -98,6 +112,7 @@ module.exports = function() {
         getStatus: getStatus,
         canMakeMove: canMakeMove,
         makeMove: makeMove,
-        setCell: setCell
+        setCell: setCell,
+        getScoreForPlayer: getScoreForPlayer
     };
 };

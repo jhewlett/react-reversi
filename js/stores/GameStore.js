@@ -4,20 +4,6 @@ var Board = require('../lib/Board');
 var GameActions = require('../actions/GameActions');
 var merge = require('object-assign');
 
-var getScoreForPlayer = function(player, board) {
-  var score = 0;
-
-  for (var i = 0; i < 8; i++) {
-      for (var j = 0; j < 8; j++) {
-          if (board.getStatus(i, j) === player) {
-              score += 1;
-          }
-      }
-  }
-
-  return score;
-}
-
 var checkEndOfGame = function(player1Score, player2Score, cb) {
   if (player1Score === 0) {
       cb({ winnerMessage: "Player 2 wins!" });
@@ -67,8 +53,8 @@ module.exports = Reflux.createStore({
 
       if (result) {
           this.update({
-            player1Score: getScoreForPlayer(Player.One, this.state.board),
-            player2Score: getScoreForPlayer(Player.Two, this.state.board)
+            player1Score: this.state.board.getScoreForPlayer(Player.One, this.state.board),
+            player2Score: this.state.board.getScoreForPlayer(Player.Two, this.state.board)
           });
 
           var gameEnded = checkEndOfGame(this.state.player1Score, this.state.player2Score, (newState) => this.update(newState));
