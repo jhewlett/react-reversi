@@ -13,24 +13,27 @@ module.exports = React.createClass({
       GameActions.makeMove(this.props.row, this.props.col);
     },
     handleMouseOver() {
-        if (this.props.board.canMakeMove(this.props.row, this.props.col, this.props.currentPlayer)) {
-            this.setState({ playerHint: this.props.currentPlayer });
-        }
+      GameActions.checkOverlayHint(this.props.row, this.props.col);
     },
     handleMouseOut() {
-        this.setState({ playerHint: Player.None });
+        GameActions.removeHint(this.props.row, this.props.col);
     },
     render() {
-        const styles = buildStyles(this.props.owner, this.state.playerHint);
+        const styles = buildStyles(this.props.owner, this.props.playerHint, this.props.row, this.props.col, this.props.currentPlayer);
 
         return <td style={styles} onClick={this.handleClick} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}></td>;
     }
 });
 
-function buildStyles(owner, playerHint) {
-    const cellAppearance = (owner !== Player.None)
-        ? owner
-        : playerHint;
+function buildStyles(owner, playerHint, row, col, currentPlayer) {
+    let cellAppearance;
+    if (owner !== Player.None) {
+        cellAppearance = owner;
+    } else if (playerHint[0] === row && playerHint[1] === col) {
+        cellAppearance = currentPlayer;
+    } else {
+        cellAppearance = Player.None;
+    }
 
     return extend({
         border: '1px solid black'

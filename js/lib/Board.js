@@ -1,118 +1,101 @@
 var Directions = require('./Direction');
 var Player = require('./Player');
 
-module.exports = function() {
-    var _board = [];
-    var _directions = Directions();
+var newGameBoard = require('./newGameBoard');
 
-    setupBoard();
+var _directions = Directions();
 
-    function setupBoard() {
-        for (var i = 0; i < 8; i++) {
-            _board[i] = new Array(8);
+var makeMove = function(board, i, j, color) {
+    var success = false;
 
-            for (var j = 0; j < 8; j++) {
-                _board[i][j] = Player.None;
+    if (getStatus(board, i, j) === Player.None) {
+        _directions.forEach(function(direction) {
+            if (surroundsOppositePlayer(board, i, j, color, direction)) {
+                board = colorCapturedCells(board, i, j, color, direction);
+
+                success = true;
             }
-        }
-
-        _board[3][4] = Player.One;
-        _board[4][3] = Player.One;
-
-        _board[3][3] = Player.Two;
-        _board[4][4] = Player.Two;
+        });
     }
 
-    var makeMove = function(i, j, color) {
-        var success = false;
+    return {success: success, board: board};
+};
 
-        if (_board[i][j] === Player.None) {
-            _directions.forEach(function(direction) {
-                if (surroundsOppositePlayer(i, j, color, direction)) {
-                    colorCapturedCells(i, j, color, direction);
+var colorCapturedCells = function(board, i, j, color, direction) {
+    board = setCell(board, i, j, color);
 
-                    success = true;
-                }
-            });
-        }
+    var next = direction.getNext(i, j);
 
-        return success;
-    };
+    while (next !== false && getStatus(board, next.row, next.col) !== color) {
+        board = setCell(board, next.row, next.col, color);
+        next = direction.getNext(next.row, next.col);
+    }
 
-    var colorCapturedCells = function(i, j, color, direction) {
-        setCell(i, j, color);
+    return board;
+};
 
-        var next = direction.getNext(i, j);
-
-        while (next !== false && _board[next.row][next.col] !== color) {
-            setCell(next.row, next.col, color);
-            next = direction.getNext(next.row, next.col);
-        }
-    };
-
-    var canMakeMove = function(i, j, color) {
-        if (_board[i][j] === Player.None) {
-            for (var d = 0; d < _directions.length; d++) {
-                if (surroundsOppositePlayer(i, j, color, _directions[d])) {
-                    return true;
-                }
+var canMakeMove = function(board, i, j, color) {
+    if (getStatus(board, i, j) === Player.None) {
+        for (var d = 0; d < _directions.length; d++) {
+            if (surroundsOppositePlayer(board, i, j, color, _directions[d])) {
+                return true;
             }
         }
+    }
 
+    return false;
+};
+
+var surroundsOppositePlayer = function(board, i, j, color, direction) {
+    var oppositeColor = color === Player.One
+        ? Player.Two
+        : Player.One;
+
+    var next = direction.getNext(i, j);
+
+    return next !== false && getStatus(board, next.row, next.col) === oppositeColor && lineContainsColor(board, i, j, color, direction)
+};
+
+var lineContainsColor = function(board, i, j, color, direction) {
+    var next = direction.getNext(i, j);
+
+    if (next === false || getStatus(board, next.row, next.col) === Player.None) {
         return false;
-    };
+    }
 
-    var surroundsOppositePlayer = function(i, j, color, direction) {
-        var oppositeColor = color === Player.One
-            ? Player.Two
-            : Player.One;
+    if (getStatus(board, next.row, next.col) === color) {
+        return true;
+    }
 
-        var next = direction.getNext(i, j);
+    return lineContainsColor(board, next.row, next.col, color, direction);
+};
 
-        return next !== false && _board[next.row][next.col] === oppositeColor && lineContainsColor(i, j, color, direction)
-    };
+var getScoreForPlayer = function(board, player) {
+  var score = 0;
 
-    var lineContainsColor = function(i, j, color, direction) {
-        var next = direction.getNext(i, j);
-
-        if (next === false || _board[next.row][next.col] === Player.None) {
-            return false;
-        }
-
-        if (_board[next.row][next.col] === color) {
-            return true;
-        }
-
-        return lineContainsColor(next.row, next.col, color, direction);
-    };
-
-    var getStatus = function(i, j) {
-        return _board[i][j];
-    };
-
-    var getScoreForPlayer = function(player, board) {
-      var score = 0;
-
-      for (var i = 0; i < 8; i++) {
-          for (var j = 0; j < 8; j++) {
-              if (getStatus(i, j) === player) {
-                  score += 1;
-              }
+  for (var i = 0; i < 8; i++) {
+      for (var j = 0; j < 8; j++) {
+          if (getStatus(board, i, j) === player) {
+              score += 1;
           }
       }
+  }
 
-      return score;
-    }
+  return score;
+}
 
-    var setCell =  function (i, j, color) {
-        _board[i][j] = color;
-    };
+var getStatus = function(board, i, j) {
+    return board.get(i * 8 + j);
+};
 
-    return {
-        getStatus: getStatus,
-        canMakeMove: canMakeMove,
-        makeMove: makeMove,
-        setCell: setCell,
-        getScoreForPlayer: getScoreForPlayer
-    };
+var setCell =  function (board, i, j, color) {
+    return board.set(i * 8 + j, color);
+};
+
+module.exports = {
+    getStatus: getStatus,
+    canMakeMove: canMakeMove,
+    makeMove: makeMove,
+    setCell: setCell,
+    getScoreForPlayer: getScoreForPlayer
 };
