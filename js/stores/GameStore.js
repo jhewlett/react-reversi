@@ -5,35 +5,20 @@ var GameActions = require('../actions/GameActions');
 var newGameBoard = require('../lib/newGameBoard');
 var merge = require('object-assign');
 
-var checkEndOfGame = function(player1Score, player2Score, cb) {
-  if (player1Score === 0) {
-      cb({ winnerMessage: "Player 2 wins!" });
-  } else if (player2Score === 0) {
-      cb({ winnerMessage: "Player 1 wins!" });
-  } else if (player1Score + player2Score === 64) {
-      if (player1Score === player2Score) {
-          cb({ winnerMessage: "Tie!" });
-      } else if (player1Score > player2Score) {
-          cb({ winnerMessage: "Player 1 wins!" });
-      } else {
-          cb({ winnerMessage: "Player 2 wins!" });
-      }
-  } else {
-      return false;
-  }
-
-  return true;
-}
-
 var newGame = function() {
   return {
     currentPlayer: Player.One,
     player1Score: 2,
     player2Score: 2,
     board: newGameBoard,
-    winnerMessage: '',
     playerHint: []
   };
+};
+
+var isEndOfGame = function(player1Score, player2Score) {
+  return player1Score === 0
+    || player2Score === 0
+    || player1Score + player2Score === 64;
 };
 
 module.exports = Reflux.createStore({
@@ -42,13 +27,14 @@ module.exports = Reflux.createStore({
       this.state = newGame();
     },
     getInitialState() {
-        return merge(this.state, {});
+        return this.state;
     },
     onSwitchPlayer() {
-        this.update({
-          currentPlayer: this.state.currentPlayer === Player.One
-            ? Player.Two
-            : Player.One });
+        var nextPlayer = this.state.currentPlayer === Player.One
+          ? Player.Two
+          : Player.One;
+
+        this.update({ currentPlayer: nextPlayer });
     },
     onMakeMove(row, col) {
       var newBoard = Board.makeMove(this.state.board, row, col, this.state.currentPlayer);
@@ -60,9 +46,7 @@ module.exports = Reflux.createStore({
             board: newBoard
           });
 
-           var gameEnded = checkEndOfGame(this.state.player1Score, this.state.player2Score, (newState) => this.update(newState));
-
-           if (!gameEnded) {
+           if (!isEndOfGame(this.state.player1Score, this.state.player2Score)) {
                GameActions.switchPlayer();
            }
       }

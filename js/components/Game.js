@@ -38,7 +38,7 @@ module.exports = React.createClass({
         return (
             <div>
                 <PlayerInfo currentPlayer={this.state.currentPlayer} player1Score={this.state.player1Score} player2Score={this.state.player2Score} />
-                <WinnerMessage message={this.state.winnerMessage} />
+                <WinnerMessage player1Score={this.state.player1Score} player2Score={this.state.player2Score} />
                 <Board currentPlayer={this.state.currentPlayer} board={this.state.board} playerHint={this.state.playerHint} />
                 <div style={styles.buttonContainer}>
                     <PassButton gameOver={this.state.winnerMessage !== ''} />
