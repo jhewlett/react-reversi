@@ -1,7 +1,7 @@
+var List = require('immutable').List;
+
 var Directions = require('./Direction');
 var Player = require('./Player');
-
-var newGameBoard = require('./newGameBoard');
 
 var _directions = Directions();
 
@@ -88,10 +88,21 @@ var setCell =  function (board, i, j, color) {
     return board.set(i * 8 + j, color);
 };
 
+var newGameBoard = List(
+  [0,0,0,0,0,0,0,0,
+   0,0,0,0,0,0,0,0,
+   0,0,0,0,0,0,0,0,
+   0,0,0,2,1,0,0,0,
+   0,0,0,1,2,0,0,0,
+   0,0,0,0,0,0,0,0,
+   0,0,0,0,0,0,0,0,
+   0,0,0,0,0,0,0,0]);
+
 module.exports = {
     getStatus: getStatus,
     canMakeMove: canMakeMove,
     makeMove: makeMove,
     setCell: setCell,
-    getScoreForPlayer: getScoreForPlayer
+    getScoreForPlayer: getScoreForPlayer,
+    newGameBoard: newGameBoard
 };

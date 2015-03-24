@@ -5,7 +5,7 @@ var makeMove = Board.makeMove;
 var setCell = Board.setCell;
 
 var Player = require('../js/lib/Player');
-var board = require('../js/lib/newGameBoard');
+var board = Board.newGameBoard;
 
 describe('Board', function() {
     it('should initialize the board', function() {

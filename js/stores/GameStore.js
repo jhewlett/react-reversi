@@ -2,23 +2,17 @@ var Reflux = require('reflux');
 var Player = require('../lib/Player');
 var Board = require('../lib/Board');
 var GameActions = require('../actions/GameActions');
-var newGameBoard = require('../lib/newGameBoard');
 var merge = require('object-assign');
+var isEndOfGame = require('../lib/isEndOfGame');
 
 var newGame = function() {
   return {
     currentPlayer: Player.One,
     player1Score: 2,
     player2Score: 2,
-    board: newGameBoard,
+    board: Board.newGameBoard,
     playerHint: []
   };
-};
-
-var isEndOfGame = function(player1Score, player2Score) {
-  return player1Score === 0
-    || player2Score === 0
-    || player1Score + player2Score === 64;
 };
 
 module.exports = Reflux.createStore({

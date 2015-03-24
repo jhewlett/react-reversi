@@ -14,6 +14,8 @@ var _ = require('lodash');
 
 var Reflux = require('reflux');
 
+var isEndOfGame = require('../lib/isEndOfGame');
+
 module.exports = React.createClass({
     getInitialState() {
         return GameStore.getInitialState();
@@ -41,7 +43,7 @@ module.exports = React.createClass({
                 <WinnerMessage player1Score={this.state.player1Score} player2Score={this.state.player2Score} />
                 <Board currentPlayer={this.state.currentPlayer} board={this.state.board} playerHint={this.state.playerHint} />
                 <div style={styles.buttonContainer}>
-                    <PassButton gameOver={this.state.winnerMessage !== ''} />
+                    <PassButton gameOver={isEndOfGame(this.state.player1Score, this.state.player2Score)} />
                     <button style={styles.reset} onClick={GameActions.reset}>Reset</button>
                 </div>
             </div>
