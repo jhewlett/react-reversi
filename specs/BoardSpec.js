@@ -36,80 +36,75 @@ describe('Board', function() {
 
     describe('makeMove', function() {
         describe('valid position with right player', function() {
-            var result;
+            var newBoard;
+            var valid;
             beforeEach(function() {
-                result = makeMove(board, 2, 3, Player.One);
+                valid = canMakeMove(board, 2, 3, Player.One);
+                newBoard = makeMove(board, 2, 3, Player.One);
             });
 
             it('should toggle the selected cell', function() {
-                expect(getStatus(result.board, 2, 3)).toEqual(Player.One);
+                expect(getStatus(newBoard, 2, 3)).toEqual(Player.One);
             });
 
             it('should toggle the cells in between', function() {
-                expect(getStatus(result.board, 3, 3)).toEqual(Player.One);
+                expect(getStatus(newBoard, 3, 3)).toEqual(Player.One);
             });
 
             it('should return true', function() {
-                expect(result.success).toEqual(true);
+                expect(valid).toEqual(true);
             });
         });
 
         describe('valid position with wrong player', function() {
-            var result;
+            var newBoard;
+            var valid;
             beforeEach(function() {
-                result = makeMove(board, 2, 3, Player.Two);
+                valid = canMakeMove(board, 2, 3, Player.Two);
+                newBoard = makeMove(board, 2, 3, Player.Two);
             });
 
             it('should NOT toggle the selected cell', function() {
-                expect(getStatus(result.board, 2, 3)).toEqual(Player.None);
+                expect(newBoard).toEqual(board);
             });
 
             it('should return false', function() {
-                expect(result.success).toEqual(false);
+                expect(valid).toEqual(false);
             });
         });
 
         describe('toggling a cell that does not surround a row', function() {
-            var result;
+            var newBoard;
+            var board2;
             beforeEach(function() {
-                var board2 = setCell(board, 1, 1, Player.One);
+                board2 = setCell(board, 1, 1, Player.One);
 
-                result = makeMove(board2, 2, 1, Player.Two)
+                newBoard = makeMove(board2, 2, 1, Player.Two)
             });
 
             it('should NOT toggle the selected cell', function() {
-                expect(getStatus(result.board, 2, 1)).toEqual(Player.None);
-            });
-
-            it('should return false', function() {
-                expect(result.success).toEqual(false);
+                expect(newBoard).toEqual(board2);
             });
         });
 
         describe('toggling a cell with an empty space on the end', function() {
-            var result;
+            var newBoard;
+            var board2;
             beforeEach(function() {
-                var board2 = setCell(board, 0, 0, Player.One);
+                board2 = setCell(board, 0, 0, Player.One);
                 board2 = setCell(board2, 0, 2, Player.Two);
                 board2 = setCell(board2, 0, 3, Player.Two);
 
-                result = makeMove(board2, 0, 4, Player.One);
-            });
-
-            it('should return false', function() {
-                expect(result.success).toEqual(false);
+                newBoard = makeMove(board2, 0, 4, Player.One);
             });
 
             it('should NOT toggle any cells', function() {
-                expect(getStatus(result.board, 0, 1)).toEqual(Player.None);
-                expect(getStatus(result.board, 0, 2)).toEqual(Player.Two);
-                expect(getStatus(result.board, 0, 3)).toEqual(Player.Two);
-                expect(getStatus(result.board, 0, 4)).toEqual(Player.None);
+                expect(newBoard).toEqual(board2);
             });
         });
 
         describe('can capture in all directions in one turn', function() {
-            var result;
+            var newBoard;
             beforeEach(function() {
                 var board2 = setCell(board, 0, 0, Player.One);
                 board2 = setCell(board2, 0, 2, Player.One);
@@ -130,37 +125,33 @@ describe('Board', function() {
                 board2 = setCell(board2, 3, 2, Player.Two);
                 board2 = setCell(board2, 4, 2, Player.One);
 
-                result = makeMove(board2, 2, 2, Player.One);
-            });
-
-            it('should return true', function() {
-                expect(result.success).toEqual(true);
+                newBoard = makeMove(board2, 2, 2, Player.One);
             });
 
             it('should capture all the correct cells', function() {
-                expect(getStatus(result.board, 1, 2)).toEqual(Player.One);
-                expect(getStatus(result.board, 2, 1)).toEqual(Player.One);
-                expect(getStatus(result.board, 2, 3)).toEqual(Player.One);
-                expect(getStatus(result.board, 3, 2)).toEqual(Player.One);
-                expect(getStatus(result.board, 1, 1)).toEqual(Player.One);
-                expect(getStatus(result.board, 3, 1)).toEqual(Player.One);
-                expect(getStatus(result.board, 1, 3)).toEqual(Player.One);
-                expect(getStatus(result.board, 3, 3)).toEqual(Player.One);
-                expect(getStatus(result.board, 2, 2)).toEqual(Player.One);
+                expect(getStatus(newBoard, 1, 2)).toEqual(Player.One);
+                expect(getStatus(newBoard, 2, 1)).toEqual(Player.One);
+                expect(getStatus(newBoard, 2, 3)).toEqual(Player.One);
+                expect(getStatus(newBoard, 3, 2)).toEqual(Player.One);
+                expect(getStatus(newBoard, 1, 1)).toEqual(Player.One);
+                expect(getStatus(newBoard, 3, 1)).toEqual(Player.One);
+                expect(getStatus(newBoard, 1, 3)).toEqual(Player.One);
+                expect(getStatus(newBoard, 3, 3)).toEqual(Player.One);
+                expect(getStatus(newBoard, 2, 2)).toEqual(Player.One);
             });
         });
 
         describe('When trying to toggle an occupied cell', function() {
-            var result;
+            var newBoard;
+            var board2;
             beforeEach(function() {
-                var board2 = setCell(board, 2, 3, Player.One);
+                board2 = setCell(board, 2, 3, Player.One);
 
-                result = makeMove(board2, 2, 3, Player.Two);
+                newBoard = makeMove(board2, 2, 3, Player.Two);
             });
 
             it('should not toggle the cell', function() {
-                expect(result.success).toEqual(false);
-                expect(getStatus(result.board, 2, 3)).toEqual(Player.One);
+                expect(newBoard).toEqual(board2);
             });
         });
     });

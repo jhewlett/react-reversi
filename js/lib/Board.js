@@ -6,19 +6,15 @@ var newGameBoard = require('./newGameBoard');
 var _directions = Directions();
 
 var makeMove = function(board, i, j, color) {
-    var success = false;
-
     if (getStatus(board, i, j) === Player.None) {
         _directions.forEach(function(direction) {
             if (surroundsOppositePlayer(board, i, j, color, direction)) {
                 board = colorCapturedCells(board, i, j, color, direction);
-
-                success = true;
             }
         });
     }
 
-    return {success: success, board: board};
+    return board;
 };
 
 var colorCapturedCells = function(board, i, j, color, direction) {

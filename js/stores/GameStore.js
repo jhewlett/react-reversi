@@ -51,13 +51,13 @@ module.exports = Reflux.createStore({
             : Player.One });
     },
     onMakeMove(row, col) {
-      var result = Board.makeMove(this.state.board, row, col, this.state.currentPlayer);
+      var newBoard = Board.makeMove(this.state.board, row, col, this.state.currentPlayer);
 
-      if (result.success) {
+      if (newBoard !== this.state.board) {
         this.update({
-            player1Score: Board.getScoreForPlayer(result.board, Player.One),
-            player2Score: Board.getScoreForPlayer(result.board, Player.Two),
-            board: result.board
+            player1Score: Board.getScoreForPlayer(newBoard, Player.One),
+            player2Score: Board.getScoreForPlayer(newBoard, Player.Two),
+            board: newBoard
           });
 
            var gameEnded = checkEndOfGame(this.state.player1Score, this.state.player2Score, (newState) => this.update(newState));
