@@ -10,6 +10,8 @@ var buttonStyle = require('../styles/button');
 var GameActions = require('../actions/GameActions');
 var GameStore = require('../stores/GameStore');
 
+var _ = require('lodash');
+
 var Reflux = require('reflux');
 
 module.exports = React.createClass({
@@ -24,6 +26,11 @@ module.exports = React.createClass({
     },
     onStateChange(state) {
         this.setState(state);
+    },
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.state.board !== nextState.board
+          || this.state.currentPlayer !== nextState.currentPlayer
+          || !_.isEqual(this.state.playerHint, nextState.playerHint);
     },
     render() {
         const styles = buildStyles();

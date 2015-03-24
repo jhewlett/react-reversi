@@ -14,14 +14,16 @@
   "author": "Justin Hewlett",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^4.7.16",
+    "babel-loader": "~4.1.0",
     "jasmine-node": "^1.14.5",
-    "webpack": "~1.7.2",
-    "babel-core": "~4.7.0",
-    "babel-loader": "~4.1.0"
+    "webpack": "~1.7.2"
   },
   "dependencies": {
+    "immutable": "^3.6.4",
+    "lodash": "^3.5.0",
     "object-assign": "~2.0.0",
-    "react": "^0.13.0",
+    "react": "^0.13.1",
     "reflux": "~0.2.7"
   }
 }
