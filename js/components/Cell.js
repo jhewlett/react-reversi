@@ -27,6 +27,7 @@ module.exports = React.createClass({
 
 function buildStyles(owner, playerHint, row, col, currentPlayer) {
     let cellAppearance;
+    
     if (owner !== Player.None) {
         cellAppearance = owner;
     } else if (playerHint[0] === row && playerHint[1] === col) {

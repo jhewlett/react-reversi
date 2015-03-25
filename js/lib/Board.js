@@ -67,18 +67,8 @@ var lineContainsColor = function(board, i, j, color, direction) {
 };
 
 var getScoreForPlayer = function(board, player) {
-  var score = 0;
-
-  for (var i = 0; i < 8; i++) {
-      for (var j = 0; j < 8; j++) {
-          if (getStatus(board, i, j) === player) {
-              score += 1;
-          }
-      }
-  }
-
-  return score;
-}
+  return board.count(function(item) {return item === player});
+};
 
 var getStatus = function(board, i, j) {
     return board.get(i * 8 + j);
