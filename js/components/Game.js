@@ -2,7 +2,11 @@ var React = require('react');
 var Board = require('./Board');
 var PlayerInfo = require('./PlayerInfo');
 var WinnerMessage = require('./WinnerMessage');
+var UndoButton = require('./UndoButton');
 var PassButton = require('./PassButton');
+var Player = require('../lib/Player');
+
+var getScoreForPlayer = require('../lib/Board').getScoreForPlayer;
 
 var extend = require('object-assign');
 var buttonStyle = require('../styles/button');
@@ -18,7 +22,7 @@ var isEndOfGame = require('../lib/isEndOfGame');
 
 module.exports = React.createClass({
    getInitialState() {
-      return GameStore.getInitialState();
+      return GameStore.getState();
    },
    componentDidMount() {
       this.unsubscribe = GameStore.listen(this.onStateChange);
@@ -37,14 +41,18 @@ module.exports = React.createClass({
    render() {
       const styles = buildStyles();
 
+      const player1Score = getScoreForPlayer(this.state.board, Player.One);
+      const player2Score = getScoreForPlayer(this.state.board, Player.Two);
+
       return (
          <div>
-            <PlayerInfo currentPlayer={this.state.currentPlayer} player1Score={this.state.player1Score} player2Score={this.state.player2Score} />
-            <WinnerMessage player1Score={this.state.player1Score} player2Score={this.state.player2Score} />
+            <PlayerInfo currentPlayer={this.state.currentPlayer} player1Score={player1Score} player2Score={player2Score} />
+            <WinnerMessage player1Score={player1Score} player2Score={player2Score} />
             <Board currentPlayer={this.state.currentPlayer} board={this.state.board} playerHint={this.state.playerHint} />
             <div style={styles.buttonContainer}>
-               <PassButton gameOver={isEndOfGame(this.state.player1Score, this.state.player2Score)} />
-               <button style={styles.reset} onClick={GameActions.reset}>Reset</button>
+               <PassButton gameOver={isEndOfGame(player1Score, player2Score)} />
+               <UndoButton boardHistory={this.state.boardHistory} />
+               <button style={styles.button} onClick={GameActions.reset}>Reset</button>
             </div>
          </div>
       );
@@ -57,7 +65,7 @@ function buildStyles() {
          textAlign: 'center',
          marginTop: 30
       },
-      reset: extend({
+      button: extend({
          cursor: 'pointer'
       }, buttonStyle)
    };

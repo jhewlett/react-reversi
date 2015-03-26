@@ -5,5 +5,6 @@ module.exports = Reflux.createActions([
    'switchPlayer',
    'reset',
    'checkOverlayHint',
-   'removeHint'
+   'removeHint',
+   'undo'
 ]);

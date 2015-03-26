@@ -6,39 +6,39 @@ var extend = require('object-assign');
 var GameActions = require('../actions/GameActions');
 
 module.exports = React.createClass({
-  getInitialState() {
+   getInitialState() {
       return {
-        playerHint: Player.None
+         playerHint: Player.None
       };
-    },
-    handleClick() {
+   },
+   handleClick() {
       GameActions.makeMove(this.props.row, this.props.col);
-    },
-    handleMouseOver() {
+   },
+   handleMouseOver() {
       GameActions.checkOverlayHint(this.props.row, this.props.col);
-    },
-    handleMouseOut() {
+   },
+   handleMouseOut() {
       GameActions.removeHint(this.props.row, this.props.col);
-    },
-    render() {
+   },
+   render() {
       const styles = buildStyles(this.props.owner, this.props.playerHint, this.props.row, this.props.col, this.props.currentPlayer);
 
       return <td style = {styles} onClick={this.handleClick} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}></td>;
-    }
+   }
 });
 
 function buildStyles(owner, playerHint, row, col, currentPlayer) {
-  let cellAppearance;
+   let cellAppearance;
 
-  if (owner !== Player.None) {
-    cellAppearance = owner;
-  } else if (playerHint[0] === row && playerHint[1] === col) {
-    cellAppearance = currentPlayer;
-  } else {
-    cellAppearance = Player.None;
-  }
+   if (owner !== Player.None) {
+      cellAppearance = owner;
+   } else if (playerHint[0] === row && playerHint[1] === col) {
+      cellAppearance = currentPlayer;
+   } else {
+      cellAppearance = Player.None;
+   }
 
-  return extend({
-    border: '1px solid black'
-  }, cellStyle(cellAppearance));
+   return extend({
+      border: '1px solid black'
+   }, cellStyle(cellAppearance));
 }

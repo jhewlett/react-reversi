@@ -4,63 +4,76 @@ var Board = require('../lib/Board');
 var GameActions = require('../actions/GameActions');
 var merge = require('object-assign');
 var isEndOfGame = require('../lib/isEndOfGame');
+var Stack = require('immutable').Stack;
 
 var newGame = function() {
    return {
       currentPlayer: Player.One,
-      player1Score: 2,
-      player2Score: 2,
       board: Board.newGameBoard,
+      boardHistory: Stack().push(Board.newGameBoard),
       playerHint: []
    };
 };
 
 module.exports = Reflux.createStore({
    listenables: [GameActions],
-   init() {
+   init: function() {
       this.state = newGame();
    },
-   getInitialState() {
+   getState: function() {
       return this.state;
    },
-   onSwitchPlayer() {
+   onSwitchPlayer: function() {
       var nextPlayer = this.state.currentPlayer === Player.One ? Player.Two : Player.One;
 
       this.update({
          currentPlayer: nextPlayer
       });
    },
-   onMakeMove(row, col) {
+   onMakeMove: function(row, col) {
       var newBoard = Board.makeMove(this.state.board, row, col, this.state.currentPlayer);
 
       if (newBoard !== this.state.board) {
          this.update({
-            player1Score: Board.getScoreForPlayer(newBoard, Player.One),
-            player2Score: Board.getScoreForPlayer(newBoard, Player.Two),
+            boardHistory: this.state.boardHistory.push(newBoard),
             board: newBoard
          });
 
-         if (!isEndOfGame(this.state.player1Score, this.state.player2Score)) {
-            GameActions.switchPlayer();
+         const player1Score = Board.getScoreForPlayer(this.state.board, Player.One);
+         const player2Score = Board.getScoreForPlayer(this.state.board, Player.Two);
+
+         if (!isEndOfGame(player1Score, player2Score)) {
+            this.onSwitchPlayer();
          }
       }
    },
-   onCheckOverlayHint(row, col) {
+   onCheckOverlayHint: function(row, col) {
       if (Board.canMakeMove(this.state.board, row, col, this.state.currentPlayer)) {
          this.update({
             playerHint: [row, col]
          });
       }
    },
-   onRemoveHint(row, col) {
+   onRemoveHint: function(row, col) {
       this.update({
          playerHint: []
       });
    },
-   onReset() {
+   onUndo: function() {
+      var newBoardHistory = this.state.boardHistory.pop();
+      var previousBoard = newBoardHistory.peek();
+
+      this.update({
+         board: newBoardHistory.peek(),
+         boardHistory: newBoardHistory,
+      });
+
+      this.onSwitchPlayer();
+   },
+   onReset: function() {
       this.update(newGame());
    },
-   update(newState) {
+   update: function(newState) {
       this.state = merge(this.state, newState);
       this.trigger(this.state);
    }
