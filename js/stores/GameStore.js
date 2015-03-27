@@ -24,10 +24,13 @@ module.exports = Reflux.createStore({
       return this.state;
    },
    onSwitchPlayer: function() {
-      var nextPlayer = this.state.currentPlayer === Player.One ? Player.Two : Player.One;
+      var nextPlayer = this.state.currentPlayer === Player.One
+         ? Player.Two
+         : Player.One;
 
       this.update({
-         currentPlayer: nextPlayer
+         currentPlayer: nextPlayer,
+         boardHistory: this.state.boardHistory.push(this.state.board)
       });
    },
    onMakeMove: function(row, col) {
@@ -39,11 +42,15 @@ module.exports = Reflux.createStore({
             board: newBoard
          });
 
-         const player1Score = Board.getScoreForPlayer(this.state.board, Player.One);
-         const player2Score = Board.getScoreForPlayer(this.state.board, Player.Two);
+         const player1Score = Board.getScoreForPlayer(newBoard, Player.One);
+         const player2Score = Board.getScoreForPlayer(newBoard, Player.Two);
 
          if (!isEndOfGame(player1Score, player2Score)) {
-            this.onSwitchPlayer();
+            var nextPlayer = this.state.currentPlayer === Player.One
+               ? Player.Two
+               : Player.One;
+
+            this.update({currentPlayer: nextPlayer});
          }
       }
    },
@@ -63,12 +70,15 @@ module.exports = Reflux.createStore({
       var newBoardHistory = this.state.boardHistory.pop();
       var previousBoard = newBoardHistory.peek();
 
+      var nextPlayer = this.state.currentPlayer === Player.One
+         ? Player.Two
+         : Player.One;
+
       this.update({
          board: newBoardHistory.peek(),
          boardHistory: newBoardHistory,
+         currentPlayer: nextPlayer
       });
-
-      this.onSwitchPlayer();
    },
    onReset: function() {
       this.update(newGame());
