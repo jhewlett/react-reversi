@@ -7,16 +7,15 @@
     "test": "specs"
   },
   "scripts": {
-    "build": "browserify -t reactify ./js/app.js > ./build.js",
-    "watch": "watchify -t reactify ./js/app.js -o ./build.js -v",
-    "specs": "jasmine-node specs/"
+    "specs": "jest"
   },
   "author": "Justin Hewlett",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^4.7.16",
+    "babel-jest": "^4.0.0",
     "babel-loader": "~4.1.0",
-    "jasmine-node": "^1.14.5",
+    "jest-cli": "^0.4.0",
     "webpack": "~1.7.2"
   },
   "dependencies": {
@@ -25,5 +24,19 @@
     "object-assign": "~2.0.0",
     "react": "^0.13.1",
     "reflux": "~0.2.7"
+  },
+  "jest": {
+    "scriptPreprocessor": "./node_modules/babel-jest",
+    "testFileExtensions": [
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "testDirectoryName": "specs",
+    "unmockedModulePathPatterns": [
+      "./js",
+      "./node_modules"
+    ]
   }
 }

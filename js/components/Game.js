@@ -4,6 +4,7 @@ var PlayerInfo = require('./PlayerInfo');
 var WinnerMessage = require('./WinnerMessage');
 var UndoButton = require('./UndoButton');
 var PassButton = require('./PassButton');
+var ResetButton = require('./ResetButton');
 var Player = require('../lib/Player');
 
 var getScoreForPlayer = require('../lib/Board').getScoreForPlayer;
@@ -52,7 +53,7 @@ module.exports = React.createClass({
             <div style={styles.buttonContainer}>
                <PassButton gameOver={isEndOfGame(player1Score, player2Score)} />
                <UndoButton boardHistory={this.state.boardHistory} />
-               <button style={styles.button} onClick={GameActions.reset}>Reset</button>
+               <ResetButton boardHistory={this.state.boardHistory} />
             </div>
          </div>
       );
@@ -64,9 +65,6 @@ function buildStyles() {
       buttonContainer: {
          textAlign: 'center',
          marginTop: 30
-      },
-      button: extend({
-         cursor: 'pointer'
-      }, buttonStyle)
+      }
    };
 }

@@ -17,14 +17,14 @@ var newGame = function() {
 
 module.exports = Reflux.createStore({
    listenables: [GameActions],
-   init: function() {
+   init() {
       this.state = newGame();
    },
-   getState: function() {
+   getState() {
       return this.state;
    },
-   onSwitchPlayer: function() {
-      var nextPlayer = this.state.currentPlayer === Player.One
+   onSwitchPlayer() {
+      const nextPlayer = this.state.currentPlayer === Player.One
          ? Player.Two
          : Player.One;
 
@@ -33,8 +33,8 @@ module.exports = Reflux.createStore({
          boardHistory: this.state.boardHistory.push(this.state.board)
       });
    },
-   onMakeMove: function(row, col) {
-      var newBoard = Board.makeMove(this.state.board, row, col, this.state.currentPlayer);
+   onMakeMove(row, col) {
+      const newBoard = Board.makeMove(this.state.board, row, col, this.state.currentPlayer);
 
       if (newBoard !== this.state.board) {
          this.update({
@@ -46,7 +46,7 @@ module.exports = Reflux.createStore({
          const player2Score = Board.getScoreForPlayer(newBoard, Player.Two);
 
          if (!isEndOfGame(player1Score, player2Score)) {
-            var nextPlayer = this.state.currentPlayer === Player.One
+            const nextPlayer = this.state.currentPlayer === Player.One
                ? Player.Two
                : Player.One;
 
@@ -54,36 +54,34 @@ module.exports = Reflux.createStore({
          }
       }
    },
-   onCheckOverlayHint: function(row, col) {
+   onCheckOverlayHint(row, col) {
       if (Board.canMakeMove(this.state.board, row, col, this.state.currentPlayer)) {
          this.update({
             playerHint: [row, col]
          });
       }
    },
-   onRemoveHint: function(row, col) {
+   onRemoveHint(row, col) {
       this.update({
          playerHint: []
       });
    },
-   onUndo: function() {
-      var newBoardHistory = this.state.boardHistory.pop();
-      var previousBoard = newBoardHistory.peek();
-
-      var nextPlayer = this.state.currentPlayer === Player.One
+   onUndo() {
+      const previousBoardHistory = this.state.boardHistory.pop();
+      const nextPlayer = this.state.currentPlayer === Player.One
          ? Player.Two
          : Player.One;
 
       this.update({
-         board: newBoardHistory.peek(),
-         boardHistory: newBoardHistory,
+         board: previousBoardHistory.peek(),
+         boardHistory: previousBoardHistory,
          currentPlayer: nextPlayer
       });
    },
-   onReset: function() {
+   onReset() {
       this.update(newGame());
    },
-   update: function(newState) {
+   update(newState) {
       this.state = merge(this.state, newState);
       this.trigger(this.state);
    }

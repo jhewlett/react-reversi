@@ -13,7 +13,7 @@ module.exports = React.createClass({
       }, buttonStyle);
 
       return enabled
-         ? <button style={styles} onClick={GameActions.undo}>Undo</button>
-         : <button style={styles} disabled>Undo</button>;
+         ? <button style={styles} onClick={GameActions.reset}>Reset</button>
+         : <button style={styles} disabled>Reset</button>;
    }
 });

@@ -1,5 +1,5 @@
 var Board = require('../js/lib/Board');
-var newGameBoard = require('../js/lib/Board').newGameBoard;
+var newGameBoard = Board.newGameBoard;
 var GameStore = require('../js/stores/GameStore');
 var Player = require('../js/lib/Player');
 
@@ -37,7 +37,7 @@ describe('GameStore', function() {
          expect(state.boardHistory.size).toEqual(1);
       });
    });
-   
+
    describe('when undoing a pass', function() {
       beforeEach(function() {
          GameStore.onReset();

@@ -1,13 +1,13 @@
 var List = require('immutable').List;
 
-var Directions = require('./Direction');
+var directions = require('./Direction');
 var Player = require('./Player');
 
-var _directions = Directions();
+var _directions = directions();
 
 var makeMove = function(board, i, j, color) {
    if (getStatus(board, i, j) === Player.None) {
-      _directions.forEach(function(direction) {
+      _directions.forEach((direction) => {
          if (surroundsOppositePlayer(board, i, j, color, direction)) {
             board = colorCapturedCells(board, i, j, color, direction);
          }
@@ -65,9 +65,7 @@ var lineContainsColor = function(board, i, j, color, direction) {
 };
 
 var getScoreForPlayer = function(board, player) {
-   return board.count(function(item) {
-      return item === player
-   });
+   return board.count(item => item === player);
 };
 
 var getStatus = function(board, i, j) {

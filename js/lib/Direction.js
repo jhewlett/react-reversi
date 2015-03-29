@@ -1,4 +1,4 @@
-var Direction = function(rowIncrement, colIncrement){
+var direction = function(rowIncrement, colIncrement){
    var getNext = function(i, j) {
       var nextI = i + rowIncrement;
       var nextJ = j + colIncrement;
@@ -15,24 +15,24 @@ var Direction = function(rowIncrement, colIncrement){
    };
 };
 
-var Up = function() { return new Direction(-1, 0); };
-var Down = function() { return new Direction(1, 0); };
-var Left = function() { return new Direction(0, -1); };
-var Right = function() { return new Direction(0, 1); };
-var UpLeft = function() { return new Direction(-1, -1); };
-var UpRight = function() { return new Direction(-1, 1); };
-var DownLeft = function() { return new Direction(1, -1); };
-var DownRight = function() { return new Direction(1, 1); };
+var up = function() { return direction(-1, 0); };
+var down = function() { return direction(1, 0); };
+var left = function() { return direction(0, -1); };
+var right = function() { return direction(0, 1); };
+var upLeft = function() { return direction(-1, -1); };
+var upRight = function() { return direction(-1, 1); };
+var downLeft = function() { return direction(1, -1); };
+var downRight = function() { return direction(1, 1); };
 
 module.exports = function() {
    return [
-      new Up(),
-      new Down(),
-      new Left(),
-      new Right(),
-      new UpLeft(),
-      new UpRight(),
-      new DownLeft(),
-      new DownRight()
+      up(),
+      down(),
+      left(),
+      right(),
+      upLeft(),
+      upRight(),
+      downLeft(),
+      downRight()
    ];
 };
