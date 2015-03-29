@@ -29,16 +29,20 @@ module.exports = React.createClass({
 
 function buildStyles(owner, playerHint, row, col, currentPlayer) {
    let cellAppearance;
+   let hint;
 
    if (owner !== Player.None) {
       cellAppearance = owner;
+      hint = false;
    } else if (playerHint[0] === row && playerHint[1] === col) {
       cellAppearance = currentPlayer;
+      hint = true;
    } else {
       cellAppearance = Player.None;
    }
 
    return extend({
-      border: '1px solid black'
+      border: '1px solid black',
+      opacity: hint ? 0.6 : 1
    }, cellStyle(cellAppearance));
 }

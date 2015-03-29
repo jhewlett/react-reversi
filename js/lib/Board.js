@@ -64,8 +64,11 @@ var lineContainsColor = function(board, i, j, color, direction) {
    return lineContainsColor(board, next.row, next.col, color, direction);
 };
 
-var getScoreForPlayer = function(board, player) {
-   return board.count(item => item === player);
+var getScore = function(board) {
+   return {
+      player1: board.count(item => item === Player.One),
+      player2: board.count(item => item === Player.Two)
+   };
 };
 
 var getStatus = function(board, i, j) {
@@ -92,6 +95,6 @@ module.exports = {
    canMakeMove: canMakeMove,
    makeMove: makeMove,
    setCell: setCell,
-   getScoreForPlayer: getScoreForPlayer,
+   getScore: getScore,
    newGameBoard: newGameBoard
 };

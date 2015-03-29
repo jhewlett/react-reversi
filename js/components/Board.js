@@ -9,7 +9,7 @@ module.exports = React.createClass({
          backgroundColor: '#EEEEEE',
          border: '1px solid black'
       };
-      
+
       return (
          <table style={styles}>
             {[0,1,2,3,4,5,6,7].map(r =>

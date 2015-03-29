@@ -12,11 +12,11 @@ module.exports = React.createClass({
          <table style={styles.playerTable}>
             <tr>
                <td style={styles.player1.label}>Player 1</td>
-                  <td style={styles.player1.score}>{this.props.player1Score}</td>
+                  <td style={styles.player1.score}>{this.props.score.player1}</td>
                </tr>
             <tr>
                <td style={styles.player2.label}>Player 2</td>
-               <td style={styles.player2.score}>{this.props.player2Score}</td>
+               <td style={styles.player2.score}>{this.props.score.player2}</td>
             </tr>
          </table>
       );

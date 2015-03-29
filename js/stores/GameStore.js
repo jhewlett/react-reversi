@@ -42,10 +42,9 @@ module.exports = Reflux.createStore({
             board: newBoard
          });
 
-         const player1Score = Board.getScoreForPlayer(newBoard, Player.One);
-         const player2Score = Board.getScoreForPlayer(newBoard, Player.Two);
+         const score = Board.getScore(newBoard);
 
-         if (!isEndOfGame(player1Score, player2Score)) {
+         if (!isEndOfGame(score.player1, score.player2)) {
             const nextPlayer = this.state.currentPlayer === Player.One
                ? Player.Two
                : Player.One;

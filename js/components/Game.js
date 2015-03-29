@@ -1,25 +1,17 @@
 var React = require('react');
+var Reflux = require('reflux');
 var Board = require('./Board');
 var PlayerInfo = require('./PlayerInfo');
 var WinnerMessage = require('./WinnerMessage');
-var UndoButton = require('./UndoButton');
-var PassButton = require('./PassButton');
-var ResetButton = require('./ResetButton');
+var ButtonGroup = require('./ButtonGroup');
 var Player = require('../lib/Player');
 
-var getScoreForPlayer = require('../lib/Board').getScoreForPlayer;
-
-var extend = require('object-assign');
-var buttonStyle = require('../styles/button');
+var getScore = require('../lib/Board').getScore;
 
 var GameActions = require('../actions/GameActions');
 var GameStore = require('../stores/GameStore');
 
 var _ = require('lodash');
-
-var Reflux = require('reflux');
-
-var isEndOfGame = require('../lib/isEndOfGame');
 
 module.exports = React.createClass({
    getInitialState() {
@@ -40,31 +32,15 @@ module.exports = React.createClass({
          || !_.isEqual(this.state.playerHint, nextState.playerHint);
    },
    render() {
-      const styles = buildStyles();
-
-      const player1Score = getScoreForPlayer(this.state.board, Player.One);
-      const player2Score = getScoreForPlayer(this.state.board, Player.Two);
+      const score = getScore(this.state.board);
 
       return (
          <div>
-            <PlayerInfo currentPlayer={this.state.currentPlayer} player1Score={player1Score} player2Score={player2Score} />
-            <WinnerMessage player1Score={player1Score} player2Score={player2Score} />
+            <PlayerInfo currentPlayer={this.state.currentPlayer} score={score} />
+            <WinnerMessage score={score} />
             <Board currentPlayer={this.state.currentPlayer} board={this.state.board} playerHint={this.state.playerHint} />
-            <div style={styles.buttonContainer}>
-               <PassButton gameOver={isEndOfGame(player1Score, player2Score)} />
-               <UndoButton boardHistory={this.state.boardHistory} />
-               <ResetButton boardHistory={this.state.boardHistory} />
-            </div>
+            <ButtonGroup score={score} boardHistory={this.state.boardHistory} />
          </div>
       );
    }
 });
-
-function buildStyles() {
-   return {
-      buttonContainer: {
-         textAlign: 'center',
-         marginTop: 30
-      }
-   };
-}

@@ -12,10 +12,11 @@ describe('GameStore', function() {
 
       it('should have new game state', function() {
          var state = GameStore.getState();
+         var score = Board.getScore(state.board);
 
          expect(state.currentPlayer).toEqual(Player.Two);
-         expect(Board.getScoreForPlayer(state.board, Player.One)).toEqual(4);
-         expect(Board.getScoreForPlayer(state.board, Player.Two)).toEqual(1);
+         expect(score.player1).toEqual(4);
+         expect(score.player2).toEqual(1);
          expect(state.boardHistory.size).toEqual(2);
       });
    });
@@ -29,10 +30,11 @@ describe('GameStore', function() {
 
       it('should have original game state', function() {
          var state = GameStore.getState();
+         var score = Board.getScore(state.board);
 
          expect(state.currentPlayer).toEqual(Player.One);
-         expect(Board.getScoreForPlayer(state.board, Player.One)).toEqual(2);
-         expect(Board.getScoreForPlayer(state.board, Player.Two)).toEqual(2);
+         expect(score.player1).toEqual(2);
+         expect(score.player2).toEqual(2);
          expect(state.board).toEqual(newGameBoard);
          expect(state.boardHistory.size).toEqual(1);
       });
@@ -47,10 +49,11 @@ describe('GameStore', function() {
 
       it('should have original game state', function() {
          var state = GameStore.getState();
+         var score = Board.getScore(state.board);
 
          expect(state.currentPlayer).toEqual(Player.One);
-         expect(Board.getScoreForPlayer(state.board, Player.One)).toEqual(2);
-         expect(Board.getScoreForPlayer(state.board, Player.Two)).toEqual(2);
+         expect(score.player1).toEqual(2);
+         expect(score.player2).toEqual(2);
          expect(state.board).toEqual(newGameBoard);
          expect(state.boardHistory.size).toEqual(1);
       });
