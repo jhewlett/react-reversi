@@ -1,7 +1,7 @@
-var List = require('immutable').List;
+import { List } from 'immutable';
 
-var directions = require('./Direction');
-var Player = require('./Player');
+import directions from './Direction';
+import Player from './Player';
 
 var _directions = directions();
 
@@ -90,7 +90,7 @@ var newGameBoard = List(
     0, 0, 0, 0, 0, 0, 0, 0
 ]);
 
-module.exports = {
+export default {
    getStatus: getStatus,
    canMakeMove: canMakeMove,
    makeMove: makeMove,

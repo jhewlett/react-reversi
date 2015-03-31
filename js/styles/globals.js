@@ -1,3 +1,3 @@
-module.exports = {
+export default {
    fontSize: 24
 };

@@ -1,7 +1,7 @@
-var React = require('react');
-var GameActions = require('../actions/GameActions');
+import React from 'react';
+import GameActions from '../actions/GameActions';
 
-module.exports = React.createClass({
+export default React.createClass({
    render() {
       const styles = {
          cursor: this.props.disabled ? 'default' : 'pointer',

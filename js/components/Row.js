@@ -1,8 +1,8 @@
-var React = require('react');
-var Cell = require('./Cell');
-var Board = require('../lib/Board.js');
+import React from 'react';
+import Cell from './Cell';
+import Board from '../lib/Board.js';
 
-module.exports = React.createClass({
+export default React.createClass({
    render() {
       return (
          <tr>

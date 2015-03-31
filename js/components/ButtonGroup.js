@@ -1,10 +1,10 @@
-var React = require('react');
-var Button = require('./Button');
+import React from 'react';
+import Button from './Button';
 
-var GameActions = require('../actions/GameActions');
-var isEndOfGame = require('../lib/isEndOfGame');
+import GameActions from '../actions/GameActions';
+import isEndOfGame from '../lib/isEndOfGame';
 
-module.exports = React.createClass({
+export default React.createClass({
    render() {
       const gameOver = isEndOfGame(this.props.score.player1, this.props.score.player2);
       const hasMoves = this.props.boardHistory.size > 1;

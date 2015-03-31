@@ -1,19 +1,18 @@
-var React = require('react');
-var Reflux = require('reflux');
-var Board = require('./Board');
-var PlayerInfo = require('./PlayerInfo');
-var WinnerMessage = require('./WinnerMessage');
-var ButtonGroup = require('./ButtonGroup');
-var Player = require('../lib/Player');
+import React from 'react';
+import Reflux from 'reflux';
+import Board from './Board';
+import PlayerInfo from './PlayerInfo';
+import WinnerMessage from './WinnerMessage';
+import ButtonGroup from './ButtonGroup';
+import Player from '../lib/Player';
+import { getScore } from '../lib/Board';
 
-var getScore = require('../lib/Board').getScore;
+import GameActions from '../actions/GameActions';
+import GameStore from '../stores/GameStore';
 
-var GameActions = require('../actions/GameActions');
-var GameStore = require('../stores/GameStore');
+import lodash from 'lodash';
 
-var _ = require('lodash');
-
-module.exports = React.createClass({
+export default React.createClass({
    getInitialState() {
       return GameStore.getState();
    },

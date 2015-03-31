@@ -1,10 +1,10 @@
-var Reflux = require('reflux');
-var Player = require('../lib/Player');
-var Board = require('../lib/Board');
-var GameActions = require('../actions/GameActions');
-var merge = require('object-assign');
-var isEndOfGame = require('../lib/isEndOfGame');
-var Stack = require('immutable').Stack;
+import Reflux from 'reflux';
+import Player from '../lib/Player';
+import Board from '../lib/Board';
+import GameActions from '../actions/GameActions';
+import merge from 'object-assign';
+import isEndOfGame from '../lib/isEndOfGame';
+import { Stack } from 'immutable';
 
 var newGame = function() {
    return {
@@ -15,7 +15,7 @@ var newGame = function() {
    };
 };
 
-module.exports = Reflux.createStore({
+export default Reflux.createStore({
    listenables: [GameActions],
    init() {
       this.state = newGame();

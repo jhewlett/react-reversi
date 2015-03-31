@@ -1,4 +1,4 @@
-var React = require('react');
-var Game = require('./components/Game');
+import React from 'react';
+import Game from './components/Game';
 
 React.render(<Game />, document.getElementById('react-app'));

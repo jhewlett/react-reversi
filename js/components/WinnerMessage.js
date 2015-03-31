@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 var getWinnerMessage = function(score) {
    if (score.player1 === 0) {
@@ -18,7 +18,7 @@ var getWinnerMessage = function(score) {
    return '';
 };
 
-module.exports = React.createClass({
+export default React.createClass({
    render() {
       const styles = {
          textAlign: 'center',

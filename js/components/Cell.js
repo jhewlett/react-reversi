@@ -1,11 +1,11 @@
-var React = require('react');
-var Player = require('../lib/Player');
-var cellStyle = require('../styles/cell');
-var extend = require('object-assign');
+import React from 'react';
+import Player from '../lib/Player';
+import cellStyle from '../styles/cell';
+import extend from 'object-assign';
 
-var GameActions = require('../actions/GameActions');
+import GameActions from '../actions/GameActions';
 
-module.exports = React.createClass({
+export default React.createClass({
    getInitialState() {
       return {
          playerHint: Player.None
