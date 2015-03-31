@@ -27,8 +27,7 @@ module.exports = React.createClass({
       this.setState(state);
    },
    shouldComponentUpdate(nextProps, nextState) {
-      return this.state.board !== nextState.board
-         || this.state.currentPlayer !== nextState.currentPlayer
+      return this.state.boardHistory !== nextState.boardHistory
          || !_.isEqual(this.state.playerHint, nextState.playerHint);
    },
    render() {
