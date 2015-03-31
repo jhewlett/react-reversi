@@ -7,8 +7,8 @@ export default React.createClass({
       return (
          <tr>
             {[0,1,2,3,4,5,6,7].map(c =>
-               <Cell row={this.props.row} owner={Board.getStatus(this.props.board, this.props.row, c)} playerHint={this.props.playerHint}
-               currentPlayer={this.props.currentPlayer} col={c} key={c} />
+               <Cell row={this.props.row} col={c} owner={Board.getStatus(this.props.board, this.props.row, c)} playerHint={this.props.playerHint}
+               currentPlayer={this.props.currentPlayer} key={c} />
             )}
          </tr>
       );

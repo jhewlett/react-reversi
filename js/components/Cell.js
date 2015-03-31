@@ -6,11 +6,6 @@ import extend from 'object-assign';
 import GameActions from '../actions/GameActions';
 
 export default React.createClass({
-   getInitialState() {
-      return {
-         playerHint: Player.None
-      };
-   },
    handleClick() {
       GameActions.makeMove(this.props.row, this.props.col);
    },
@@ -28,21 +23,20 @@ export default React.createClass({
 });
 
 function buildStyles(owner, playerHint, row, col, currentPlayer) {
+   const isHint = playerHint[0] === row && playerHint[1] === col;
+
    let cellAppearance;
-   let hint;
 
    if (owner !== Player.None) {
       cellAppearance = owner;
-      hint = false;
-   } else if (playerHint[0] === row && playerHint[1] === col) {
+   } else if (isHint) {
       cellAppearance = currentPlayer;
-      hint = true;
    } else {
       cellAppearance = Player.None;
    }
 
    return extend({
       border: '1px solid black',
-      opacity: hint ? 0.6 : 1
+      opacity: isHint ? 0.6 : 1
    }, cellStyle(cellAppearance));
 }
