@@ -4,14 +4,14 @@ import Board from '../lib/Board';
 import GameActions from '../actions/GameActions';
 import merge from 'object-assign';
 import isEndOfGame from '../lib/isEndOfGame';
-import { Stack } from 'immutable';
+import { Stack, Map } from 'immutable';
 
 var newGame = function() {
    return {
       currentPlayer: Player.One,
       board: Board.newGameBoard,
       boardHistory: Stack().push(Board.newGameBoard),
-      playerHint: []
+      playerHint: Map()
    };
 };
 
@@ -56,13 +56,13 @@ export default Reflux.createStore({
    onCheckOverlayHint(row, col) {
       if (Board.canMakeMove(this.state.board, row, col, this.state.currentPlayer)) {
          this.update({
-            playerHint: [row, col]
+            playerHint: Map({ row, col, player: this.state.currentPlayer})
          });
       }
    },
    onRemoveHint(row, col) {
       this.update({
-         playerHint: []
+         playerHint: Map()
       });
    },
    onUndo() {

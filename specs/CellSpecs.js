@@ -6,6 +6,8 @@ var GameActions = require('../js/actions/GameActions');
 var GameStore = require('../js/stores/GameStore');
 var Board = require('../js/lib/Board');
 
+var Map = require('immutable').Map;
+
 var buildCell = function(props) {
    var cell = TestUtils.renderIntoDocument(Cell(props));
 
@@ -14,7 +16,7 @@ var buildCell = function(props) {
 
 describe('cell', function() {
    it('makes a move on click', function() {
-      var cell = buildCell({row: 2, col: 3, owner: 0, playerHint: [], currentPlayer: 1});
+      var cell = buildCell({row: 2, col: 3, owner: 0, playerHint: Map()});
 
       TestUtils.Simulate.click(cell);
       jest.runAllTimers();
@@ -23,29 +25,35 @@ describe('cell', function() {
    });
 
    it('renders player one cells as red', function() {
-      var cell = buildCell({row: 2, col: 3, owner: 1, playerHint: [], currentPlayer: 1});
+      var cell = buildCell({row: 2, col: 3, owner: 1, playerHint: Map()});
 
       expect(cell.props.style.backgroundImage).toEqual('url("img/red.png")');
       expect(cell.props.style.opacity).toEqual(1);
    });
 
    it('renders player two cells as blue', function() {
-      var cell = buildCell({row: 2, col: 3, owner: 2, playerHint: [], currentPlayer: 1});
+      var cell = buildCell({row: 2, col: 3, owner: 2, playerHint: Map()});
 
       expect(cell.props.style.backgroundImage).toEqual('url("img/blue.png")');
       expect(cell.props.style.opacity).toEqual(1);
    });
 
    it('renders player hints when the coordinates match', function() {
-      var cell = buildCell({row: 2, col: 3, owner: 0, playerHint: [2, 3], currentPlayer: 2});
+      var cell = buildCell({row: 2, col: 3, owner: 0, playerHint: Map({row: 2, col: 3, player: 2})});
 
       expect(cell.props.style.backgroundImage).toMatch('blue');
       expect(cell.props.style.opacity).toEqual(0.6);
    });
 
    it('does not render player hints when the coordinates dont match', function() {
-      var cell = buildCell({row: 2, col: 4, owner: 0, playerHint: [2, 3], currentPlayer: 1});
+      var cell = buildCell({row: 2, col: 4, owner: 0, playerHint: Map({row: 2, col: 3, player: 1})});
 
       expect(cell.props.style.backgroundImage).toEqual('none');
+   });
+
+   it('renders cell with full opacity when it has both an owner and player hint', function() {
+      var cell = buildCell({row: 2, col: 3, owner: 1, playerHint: Map({row: 2, col: 3, player: 1})})
+
+      expect(cell.props.style.opacity).toEqual(1);      
    });
 });

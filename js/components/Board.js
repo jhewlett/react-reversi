@@ -13,7 +13,7 @@ export default React.createClass({
       return (
          <table style={styles}>
             {[0,1,2,3,4,5,6,7].map(r =>
-               <Row row={r} board={this.props.board} playerHint={this.props.playerHint} currentPlayer={this.props.currentPlayer} key={r}/>
+               <Row row={r} board={this.props.board} playerHint={this.props.playerHint} key={r}/>
             )}
          </table>
       );
