@@ -5,9 +5,15 @@ import extend from 'object-assign';
 
 import GameActions from '../actions/GameActions';
 
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 
 export default React.createClass({
+   propTypes: {
+      row: React.PropTypes.number.isRequired,
+      col: React.PropTypes.number.isRequired,
+      owner: React.PropTypes.number.isRequired,
+      playerHint: React.PropTypes.instanceOf(Map).isRequired
+   },
    handleClick() {
       GameActions.makeMove(this.props.row, this.props.col);
    },

@@ -2,6 +2,11 @@ import React from 'react';
 import GameActions from '../actions/GameActions';
 
 export default React.createClass({
+   propTypes: {
+      children: React.PropTypes.string.isRequired,
+      action: React.PropTypes.func.isRequired,
+      disabled: React.PropTypes.bool.isRequired
+   },
    render() {
       const styles = {
          cursor: this.props.disabled ? 'default' : 'pointer',

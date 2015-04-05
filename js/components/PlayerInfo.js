@@ -5,6 +5,13 @@ import cellStyle from '../styles/cell';
 import globals from '../styles/globals';
 
 export default React.createClass({
+   propTypes: {
+      currentPlayer: React.PropTypes.number.isRequired,
+      score: React.PropTypes.shape({
+         player1: React.PropTypes.number.isRequired,
+         player2: React.PropTypes.number.isRequired
+      })
+   },
    render() {
       const styles = buildStyles(this.props.currentPlayer);
 

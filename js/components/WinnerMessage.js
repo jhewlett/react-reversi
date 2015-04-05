@@ -19,6 +19,12 @@ var getWinnerMessage = function(score) {
 };
 
 export default React.createClass({
+   propTypes: {
+      score: React.PropTypes.shape({
+         player1: React.PropTypes.number.isRequired,
+         player2: React.PropTypes.number.isRequired
+      })
+   },
    render() {
       const styles = {
          textAlign: 'center',
