@@ -10,33 +10,33 @@ import { getScore } from '../lib/Board';
 import GameActions from '../actions/GameActions';
 import GameStore from '../stores/GameStore';
 
-export default React.createClass({
-   getInitialState() {
-      return GameStore.getState();
-   },
-   componentDidMount() {
-      this.unsubscribe = GameStore.listen(this.onStateChange);
-   },
-   componentWillUnmount() {
-      this.unsubscribe();
-   },
-   onStateChange(state) {
-      this.setState(state);
+import connectToStore from '../stores/connectToStore';
+
+import { Stack, Map, List } from 'immutable';
+
+const Game = React.createClass({
+   propTypes: {
+      boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
+      playerHint: React.PropTypes.instanceOf(Map).isRequired,
+      board: React.PropTypes.instanceOf(List).isRequired,
+      currentPlayer: React.PropTypes.number.isRequired
    },
    shouldComponentUpdate(nextProps, nextState) {
-      return this.state.boardHistory !== nextState.boardHistory
-         || this.state.playerHint !== nextState.playerHint;
+      return this.props.boardHistory !== nextProps.boardHistory
+         || this.props.playerHint !== nextProps.playerHint;
    },
    render() {
-      const score = getScore(this.state.board);
+      const score = getScore(this.props.board);
 
       return (
          <div>
-            <PlayerInfo currentPlayer={this.state.currentPlayer} score={score} />
+            <PlayerInfo currentPlayer={this.props.currentPlayer} score={score} />
             <WinnerMessage score={score} />
-            <Board board={this.state.board} playerHint={this.state.playerHint} />
-            <ButtonGroup score={score} boardHistory={this.state.boardHistory} />
+            <Board board={this.props.board} playerHint={this.props.playerHint} />
+            <ButtonGroup score={score} boardHistory={this.props.boardHistory} />
          </div>
       );
    }
 });
+
+export default connectToStore(Game, GameStore, store => store.getState());
