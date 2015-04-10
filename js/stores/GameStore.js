@@ -8,6 +8,8 @@ import { EventEmitter } from 'events';
 
 const emitter = new EventEmitter();
 
+let _state = newGame();
+
 function newGame() {
    return {
       currentPlayer: Player.One,
@@ -16,8 +18,6 @@ function newGame() {
       playerHint: Map()
    };
 };
-
-var _state = newGame();
 
 function getState() {
    return _state;
