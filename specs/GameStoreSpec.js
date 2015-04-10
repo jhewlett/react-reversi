@@ -6,8 +6,8 @@ var Player = require('../js/lib/Player');
 describe('GameStore', function() {
    describe('when making a move', function() {
       beforeEach(function() {
-         GameStore.onReset();
-         GameStore.onMakeMove(2, 3);
+         GameStore.reset();
+         GameStore.makeMove(2, 3);
       });
 
       it('should have new game state', function() {
@@ -23,9 +23,9 @@ describe('GameStore', function() {
 
    describe('when undoing a move', function() {
       beforeEach(function() {
-         GameStore.onReset();
-         GameStore.onMakeMove(2, 3);
-         GameStore.onUndo();
+         GameStore.reset();
+         GameStore.makeMove(2, 3);
+         GameStore.undo();
       });
 
       it('should have original game state', function() {
@@ -42,9 +42,9 @@ describe('GameStore', function() {
 
    describe('when undoing a pass', function() {
       beforeEach(function() {
-         GameStore.onReset();
-         GameStore.onSwitchPlayer();
-         GameStore.onUndo();
+         GameStore.reset();
+         GameStore.switchPlayer();
+         GameStore.undo();
       });
 
       it('should have original game state', function() {

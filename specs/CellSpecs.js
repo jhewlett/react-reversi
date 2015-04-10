@@ -1,8 +1,6 @@
 var React = require('react/addons');
-var Reflux = require('reflux');
 var Cell = React.createFactory(require('../js/components/Cell'));
 var TestUtils = React.addons.TestUtils;
-var GameActions = require('../js/actions/GameActions');
 var GameStore = require('../js/stores/GameStore');
 var Board = require('../js/lib/Board');
 
@@ -54,6 +52,6 @@ describe('cell', function() {
    it('renders cell with full opacity when it has both an owner and player hint', function() {
       var cell = buildCell({row: 2, col: 3, owner: 1, playerHint: Map({row: 2, col: 3, player: 1})})
 
-      expect(cell.props.style.opacity).toEqual(1);      
+      expect(cell.props.style.opacity).toEqual(1);
    });
 });

@@ -1,5 +1,4 @@
 import React from 'react';
-import GameActions from '../actions/GameActions';
 
 export default React.createClass({
    propTypes: {

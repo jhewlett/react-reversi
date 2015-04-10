@@ -1,12 +1,14 @@
-import Reflux from 'reflux';
 import Player from '../lib/Player';
 import Board from '../lib/Board';
-import GameActions from '../actions/GameActions';
 import merge from 'object-assign';
 import isEndOfGame from '../lib/isEndOfGame';
 import { Stack, Map } from 'immutable';
 
-var newGame = function() {
+import { EventEmitter } from 'events';
+
+const emitter = new EventEmitter();
+
+function newGame() {
    return {
       currentPlayer: Player.One,
       board: Board.newGameBoard,
@@ -15,73 +17,97 @@ var newGame = function() {
    };
 };
 
-export default Reflux.createStore({
-   listenables: [GameActions],
-   init() {
-      this.state = newGame();
-   },
-   getState() {
-      return this.state;
-   },
-   onSwitchPlayer() {
-      const nextPlayer = this.state.currentPlayer === Player.One
-         ? Player.Two
-         : Player.One;
+var _state = newGame();
 
-      this.update({
-         currentPlayer: nextPlayer,
-         boardHistory: this.state.boardHistory.push(this.state.board)
+function getState() {
+   return _state;
+};
+
+function switchPlayer() {
+   const nextPlayer = _state.currentPlayer === Player.One
+      ? Player.Two
+      : Player.One;
+
+   update({
+      currentPlayer: nextPlayer,
+      boardHistory: _state.boardHistory.push(_state.board)
+   });
+};
+
+function makeMove(row, col) {
+   const newBoard = Board.makeMove(_state.board, row, col, _state.currentPlayer);
+
+   if (newBoard !== _state.board) {
+      update({
+         boardHistory: _state.boardHistory.push(newBoard),
+         board: newBoard
       });
-   },
-   onMakeMove(row, col) {
-      const newBoard = Board.makeMove(this.state.board, row, col, this.state.currentPlayer);
 
-      if (newBoard !== this.state.board) {
-         this.update({
-            boardHistory: this.state.boardHistory.push(newBoard),
-            board: newBoard
-         });
+      const score = Board.getScore(newBoard);
 
-         const score = Board.getScore(newBoard);
+      if (!isEndOfGame(score.player1, score.player2)) {
+         const nextPlayer = _state.currentPlayer === Player.One
+            ? Player.Two
+            : Player.One;
 
-         if (!isEndOfGame(score.player1, score.player2)) {
-            const nextPlayer = this.state.currentPlayer === Player.One
-               ? Player.Two
-               : Player.One;
-
-            this.update({currentPlayer: nextPlayer});
-         }
+         update({currentPlayer: nextPlayer});
       }
-   },
-   onCheckOverlayHint(row, col) {
-      if (Board.canMakeMove(this.state.board, row, col, this.state.currentPlayer)) {
-         this.update({
-            playerHint: Map({ row, col, player: this.state.currentPlayer})
-         });
-      }
-   },
-   onRemoveHint(row, col) {
-      this.update({
-         playerHint: Map()
-      });
-   },
-   onUndo() {
-      const previousBoardHistory = this.state.boardHistory.pop();
-      const nextPlayer = this.state.currentPlayer === Player.One
-         ? Player.Two
-         : Player.One;
-
-      this.update({
-         board: previousBoardHistory.peek(),
-         boardHistory: previousBoardHistory,
-         currentPlayer: nextPlayer
-      });
-   },
-   onReset() {
-      this.update(newGame());
-   },
-   update(newState) {
-      this.state = merge(this.state, newState);
-      this.trigger(this.state);
    }
-});
+};
+
+function checkOverlayHint(row, col) {
+   if (Board.canMakeMove(_state.board, row, col, _state.currentPlayer)) {
+      update({
+         playerHint: Map({ row, col, player: _state.currentPlayer})
+      });
+   }
+};
+
+function removeHint(row, col) {
+   update({
+      playerHint: Map()
+   });
+};
+
+function undo() {
+   const previousBoardHistory = _state.boardHistory.pop();
+   const nextPlayer = _state.currentPlayer === Player.One
+      ? Player.Two
+      : Player.One;
+
+   update({
+      board: previousBoardHistory.peek(),
+      boardHistory: previousBoardHistory,
+      currentPlayer: nextPlayer
+   });
+};
+
+function reset() {
+   update(newGame());
+};
+
+function subscribe(callback) {
+   emitter.addListener('change', callback);
+};
+
+function unsubscribe(callback) {
+   emitter.removeListener(callback);
+};
+
+function update(newState) {
+   _state = merge(_state, newState);
+
+   emitter.emit('change', _state);
+};
+
+export default {
+   getState,
+   switchPlayer,
+   makeMove,
+   checkOverlayHint,
+   removeHint,
+   undo,
+   reset,
+   subscribe,
+   unsubscribe
+};

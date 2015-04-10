@@ -3,7 +3,7 @@ import Player from '../lib/Player';
 import cellStyle from '../styles/cell';
 import extend from 'object-assign';
 
-import GameActions from '../actions/GameActions';
+import GameStore from '../stores/GameStore';
 
 import { List, Map } from 'immutable';
 
@@ -15,13 +15,13 @@ export default React.createClass({
       playerHint: React.PropTypes.instanceOf(Map).isRequired
    },
    handleClick() {
-      GameActions.makeMove(this.props.row, this.props.col);
+      GameStore.makeMove(this.props.row, this.props.col);
    },
    handleMouseOver() {
-      GameActions.checkOverlayHint(this.props.row, this.props.col);
+      GameStore.checkOverlayHint(this.props.row, this.props.col);
    },
    handleMouseOut() {
-      GameActions.removeHint(this.props.row, this.props.col);
+      GameStore.removeHint(this.props.row, this.props.col);
    },
    render() {
       const styles = buildStyles(this.props.owner, this.props.playerHint, this.props.row, this.props.col);

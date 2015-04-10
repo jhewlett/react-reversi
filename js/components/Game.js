@@ -1,5 +1,4 @@
 import React from 'react';
-import Reflux from 'reflux';
 import Board from './Board';
 import PlayerInfo from './PlayerInfo';
 import WinnerMessage from './WinnerMessage';
@@ -7,7 +6,6 @@ import ButtonGroup from './ButtonGroup';
 import Player from '../lib/Player';
 import { getScore } from '../lib/Board';
 
-import GameActions from '../actions/GameActions';
 import GameStore from '../stores/GameStore';
 
 import connectToStore from '../stores/connectToStore';

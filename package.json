@@ -22,8 +22,7 @@
     "immutable": "^3.6.4",
     "lodash": "^3.5.0",
     "object-assign": "~2.0.0",
-    "react": "^0.13.1",
-    "reflux": "~0.2.7"
+    "react": "^0.13.1"
   },
   "jest": {
     "scriptPreprocessor": "./node_modules/babel-jest",
