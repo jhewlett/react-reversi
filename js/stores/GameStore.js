@@ -88,10 +88,8 @@ function reset() {
 
 function subscribe(callback) {
    emitter.addListener('change', callback);
-};
 
-function unsubscribe(callback) {
-   emitter.removeListener(callback);
+   return () => emitter.removeListener('change', callback);
 };
 
 function update(newState) {
@@ -108,6 +106,5 @@ export default {
    removeHint,
    undo,
    reset,
-   subscribe,
-   unsubscribe
+   subscribe
 };

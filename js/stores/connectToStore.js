@@ -6,10 +6,10 @@ export default function(Component, store, getStateFromStore) {
          return getStateFromStore(store);
       },
       componentDidMount() {
-         store.subscribe(this.onStateChange);
+         this.unsubscribe = store.subscribe(this.onStateChange);
       },
       componentWillUnmount() {
-         store.unsubscribe(this.onStateChange);
+         this.unsubscribe();
       },
       onStateChange(state) {
          this.setState(state);
