@@ -1,20 +1,19 @@
 import React from 'react';
 import fluce from '../fluce';
 
-export default function(Component) {
+export default function(Component, storeName) {
    return React.createClass({
       getInitialState() {
-         return fluce.stores.GameStore;
+         return fluce.stores[storeName];
       },
       componentDidMount() {
-         this.unsubscribe = fluce.subscribe(['GameStore'], this.onStateChange);
+         this.unsubscribe = fluce.subscribe([storeName], this.onStateChange);
       },
       componentWillUnmount() {
          this.unsubscribe();
       },
       onStateChange() {
-         console.log(fluce.stores.GameStore);
-         this.setState(fluce.stores.GameStore);
+         this.setState(fluce.stores[storeName]);
       },
       render() {
          return <Component {...this.state} />

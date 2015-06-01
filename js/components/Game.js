@@ -17,10 +17,6 @@ const Game = React.createClass({
       board: React.PropTypes.instanceOf(List).isRequired,
       currentPlayer: React.PropTypes.number.isRequired
    },
-   shouldComponentUpdate(nextProps, nextState) {
-      return this.props.boardHistory !== nextProps.boardHistory
-         || this.props.playerHint !== nextProps.playerHint;
-   },
    render() {
       const score = getScore(this.props.board);
 
@@ -35,4 +31,4 @@ const Game = React.createClass({
    }
 });
 
-export default connectToStore(Game);
+export default connectToStore(Game, 'GameStore');

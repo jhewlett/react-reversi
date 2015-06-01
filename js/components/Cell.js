@@ -2,9 +2,7 @@ import React from 'react';
 import Player from '../lib/Player';
 import cellStyle from '../styles/cell';
 import extend from 'object-assign';
-
 import { List, Map } from 'immutable';
-
 import fluce from '../fluce';
 
 export default React.createClass({

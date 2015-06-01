@@ -2,8 +2,8 @@ import Player from '../lib/Player';
 import Board from '../lib/Board';
 import isEndOfGame from '../lib/isEndOfGame';
 import { Stack, Map } from 'immutable';
-
 import { EventEmitter } from 'events';
+import merge from '../util/merge';
 
 function newGame() {
    return {
@@ -13,15 +13,6 @@ function newGame() {
       playerHint: Map()
    };
 };
-
-function merge(state, {currentPlayer, board, boardHistory, playerHint}) {
-   return {
-      currentPlayer: currentPlayer || state.currentPlayer,
-      board: board || state.board,
-      boardHistory: boardHistory || state.boardHistory,
-      playerHint: playerHint || state.playerHint
-   };
-}
 
 const GameStore = {
    initial() {
@@ -75,7 +66,7 @@ const GameStore = {
          return state;
       },
       removeHint(state, {row, col}) {
-         //if (state.playerHint.equals(Map())) return state;
+         if (state.playerHint.equals(Map())) return state;
 
          return merge(state, {
             playerHint: Map()
