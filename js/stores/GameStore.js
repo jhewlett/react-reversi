@@ -1,14 +1,9 @@
 import Player from '../lib/Player';
 import Board from '../lib/Board';
-import merge from 'object-assign';
 import isEndOfGame from '../lib/isEndOfGame';
 import { Stack, Map } from 'immutable';
 
 import { EventEmitter } from 'events';
-
-const emitter = new EventEmitter();
-
-let _state = newGame();
 
 function newGame() {
    return {
@@ -19,92 +14,89 @@ function newGame() {
    };
 };
 
-function getState() {
-   return _state;
-};
+function merge(state, {currentPlayer, board, boardHistory, playerHint}) {
+   return {
+      currentPlayer: currentPlayer || state.currentPlayer,
+      board: board || state.board,
+      boardHistory: boardHistory || state.boardHistory,
+      playerHint: playerHint || state.playerHint
+   };
+}
 
-function switchPlayer() {
-   const nextPlayer = _state.currentPlayer === Player.One
-      ? Player.Two
-      : Player.One;
-
-   update({
-      currentPlayer: nextPlayer,
-      boardHistory: _state.boardHistory.push(_state.board)
-   });
-};
-
-function makeMove(row, col) {
-   const newBoard = Board.makeMove(_state.board, row, col, _state.currentPlayer);
-
-   if (newBoard !== _state.board) {
-      update({
-         boardHistory: _state.boardHistory.push(newBoard),
-         board: newBoard
-      });
-
-      const score = Board.getScore(newBoard);
-
-      if (!isEndOfGame(score.player1, score.player2)) {
-         const nextPlayer = _state.currentPlayer === Player.One
+const GameStore = {
+   initial() {
+      return newGame();
+   },
+   reducers: {
+      switchPlayer(state, payload) {
+         const nextPlayer = state.currentPlayer === Player.One
             ? Player.Two
             : Player.One;
 
-         update({currentPlayer: nextPlayer});
+         return merge(state, {
+            currentPlayer: nextPlayer,
+            boardHistory: state.boardHistory.push(state.board)
+         });
+      },
+      makeMove(state, {row, col}) {
+         const newBoard = Board.makeMove(state.board, row, col, state.currentPlayer);
+
+         if (newBoard !== state.board) {
+            const newHistory = state.boardHistory.push(newBoard)
+            const score = Board.getScore(newBoard);
+
+            if (!isEndOfGame(score.player1, score.player2)) {
+               const nextPlayer = state.currentPlayer === Player.One
+                  ? Player.Two
+                  : Player.One;
+
+               return merge(state, {
+                  boardHistory: newHistory,
+                  board: newBoard,
+                  currentPlayer: nextPlayer
+               });
+            }
+
+            return merge(state, {
+               boardHistory: newHistory,
+               board: newBoard
+            });
+         }
+
+         return state;
+      },
+      checkOverlayHint(state, {row, col}) {
+         if (Board.canMakeMove(state.board, row, col, state.currentPlayer)) {
+            return merge(state, {
+               playerHint: Map({ row, col, player: state.currentPlayer})
+            });
+         }
+
+         return state;
+      },
+      removeHint(state, {row, col}) {
+         //if (state.playerHint.equals(Map())) return state;
+
+         return merge(state, {
+            playerHint: Map()
+         });
+      },
+      undo(state, payload) {
+         const previousBoardHistory = state.boardHistory.pop();
+         const nextPlayer = state.currentPlayer === Player.One
+            ? Player.Two
+            : Player.One;
+
+         return merge(state, {
+            board: previousBoardHistory.peek(),
+            boardHistory: previousBoardHistory,
+            currentPlayer: nextPlayer
+         });
+      },
+      reset(state, payload) {
+         return newGame();
       }
    }
 };
 
-function checkOverlayHint(row, col) {
-   if (Board.canMakeMove(_state.board, row, col, _state.currentPlayer)) {
-      update({
-         playerHint: Map({ row, col, player: _state.currentPlayer})
-      });
-   }
-};
-
-function removeHint(row, col) {
-   update({
-      playerHint: Map()
-   });
-};
-
-function undo() {
-   const previousBoardHistory = _state.boardHistory.pop();
-   const nextPlayer = _state.currentPlayer === Player.One
-      ? Player.Two
-      : Player.One;
-
-   update({
-      board: previousBoardHistory.peek(),
-      boardHistory: previousBoardHistory,
-      currentPlayer: nextPlayer
-   });
-};
-
-function reset() {
-   update(newGame());
-};
-
-function subscribe(callback) {
-   emitter.addListener('change', callback);
-
-   return () => emitter.removeListener('change', callback);
-};
-
-function update(newState) {
-   _state = merge(_state, newState);
-
-   emitter.emit('change', _state);
-};
-
-export default {
-   getState,
-   switchPlayer,
-   makeMove,
-   checkOverlayHint,
-   removeHint,
-   undo,
-   reset,
-   subscribe
-};
+export default GameStore;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './Button';
 
-import GameStore from '../stores/GameStore';
+import fluce from '../fluce';
 import isEndOfGame from '../lib/isEndOfGame';
 
 import { Stack } from 'immutable';
@@ -24,9 +24,9 @@ export default React.createClass({
 
       return (
          <div style={styles}>
-            <Button action={GameStore.switchPlayer} disabled={gameOver}>Pass</Button>
-            <Button action={GameStore.undo} disabled={!hasMoves || gameOver}>Undo</Button>
-            <Button action={GameStore.reset} disabled={!hasMoves}>Reset</Button>
+            <Button action={fluce.actions.switchPlayer} disabled={gameOver}>Pass</Button>
+            <Button action={fluce.actions.undo} disabled={!hasMoves || gameOver}>Undo</Button>
+            <Button action={fluce.actions.reset} disabled={!hasMoves}>Reset</Button>
          </div>
       );
    }

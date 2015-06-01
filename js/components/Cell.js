@@ -3,9 +3,9 @@ import Player from '../lib/Player';
 import cellStyle from '../styles/cell';
 import extend from 'object-assign';
 
-import GameStore from '../stores/GameStore';
-
 import { List, Map } from 'immutable';
+
+import fluce from '../fluce';
 
 export default React.createClass({
    propTypes: {
@@ -15,13 +15,13 @@ export default React.createClass({
       playerHint: React.PropTypes.instanceOf(Map).isRequired
    },
    handleClick() {
-      GameStore.makeMove(this.props.row, this.props.col);
+      fluce.actions.makeMove({row: this.props.row, col: this.props.col});
    },
    handleMouseOver() {
-      GameStore.checkOverlayHint(this.props.row, this.props.col);
+      fluce.actions.checkOverlayHint({row: this.props.row, col: this.props.col});
    },
    handleMouseOut() {
-      GameStore.removeHint(this.props.row, this.props.col);
+      fluce.actions.removeHint({row: this.props.row, col: this.props.col});
    },
    render() {
       const styles = buildStyles(this.props.owner, this.props.playerHint, this.props.row, this.props.col);

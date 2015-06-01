@@ -6,8 +6,6 @@ import ButtonGroup from './ButtonGroup';
 import Player from '../lib/Player';
 import { getScore } from '../lib/Board';
 
-import GameStore from '../stores/GameStore';
-
 import connectToStore from '../stores/connectToStore';
 
 import { Stack, Map, List } from 'immutable';
@@ -37,4 +35,4 @@ const Game = React.createClass({
    }
 });
 
-export default connectToStore(Game, GameStore, store => store.getState());
+export default connectToStore(Game);
