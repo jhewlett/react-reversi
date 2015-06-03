@@ -5,13 +5,12 @@ var Player = require('../js/lib/Player');
 
 describe('GameStore', function() {
    describe('when making a move', function() {
+      var state;
       beforeEach(function() {
-         GameStore.reset();
-         GameStore.makeMove(2, 3);
+         state = GameStore.reducers.makeMove(GameStore.initial(), {row: 2, col: 3});
       });
 
       it('should have new game state', function() {
-         var state = GameStore.getState();
          var score = Board.getScore(state.board);
 
          expect(state.currentPlayer).toEqual(Player.Two);
@@ -22,14 +21,13 @@ describe('GameStore', function() {
    });
 
    describe('when undoing a move', function() {
+      var state;
       beforeEach(function() {
-         GameStore.reset();
-         GameStore.makeMove(2, 3);
-         GameStore.undo();
+         state = GameStore.reducers.makeMove(GameStore.initial(), {row: 2, col: 3});
+         state = GameStore.reducers.undo(state);
       });
 
       it('should have original game state', function() {
-         var state = GameStore.getState();
          var score = Board.getScore(state.board);
 
          expect(state.currentPlayer).toEqual(Player.One);
@@ -41,14 +39,13 @@ describe('GameStore', function() {
    });
 
    describe('when undoing a pass', function() {
+      var state;
       beforeEach(function() {
-         GameStore.reset();
-         GameStore.switchPlayer();
-         GameStore.undo();
+         state = GameStore.reducers.switchPlayer(GameStore.initial());
+         state = GameStore.reducers.undo(state);
       });
 
       it('should have original game state', function() {
-         var state = GameStore.getState();
          var score = Board.getScore(state.board);
 
          expect(state.currentPlayer).toEqual(Player.One);

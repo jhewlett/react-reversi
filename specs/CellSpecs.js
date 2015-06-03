@@ -4,6 +4,8 @@ var TestUtils = React.addons.TestUtils;
 var GameStore = require('../js/stores/GameStore');
 var Board = require('../js/lib/Board');
 
+var fluce = require('../js/fluce');
+
 var Map = require('immutable').Map;
 
 var buildCell = function(props) {
@@ -19,7 +21,7 @@ describe('cell', function() {
       TestUtils.Simulate.click(cell);
       jest.runAllTimers();
 
-      expect(Board.getStatus(GameStore.getState().board, 2, 3)).toEqual(1);
+      expect(Board.getStatus(fluce.stores.GameStore.board, 2, 3)).toEqual(1);
    });
 
    it('renders player one cells as red', function() {
