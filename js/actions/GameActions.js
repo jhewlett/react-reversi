@@ -1,20 +1,25 @@
-const GameActions = {
-   switchPlayer: actionCreator('switchPlayer'),
-   makeMove: actionCreator('makeMove'),
-   checkOverlayHint: actionCreator('checkOverlayHint'),
-   removeHint: actionCreator('removeHint'),
-   undo: actionCreator('undo'),
-   reset: actionCreator('reset')
-};
+import fluce from '../fluce';
 
-function actionCreator(name) {
-   return fluce => {
-      return payload => fluce.dispatch(name, payload);
-   };
+export function switchPlayer() {
+   fluce.dispatch('switchPlayer', {});
 }
 
-export default function registerGameActions(fluce) {
-   for (let key in GameActions) {
-      fluce.addActionCreator(key, GameActions[key]);
-   }
+export function makeMove(row, col) {
+   fluce.dispatch('makeMove', { row, col });
+}
+
+export function checkOverlayHint(row, col) {
+   fluce.dispatch('checkOverlayHint', { row, col });
+}
+
+export function removeHint(row, col) {
+   fluce.dispatch('removeHint', { row, col });
+}
+
+export function undo() {
+   fluce.dispatch('undo', {});
+}
+
+export function reset() {
+   fluce.dispatch('reset', {});
 }

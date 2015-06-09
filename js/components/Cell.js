@@ -3,7 +3,7 @@ import Player from '../lib/Player';
 import cellStyle from '../styles/cell';
 import extend from 'object-assign';
 import { List, Map } from 'immutable';
-import fluce from '../fluce';
+import { makeMove, checkOverlayHint, removeHint } from '../actions/GameActions';
 
 export default React.createClass({
    propTypes: {
@@ -13,13 +13,13 @@ export default React.createClass({
       playerHint: React.PropTypes.instanceOf(Map).isRequired
    },
    handleClick() {
-      fluce.actions.makeMove({row: this.props.row, col: this.props.col});
+      makeMove(this.props.row, this.props.col);
    },
    handleMouseOver() {
-      fluce.actions.checkOverlayHint({row: this.props.row, col: this.props.col});
+      checkOverlayHint(this.props.row, this.props.col);
    },
    handleMouseOut() {
-      fluce.actions.removeHint({row: this.props.row, col: this.props.col});
+      removeHint(this.props.row, this.props.col);
    },
    render() {
       const styles = buildStyles(this.props.owner, this.props.playerHint, this.props.row, this.props.col);
