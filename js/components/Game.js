@@ -6,11 +6,15 @@ import ButtonGroup from './ButtonGroup';
 import Player from '../lib/Player';
 import { getScore } from '../lib/Board';
 
-import connectToStore from '../stores/connectToStore';
-
 import { Stack, Map, List } from 'immutable';
 
-const Game = React.createClass({
+import { createDispatcher, Provider } from 'redux';
+import GameStore from '../stores/GameStore';
+
+const dispatcher = createDispatcher(GameStore);
+
+@provider(dispatcher)
+export default React.createClass({
    propTypes: {
       boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
       playerHint: React.PropTypes.instanceOf(Map).isRequired,
@@ -30,5 +34,3 @@ const Game = React.createClass({
       );
    }
 });
-
-export default connectToStore(Game, 'GameStore');

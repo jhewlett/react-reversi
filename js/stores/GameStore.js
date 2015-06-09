@@ -2,8 +2,8 @@ import Player from '../lib/Player';
 import Board from '../lib/Board';
 import isEndOfGame from '../lib/isEndOfGame';
 import { Stack, Map } from 'immutable';
-import { EventEmitter } from 'events';
 import merge from '../util/merge';
+import { SWITCH_PLAYER, MAKE_MOVE, CHECK_OVERLAY_HINT, REMOVE_HINT, UNDO, RESET } from '../actions/GameActions';
 
 function newGame() {
    return {
@@ -14,12 +14,9 @@ function newGame() {
    };
 };
 
-const GameStore = {
-   initial() {
-      return newGame();
-   },
-   reducers: {
-      switchPlayer(state) {
+const GameStore = function(state, action) {
+   switch(action.type) {
+      case SWITCH_PLAYER:
          const nextPlayer = state.currentPlayer === Player.One
             ? Player.Two
             : Player.One;
@@ -28,8 +25,8 @@ const GameStore = {
             currentPlayer: nextPlayer,
             boardHistory: state.boardHistory.push(state.board)
          });
-      },
-      makeMove(state, {row, col}) {
+      case MAKE_MOVE:
+         const { row, col } = action.payload;
          const newBoard = Board.makeMove(state.board, row, col, state.currentPlayer);
 
          if (newBoard !== state.board) {
@@ -55,8 +52,8 @@ const GameStore = {
          }
 
          return state;
-      },
-      checkOverlayHint(state, {row, col}) {
+      case CHECK_OVERLAY_HINT:
+         const { row, col } = action.payload;
          if (Board.canMakeMove(state.board, row, col, state.currentPlayer)) {
             return merge(state, {
                playerHint: Map({ row, col, player: state.currentPlayer})
@@ -64,15 +61,13 @@ const GameStore = {
          }
 
          return state;
-      },
-      removeHint(state, {row, col}) {
+      case REMOVE_HINT:
          if (state.playerHint.equals(Map())) return state;
 
          return merge(state, {
             playerHint: Map()
          });
-      },
-      undo(state) {
+      case UNDO:
          const previousBoardHistory = state.boardHistory.pop();
          const nextPlayer = state.currentPlayer === Player.One
             ? Player.Two
@@ -83,10 +78,8 @@ const GameStore = {
             boardHistory: previousBoardHistory,
             currentPlayer: nextPlayer
          });
-      },
-      reset() {
+      case RESET:
          return newGame();
-      }
    }
 };
 
