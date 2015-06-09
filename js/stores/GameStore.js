@@ -19,7 +19,7 @@ const GameStore = {
       return newGame();
    },
    reducers: {
-      switchPlayer(state, payload) {
+      switchPlayer(state) {
          const nextPlayer = state.currentPlayer === Player.One
             ? Player.Two
             : Player.One;
@@ -72,7 +72,7 @@ const GameStore = {
             playerHint: Map()
          });
       },
-      undo(state, payload) {
+      undo(state) {
          const previousBoardHistory = state.boardHistory.pop();
          const nextPlayer = state.currentPlayer === Player.One
             ? Player.Two
@@ -84,7 +84,7 @@ const GameStore = {
             currentPlayer: nextPlayer
          });
       },
-      reset(state, payload) {
+      reset() {
          return newGame();
       }
    }
