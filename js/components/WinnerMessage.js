@@ -18,13 +18,13 @@ var getWinnerMessage = function(score) {
    return '';
 };
 
-export default React.createClass({
-   propTypes: {
+export default class WinnerMessage {
+   static propTypes = {
       score: React.PropTypes.shape({
          player1: React.PropTypes.number.isRequired,
          player2: React.PropTypes.number.isRequired
       })
-   },
+   }
    render() {
       const styles = {
          textAlign: 'center',
@@ -35,4 +35,4 @@ export default React.createClass({
 
       return <p style={styles}>{getWinnerMessage(this.props.score)}</p>;
    }
-});
+}

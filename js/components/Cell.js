@@ -3,30 +3,34 @@ import Player from '../lib/Player';
 import cellStyle from '../styles/cell';
 import extend from 'object-assign';
 import { List, Map } from 'immutable';
-import fluce from '../fluce';
 
-export default React.createClass({
-   propTypes: {
+export default class Cell {
+   static propTypes = {
       row: React.PropTypes.number.isRequired,
       col: React.PropTypes.number.isRequired,
       owner: React.PropTypes.number.isRequired,
-      playerHint: React.PropTypes.instanceOf(Map).isRequired
-   },
+      playerHint: React.PropTypes.instanceOf(Map).isRequired,
+      actions: React.PropTypes.shape({
+         makeMove: React.PropTypes.func.isRequired,
+         checkOverlayHint: React.PropTypes.func.isRequired,
+         removeHint: React.PropTypes.func.isRequired
+      })
+   }
    handleClick() {
-      fluce.actions.makeMove({row: this.props.row, col: this.props.col});
-   },
+      this.props.actions.makeMove(this.props.row, this.props.col);
+   }
    handleMouseOver() {
-      fluce.actions.checkOverlayHint({row: this.props.row, col: this.props.col});
-   },
+      this.props.actions.checkOverlayHint(this.props.row, this.props.col);
+   }
    handleMouseOut() {
-      fluce.actions.removeHint({row: this.props.row, col: this.props.col});
-   },
+      this.props.actions.removeHint();
+   }
    render() {
       const styles = buildStyles(this.props.owner, this.props.playerHint, this.props.row, this.props.col);
 
-      return <td style={styles} onClick={this.handleClick} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}></td>;
+      return <td style={styles} onClick={this.handleClick.bind(this)} onMouseOver={this.handleMouseOver.bind(this)} onMouseOut={this.handleMouseOut.bind(this)}></td>;
    }
-});
+}
 
 function buildStyles(owner, playerHint, row, col) {
    const isHint = playerHint.get('row') === row && playerHint.get('col') === col;

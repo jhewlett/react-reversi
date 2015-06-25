@@ -3,7 +3,7 @@ import Board from '../lib/Board';
 import isEndOfGame from '../lib/isEndOfGame';
 import { Stack, Map } from 'immutable';
 import merge from '../util/merge';
-import { SWITCH_PLAYER, MAKE_MOVE, CHECK_OVERLAY_HINT, REMOVE_HINT, UNDO, RESET } from '../actions/GameActions';
+import { SWITCH_PLAYER, MAKE_MOVE, CHECK_OVERLAY_HINT, REMOVE_HINT, UNDO, RESET } from '../constants/ActionTypes';
 
 function newGame() {
    return {
@@ -14,7 +14,7 @@ function newGame() {
    };
 };
 
-const GameStore = function(state, action) {
+export default function gameStore(state = newGame(), action) {
    switch(action.type) {
       case SWITCH_PLAYER:
          const nextPlayer = state.currentPlayer === Player.One
@@ -26,15 +26,14 @@ const GameStore = function(state, action) {
             boardHistory: state.boardHistory.push(state.board)
          });
       case MAKE_MOVE:
-         const { row, col } = action.payload;
-         const newBoard = Board.makeMove(state.board, row, col, state.currentPlayer);
+         const newBoard = Board.makeMove(state.board, action.row, action.col, state.currentPlayer);
 
          if (newBoard !== state.board) {
             const newHistory = state.boardHistory.push(newBoard)
             const score = Board.getScore(newBoard);
 
             if (!isEndOfGame(score.player1, score.player2)) {
-               const nextPlayer = state.currentPlayer === Player.One
+               let nextPlayer = state.currentPlayer === Player.One
                   ? Player.Two
                   : Player.One;
 
@@ -53,10 +52,9 @@ const GameStore = function(state, action) {
 
          return state;
       case CHECK_OVERLAY_HINT:
-         const { row, col } = action.payload;
-         if (Board.canMakeMove(state.board, row, col, state.currentPlayer)) {
+         if (Board.canMakeMove(state.board, action.row, action.col, state.currentPlayer)) {
             return merge(state, {
-               playerHint: Map({ row, col, player: state.currentPlayer})
+               playerHint: Map({ row: action.row, col: action.col, player: state.currentPlayer})
             });
          }
 
@@ -69,18 +67,18 @@ const GameStore = function(state, action) {
          });
       case UNDO:
          const previousBoardHistory = state.boardHistory.pop();
-         const nextPlayer = state.currentPlayer === Player.One
+         const nextPlayer2 = state.currentPlayer === Player.One
             ? Player.Two
             : Player.One;
 
          return merge(state, {
             board: previousBoardHistory.peek(),
             boardHistory: previousBoardHistory,
-            currentPlayer: nextPlayer
+            currentPlayer: nextPlayer2
          });
       case RESET:
          return newGame();
+      default:
+         return state;
    }
-};
-
-export default GameStore;
+}

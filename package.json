@@ -16,11 +16,10 @@
     "babel-jest": "^4.0.0",
     "babel-loader": "~4.1.0",
     "jest-cli": "^0.4.0",
-    "redux": "^0.8.1",
     "webpack": "~1.7.2"
   },
   "dependencies": {
-    "fluce": "^0.1.0",
+    "redux": "^0.12.0",
     "immutable": "^3.6.4",
     "lodash": "^3.5.0",
     "object-assign": "~2.0.0",

@@ -1,49 +1,41 @@
-import { SWITCH_PLAYER, MAKE_MOVE, CHECK_OVERLAY_HINT, REMOVE_HINT, UNDO, RESET } from '../actions/GameActions';
+import { SWITCH_PLAYER, MAKE_MOVE, CHECK_OVERLAY_HINT, REMOVE_HINT, UNDO, RESET } from '../constants/ActionTypes';
 
 export function switchPlayer() {
    return {
       type: SWITCH_PLAYER
-   }
+   };
 }
 
 export function makeMove(row, col) {
    return {
       type: MAKE_MOVE,
-      payload: {
-         row,
-         col
-      }
-   }
+      row,
+      col
+   };
 }
 
 export function checkOverlayHint(row, col) {
    return {
       type: CHECK_OVERLAY_HINT,
-      payload: {
-         row,
-         col
-      }
-   }
+      row,
+      col
+   };
 }
 
-export function removeHint(row, col) {
+export function removeHint() {
    return {
-      type: REMOVE_HINT,
-      payload: {
-         row,
-         col
-      }
-   }
+      type: REMOVE_HINT
+   };
 }
 
 export function undo() {
    return {
       type: UNDO
-   }
+   };
 }
 
 export function reset() {
    return {
       type: RESET
-   }
+   };
 }
