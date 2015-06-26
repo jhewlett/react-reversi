@@ -3,30 +3,30 @@ import Player from '../lib/Player';
 import cellStyle from '../styles/cell';
 import extend from 'object-assign';
 import { List, Map } from 'immutable';
-import { makeMove, checkOverlayHint, removeHint } from '../actions/GameActions';
+import * as gameActions from '../actions/gameActions';
 
-export default React.createClass({
-   propTypes: {
+export default class Cell {
+   static propTypes = {
       row: React.PropTypes.number.isRequired,
       col: React.PropTypes.number.isRequired,
       owner: React.PropTypes.number.isRequired,
       playerHint: React.PropTypes.instanceOf(Map).isRequired
-   },
+   }
    handleClick() {
-      makeMove(this.props.row, this.props.col);
-   },
+      gameActions.makeMove(this.props.row, this.props.col);
+   }
    handleMouseOver() {
-      checkOverlayHint(this.props.row, this.props.col);
-   },
+      gameActions.checkOverlayHint(this.props.row, this.props.col);
+   }
    handleMouseOut() {
-      removeHint(this.props.row, this.props.col);
-   },
+      gameActions.removeHint();
+   }
    render() {
       const styles = buildStyles(this.props.owner, this.props.playerHint, this.props.row, this.props.col);
 
-      return <td style={styles} onClick={this.handleClick} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}></td>;
+      return <td style={styles} onClick={this.handleClick.bind(this)} onMouseOver={this.handleMouseOver.bind(this)} onMouseOut={this.handleMouseOut.bind(this)}></td>;
    }
-});
+}
 
 function buildStyles(owner, playerHint, row, col) {
    const isHint = playerHint.get('row') === row && playerHint.get('col') === col;

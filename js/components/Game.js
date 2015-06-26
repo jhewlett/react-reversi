@@ -5,21 +5,19 @@ import WinnerMessage from './WinnerMessage';
 import ButtonGroup from './ButtonGroup';
 import Player from '../lib/Player';
 import { getScore } from '../lib/Board';
-
+import { Stack, Map, List } from 'immutable';
 import connectToStore from '../stores/connectToStore';
 
-import { Stack, Map, List } from 'immutable';
-
-const Game = React.createClass({
-   propTypes: {
+const Game = class {
+   static propTypes = {
       boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
       playerHint: React.PropTypes.instanceOf(Map).isRequired,
       board: React.PropTypes.instanceOf(List).isRequired,
       currentPlayer: React.PropTypes.number.isRequired
-   },
+   }
    render() {
       const score = getScore(this.props.board);
-
+      
       return (
          <div>
             <PlayerInfo currentPlayer={this.props.currentPlayer} score={score} />
@@ -29,6 +27,6 @@ const Game = React.createClass({
          </div>
       );
    }
-});
+}
 
-export default connectToStore(Game, 'GameStore');
+export default connectToStore(Game, 'game');

@@ -3,12 +3,12 @@ import Cell from './Cell';
 import Board from '../lib/Board.js';
 import { List, Map } from 'immutable';
 
-export default React.createClass({
-   propTypes: {
+export default class Row {
+   static propTypes = {
       row: React.PropTypes.number.isRequired,
-      board: React.PropTypes.instanceOf(List),
-      playerHint: React.PropTypes.instanceOf(Map)
-   },
+      board: React.PropTypes.instanceOf(List).isRequired,
+      playerHint: React.PropTypes.instanceOf(Map).isRequired,
+   }
    render() {
       return (
          <tr>
@@ -18,4 +18,4 @@ export default React.createClass({
          </tr>
       );
    }
-});
+}

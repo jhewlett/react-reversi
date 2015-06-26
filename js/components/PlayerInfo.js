@@ -4,31 +4,33 @@ import extend from 'object-assign';
 import cellStyle from '../styles/cell';
 import globals from '../styles/globals';
 
-export default React.createClass({
-   propTypes: {
+export default class PlayerInfo {
+   static propTypes = {
       currentPlayer: React.PropTypes.number.isRequired,
       score: React.PropTypes.shape({
          player1: React.PropTypes.number.isRequired,
          player2: React.PropTypes.number.isRequired
-      })
-   },
+      }).isRequired
+   }
    render() {
       const styles = buildStyles(this.props.currentPlayer);
 
       return (
          <table style={styles.playerTable}>
-            <tr>
-               <td style={styles.player1.label}>Player 1</td>
-                  <td style={styles.player1.score}>{this.props.score.player1}</td>
+            <tbody>
+               <tr>
+                  <td style={styles.player1.label}>Player 1</td>
+                     <td style={styles.player1.score}>{this.props.score.player1}</td>
+                  </tr>
+               <tr>
+                  <td style={styles.player2.label}>Player 2</td>
+                  <td style={styles.player2.score}>{this.props.score.player2}</td>
                </tr>
-            <tr>
-               <td style={styles.player2.label}>Player 2</td>
-               <td style={styles.player2.score}>{this.props.score.player2}</td>
-            </tr>
+            </tbody>
          </table>
       );
    }
-});
+}
 
 function buildStyles(currentPlayer) {
    return {

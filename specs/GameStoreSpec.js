@@ -1,13 +1,15 @@
 var Board = require('../js/lib/Board');
 var newGameBoard = Board.newGameBoard;
-var GameStore = require('../js/stores/GameStore');
+var game = require('../js/stores/game');
+var newGame = require('../js/stores/game').newGame;
 var Player = require('../js/lib/Player');
+var gameActions = require('../js/actions/rawGameActions');
 
-describe('GameStore', function() {
+describe('game', function() {
    describe('when making a move', function() {
       var state;
       beforeEach(function() {
-         state = GameStore.reducers.makeMove(GameStore.initial(), {row: 2, col: 3});
+         state = game(undefined, gameActions.makeMove(2, 3));
       });
 
       it('should have new game state', function() {
@@ -23,8 +25,8 @@ describe('GameStore', function() {
    describe('when undoing a move', function() {
       var state;
       beforeEach(function() {
-         state = GameStore.reducers.makeMove(GameStore.initial(), {row: 2, col: 3});
-         state = GameStore.reducers.undo(state);
+         state = game(undefined, gameActions.makeMove(2, 3));
+         state = game(state, gameActions.undo());
       });
 
       it('should have original game state', function() {
@@ -41,8 +43,8 @@ describe('GameStore', function() {
    describe('when undoing a pass', function() {
       var state;
       beforeEach(function() {
-         state = GameStore.reducers.switchPlayer(GameStore.initial());
-         state = GameStore.reducers.undo(state);
+         state = game(undefined, gameActions.switchPlayer());
+         state = game(state, gameActions.undo());
       });
 
       it('should have original game state', function() {
