@@ -14,71 +14,79 @@ function newGame() {
    };
 }
 
-export default function gameStore(state = newGame(), action) {
-   switch(action.type) {
-      case SWITCH_PLAYER:
-         const nextPlayer = state.currentPlayer === Player.One
-            ? Player.Two
-            : Player.One;
+const handlers = {
+   [SWITCH_PLAYER]: (state, action) => {
+      const nextPlayer = state.currentPlayer === Player.One
+      ? Player.Two
+      : Player.One;
 
-         return merge(state, {
-            currentPlayer: nextPlayer,
-            boardHistory: state.boardHistory.push(state.board)
-         });
-      case MAKE_MOVE:
-         const newBoard = Board.makeMove(state.board, action.row, action.col, state.currentPlayer);
+      return merge(state, {
+         currentPlayer: nextPlayer,
+         boardHistory: state.boardHistory.push(state.board)
+      });
+   },
+   [MAKE_MOVE]: (state, action) => {
+      const newBoard = Board.makeMove(state.board, action.row, action.col, state.currentPlayer);
 
-         if (newBoard !== state.board) {
-            const newHistory = state.boardHistory.push(newBoard)
-            const score = Board.getScore(newBoard);
+      if (newBoard !== state.board) {
+         const newHistory = state.boardHistory.push(newBoard)
+         const score = Board.getScore(newBoard);
 
-            if (!isEndOfGame(score.player1, score.player2)) {
-               let nextPlayer = state.currentPlayer === Player.One
-                  ? Player.Two
-                  : Player.One;
-
-               return merge(state, {
-                  boardHistory: newHistory,
-                  board: newBoard,
-                  currentPlayer: nextPlayer
-               });
-            }
+         if (!isEndOfGame(score.player1, score.player2)) {
+            const nextPlayer = state.currentPlayer === Player.One
+               ? Player.Two
+               : Player.One;
 
             return merge(state, {
                boardHistory: newHistory,
-               board: newBoard
+               board: newBoard,
+               currentPlayer: nextPlayer
             });
          }
 
-         return state;
-      case CHECK_OVERLAY_HINT:
-         if (Board.canMakeMove(state.board, action.row, action.col, state.currentPlayer)) {
-            return merge(state, {
-               playerHint: Map({ row: action.row, col: action.col, player: state.currentPlayer})
-            });
-         }
-
-         return state;
-      case REMOVE_HINT:
-         if (state.playerHint.equals(Map())) return state;
-
          return merge(state, {
-            playerHint: Map()
+            boardHistory: newHistory,
+            board: newBoard
          });
-      case UNDO:
-         const previousBoardHistory = state.boardHistory.pop();
-         const nextPlayer2 = state.currentPlayer === Player.One
-            ? Player.Two
-            : Player.One;
+      }
 
+      return state;
+   },
+   [CHECK_OVERLAY_HINT]: (state, action) => {
+      if (Board.canMakeMove(state.board, action.row, action.col, state.currentPlayer)) {
          return merge(state, {
-            board: previousBoardHistory.peek(),
-            boardHistory: previousBoardHistory,
-            currentPlayer: nextPlayer2
+            playerHint: Map({ row: action.row, col: action.col, player: state.currentPlayer})
          });
-      case RESET:
-         return newGame();
-      default:
-         return state;
+      }
+
+      return state;
+   },
+   [REMOVE_HINT]: (state, action) => {
+      if (state.playerHint.equals(Map())) return state;
+
+      return merge(state, {
+         playerHint: Map()
+      });
+   },
+   [UNDO]: (state, action) => {
+      const previousBoardHistory = state.boardHistory.pop();
+      const nextPlayer = state.currentPlayer === Player.One
+         ? Player.Two
+         : Player.One;
+
+      return merge(state, {
+         board: previousBoardHistory.peek(),
+         boardHistory: previousBoardHistory,
+         currentPlayer: nextPlayer
+      });
+   },
+   [RESET]: (state, action) => {
+      return newGame();
    }
+};
+
+export default function gameStore(state = newGame(), action) {
+   return handlers[action.type]
+      ? handlers[action.type](state, action)
+      : state;
 }
