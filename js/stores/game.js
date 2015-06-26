@@ -14,78 +14,90 @@ function newGame() {
    };
 }
 
-const handlers = {
-   [SWITCH_PLAYER]: (state, action) => {
-      const nextPlayer = state.currentPlayer === Player.One
+function switchPlayer(state) {
+   const nextPlayer = state.currentPlayer === Player.One
       ? Player.Two
       : Player.One;
 
-      return merge(state, {
-         currentPlayer: nextPlayer,
-         boardHistory: state.boardHistory.push(state.board)
-      });
-   },
-   [MAKE_MOVE]: (state, action) => {
-      const newBoard = Board.makeMove(state.board, action.row, action.col, state.currentPlayer);
+   return merge(state, {
+      currentPlayer: nextPlayer,
+      boardHistory: state.boardHistory.push(state.board)
+   });
+}
 
-      if (newBoard !== state.board) {
-         const newHistory = state.boardHistory.push(newBoard)
-         const score = Board.getScore(newBoard);
+function makeMove(state, action) {
+   const newBoard = Board.makeMove(state.board, action.row, action.col, state.currentPlayer);
 
-         if (!isEndOfGame(score.player1, score.player2)) {
-            const nextPlayer = state.currentPlayer === Player.One
-               ? Player.Two
-               : Player.One;
+   if (newBoard !== state.board) {
+      const newHistory = state.boardHistory.push(newBoard)
+      const score = Board.getScore(newBoard);
 
-            return merge(state, {
-               boardHistory: newHistory,
-               board: newBoard,
-               currentPlayer: nextPlayer
-            });
-         }
+      if (!isEndOfGame(score.player1, score.player2)) {
+         const nextPlayer = state.currentPlayer === Player.One
+            ? Player.Two
+            : Player.One;
 
          return merge(state, {
             boardHistory: newHistory,
-            board: newBoard
+            board: newBoard,
+            currentPlayer: nextPlayer
          });
       }
 
-      return state;
-   },
-   [CHECK_OVERLAY_HINT]: (state, action) => {
-      if (Board.canMakeMove(state.board, action.row, action.col, state.currentPlayer)) {
-         return merge(state, {
-            playerHint: Map({ row: action.row, col: action.col, player: state.currentPlayer})
-         });
-      }
-
-      return state;
-   },
-   [REMOVE_HINT]: (state, action) => {
-      if (state.playerHint.equals(Map())) return state;
-
       return merge(state, {
-         playerHint: Map()
+         boardHistory: newHistory,
+         board: newBoard
       });
-   },
-   [UNDO]: (state, action) => {
-      const previousBoardHistory = state.boardHistory.pop();
-      const nextPlayer = state.currentPlayer === Player.One
-         ? Player.Two
-         : Player.One;
-
-      return merge(state, {
-         board: previousBoardHistory.peek(),
-         boardHistory: previousBoardHistory,
-         currentPlayer: nextPlayer
-      });
-   },
-   [RESET]: (state, action) => {
-      return newGame();
    }
-};
+
+   return state;
+}
+
+function checkOverlayHint(state, action) {
+   if (Board.canMakeMove(state.board, action.row, action.col, state.currentPlayer)) {
+      return merge(state, {
+         playerHint: Map({ row: action.row, col: action.col, player: state.currentPlayer})
+      });
+   }
+
+   return state;
+}
+
+function removeHint(state) {
+   if (state.playerHint.equals(Map())) return state;
+
+   return merge(state, {
+      playerHint: Map()
+   });
+}
+
+function undo(state) {
+   const previousBoardHistory = state.boardHistory.pop();
+   const nextPlayer = state.currentPlayer === Player.One
+      ? Player.Two
+      : Player.One;
+
+   return merge(state, {
+      board: previousBoardHistory.peek(),
+      boardHistory: previousBoardHistory,
+      currentPlayer: nextPlayer
+   });
+}
+
+function reset() {
+   return newGame();
+}
 
 export default function gameStore(state = newGame(), action) {
+   const handlers = {
+      [SWITCH_PLAYER]: switchPlayer,
+      [MAKE_MOVE]: makeMove,
+      [CHECK_OVERLAY_HINT]: checkOverlayHint,
+      [REMOVE_HINT]: removeHint,
+      [UNDO]: undo,
+      [RESET]: reset
+   };
+
    return handlers[action.type]
       ? handlers[action.type](state, action)
       : state;
