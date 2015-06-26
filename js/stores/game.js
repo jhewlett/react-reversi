@@ -2,7 +2,6 @@ import Player from '../lib/Player';
 import Board from '../lib/Board';
 import isEndOfGame from '../lib/isEndOfGame';
 import { Stack, Map } from 'immutable';
-import merge from '../util/merge';
 import { SWITCH_PLAYER, MAKE_MOVE, CHECK_OVERLAY_HINT, REMOVE_HINT, UNDO, RESET } from '../constants/ActionTypes';
 
 function newGame() {
@@ -19,10 +18,11 @@ function switchPlayer(state) {
       ? Player.Two
       : Player.One;
 
-   return merge(state, {
+   return {
+      ...state,
       currentPlayer: nextPlayer,
       boardHistory: state.boardHistory.push(state.board)
-   });
+   };
 }
 
 function makeMove(state, action) {
@@ -37,17 +37,19 @@ function makeMove(state, action) {
             ? Player.Two
             : Player.One;
 
-         return merge(state, {
+         return {
+            ...state,
             boardHistory: newHistory,
             board: newBoard,
             currentPlayer: nextPlayer
-         });
+         };
       }
 
-      return merge(state, {
+      return {
+         ...state,
          boardHistory: newHistory,
          board: newBoard
-      });
+      };
    }
 
    return state;
@@ -55,9 +57,10 @@ function makeMove(state, action) {
 
 function checkOverlayHint(state, action) {
    if (Board.canMakeMove(state.board, action.row, action.col, state.currentPlayer)) {
-      return merge(state, {
+      return {
+         ...state,
          playerHint: Map({ row: action.row, col: action.col, player: state.currentPlayer})
-      });
+      };
    }
 
    return state;
@@ -66,9 +69,10 @@ function checkOverlayHint(state, action) {
 function removeHint(state) {
    if (state.playerHint.equals(Map())) return state;
 
-   return merge(state, {
+   return {
+      ...state,
       playerHint: Map()
-   });
+   };
 }
 
 function undo(state) {
@@ -77,11 +81,12 @@ function undo(state) {
       ? Player.Two
       : Player.One;
 
-   return merge(state, {
+   return {
+      ...state,
       board: previousBoardHistory.peek(),
       boardHistory: previousBoardHistory,
       currentPlayer: nextPlayer
-   });
+   };
 }
 
 function reset() {
