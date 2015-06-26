@@ -5,8 +5,7 @@ import { List, Map } from 'immutable';
 export default class Board {
    static propTypes = {
       board: React.PropTypes.instanceOf(List).isRequired,
-      playerHint: React.PropTypes.instanceOf(Map).isRequired,
-      actions: React.PropTypes.object.isRequired
+      playerHint: React.PropTypes.instanceOf(Map).isRequired
    }
    render() {
       const styles = {
@@ -20,7 +19,7 @@ export default class Board {
          <table style={styles}>
             <tbody>
                {[0,1,2,3,4,5,6,7].map(r =>
-                  <Row row={r} actions={this.props.actions} board={this.props.board} playerHint={this.props.playerHint} key={r}/>
+                  <Row row={r} board={this.props.board} playerHint={this.props.playerHint} key={r}/>
                )}
             </tbody>
          </table>

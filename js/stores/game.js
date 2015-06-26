@@ -12,7 +12,7 @@ function newGame() {
       boardHistory: Stack().push(Board.newGameBoard),
       playerHint: Map()
    };
-};
+}
 
 export default function gameStore(state = newGame(), action) {
    switch(action.type) {

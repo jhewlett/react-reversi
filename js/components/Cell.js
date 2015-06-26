@@ -3,27 +3,23 @@ import Player from '../lib/Player';
 import cellStyle from '../styles/cell';
 import extend from 'object-assign';
 import { List, Map } from 'immutable';
+import * as gameActions from '../actions/gameActions';
 
 export default class Cell {
    static propTypes = {
       row: React.PropTypes.number.isRequired,
       col: React.PropTypes.number.isRequired,
       owner: React.PropTypes.number.isRequired,
-      playerHint: React.PropTypes.instanceOf(Map).isRequired,
-      actions: React.PropTypes.shape({
-         makeMove: React.PropTypes.func.isRequired,
-         checkOverlayHint: React.PropTypes.func.isRequired,
-         removeHint: React.PropTypes.func.isRequired
-      })
+      playerHint: React.PropTypes.instanceOf(Map).isRequired
    }
    handleClick() {
-      this.props.actions.makeMove(this.props.row, this.props.col);
+      gameActions.makeMove(this.props.row, this.props.col);
    }
    handleMouseOver() {
-      this.props.actions.checkOverlayHint(this.props.row, this.props.col);
+      gameActions.checkOverlayHint(this.props.row, this.props.col);
    }
    handleMouseOut() {
-      this.props.actions.removeHint();
+      gameActions.removeHint();
    }
    render() {
       const styles = buildStyles(this.props.owner, this.props.playerHint, this.props.row, this.props.col);

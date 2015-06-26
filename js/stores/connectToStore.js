@@ -1,22 +1,23 @@
 import React from 'react';
-import fluce from '../fluce';
+import { subscribe, getState } from '../redux';
 
 export default function(Component, storeName) {
-   return React.createClass({
-      getInitialState() {
-         return fluce.stores[storeName];
-      },
+   return class extends React.Component {
+      constructor() {
+         super();
+         this.state = getState()[storeName];
+      }
       componentDidMount() {
-         this.unsubscribe = fluce.subscribe([storeName], this.onStateChange);
-      },
+         this.unsubscribe = subscribe(this.onStateChange.bind(this));
+      }
       componentWillUnmount() {
          this.unsubscribe();
-      },
+      }
       onStateChange() {
-         this.setState(fluce.stores[storeName]);
-      },
+         this.setState(getState()[storeName]);
+      }
       render() {
          return <Component {...this.state} />
       }
-   });
+   }
 }

@@ -10,7 +10,7 @@ export default class PlayerInfo {
       score: React.PropTypes.shape({
          player1: React.PropTypes.number.isRequired,
          player2: React.PropTypes.number.isRequired
-      })
+      }).isRequired
    }
    render() {
       const styles = buildStyles(this.props.currentPlayer);
