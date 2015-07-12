@@ -6,27 +6,29 @@ import ButtonGroup from './ButtonGroup';
 import Player from '../lib/Player';
 import { getScore } from '../lib/Board';
 import { Stack, Map, List } from 'immutable';
-import connectToStore from '../stores/connectToStore';
+import createConnector from '../stores/connectToStore';
+import redux from '../redux';
 
-const Game = class {
-   static propTypes = {
-      boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
-      playerHint: React.PropTypes.instanceOf(Map).isRequired,
-      board: React.PropTypes.instanceOf(List).isRequired,
-      currentPlayer: React.PropTypes.number.isRequired
-   }
+const connectToStore = createConnector(redux)
+
+@connectToStore('game')
+export default class Game {
+   // static propTypes = {
+   //    boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
+   //    playerHint: React.PropTypes.instanceOf(Map).isRequired,
+   //    board: React.PropTypes.instanceOf(List).isRequired,
+   //    currentPlayer: React.PropTypes.number.isRequired
+   // }
    render() {
-      const score = getScore(this.props.board);
-      
+      const score = getScore(this.props.game.board);
+
       return (
          <div>
-            <PlayerInfo currentPlayer={this.props.currentPlayer} score={score} />
+            <PlayerInfo currentPlayer={this.props.game.currentPlayer} score={score} />
             <WinnerMessage score={score} />
-            <Board board={this.props.board} playerHint={this.props.playerHint} />
-            <ButtonGroup score={score} boardHistory={this.props.boardHistory} />
+            <Board board={this.props.game.board} playerHint={this.props.game.playerHint} />
+            <ButtonGroup score={score} boardHistory={this.props.game.boardHistory} />
          </div>
       );
    }
 }
-
-export default connectToStore(Game, 'game');
