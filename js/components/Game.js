@@ -9,7 +9,7 @@ import { Stack, Map, List } from 'immutable';
 import createConnector from '../stores/connectToStore';
 import redux from '../redux';
 
-const connectToStore = createConnector(redux)
+const { connect, connectToStore } = createConnector(redux)
 
 @connectToStore('game')
 export default class Game {
