@@ -93,7 +93,7 @@ function reset() {
    return newGame();
 }
 
-export default function gameStore(state = newGame(), action) {
+export default function game(state = newGame(), action) {
    const handlers = {
       [SWITCH_PLAYER]: switchPlayer,
       [MAKE_MOVE]: makeMove,

@@ -3,7 +3,7 @@ import Player from '../lib/Player';
 import cellStyle from '../styles/cell';
 import extend from 'object-assign';
 import { List, Map } from 'immutable';
-import * as gameActions from '../actions/gameActions';
+import gameActions from '../actions/gameActions';
 
 export default class Cell {
    static propTypes = {

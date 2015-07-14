@@ -1,9 +1,9 @@
 var Board = require('../js/lib/Board');
 var newGameBoard = Board.newGameBoard;
-var game = require('../js/stores/game');
-var newGame = require('../js/stores/game').newGame;
+var game = require('../js/reducers/game');
+var newGame = require('../js/reducers/game').newGame;
 var Player = require('../js/lib/Player');
-var gameActions = require('../js/actions/rawGameActions');
+var gameActions = require('../js/actions/gameActions');
 
 describe('game', function() {
    describe('when making a move', function() {

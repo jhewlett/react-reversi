@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import Board from './Board';
 import PlayerInfo from './PlayerInfo';
 import WinnerMessage from './WinnerMessage';
@@ -6,10 +8,7 @@ import ButtonGroup from './ButtonGroup';
 import Player from '../lib/Player';
 import { getScore } from '../lib/Board';
 import { Stack, Map, List } from 'immutable';
-import { default as createConnector, toStores } from '../stores/connectToStore';
-import redux from '../redux';
-
-const connect = createConnector(redux)
+import store from '../store';
 
 @connect(state => state.game)
 export default class Game {
