@@ -6,7 +6,9 @@ import WinnerMessage from './WinnerMessage';
 import ButtonGroup from './ButtonGroup';
 import Player from '../lib/Player';
 import { Stack, Map, List } from 'immutable';
+import connect from '../connect';
 
+@connect(state => state)
 export default class Game {
    static propTypes = {
       boardHistory: React.PropTypes.instanceOf(Stack).isRequired,

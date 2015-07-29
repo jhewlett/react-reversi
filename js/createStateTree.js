@@ -5,8 +5,12 @@ export default function createStateTree(reducer, dispatcher) {
   subject.onNext(_state);
 
   dispatcher.subscribe(action => {
-    _state = reducer(_state, action);
-    subject.onNext(_state);
+    const newState = reducer(_state, action);
+
+    if (newState !== _state) {
+      _state = newState;
+      subject.onNext(_state);
+    }
   });
 
   return subject;
