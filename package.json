@@ -19,12 +19,11 @@
     "webpack": "~1.7.2"
   },
   "dependencies": {
-    "react-redux": "^0.2.1",
-    "redux": "^1.0.0-rc",
     "immutable": "^3.6.4",
     "lodash": "^3.5.0",
     "object-assign": "~2.0.0",
-    "react": "^0.13.1"
+    "react": "^0.13.1",
+    "rx": "^2.5.3"
   },
   "jest": {
     "scriptPreprocessor": "./node_modules/babel-jest",

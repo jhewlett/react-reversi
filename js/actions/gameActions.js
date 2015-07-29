@@ -1,46 +1,42 @@
-import { bindActionCreators } from 'redux';
-
 import { SWITCH_PLAYER, MAKE_MOVE, CHECK_OVERLAY_HINT, REMOVE_HINT, UNDO, RESET } from '../constants/ActionTypes';
-import { dispatch } from '../store';
+import Dispatcher from '../Dispatcher'
 
 export function switchPlayer() {
-   return {
+   Dispatcher.onNext({
       type: SWITCH_PLAYER
-   };
+   });
 }
 
 export function makeMove(row, col) {
-   return {
+   Dispatcher.onNext({
       type: MAKE_MOVE,
       row,
       col
-   };
+   });
 }
 
 export function checkOverlayHint(row, col) {
-   return {
+   Dispatcher.onNext({
       type: CHECK_OVERLAY_HINT,
       row,
       col
-   };
+   });
 }
 
 export function removeHint() {
-   return {
+   Dispatcher.onNext({
       type: REMOVE_HINT
-   };
+   });
 }
 
 export function undo() {
-   return {
+   Dispatcher.onNext({
       type: UNDO
-   };
+   });
 }
 
 export function reset() {
-   return {
+   Dispatcher.onNext({
       type: RESET
-   };
+   });
 }
-
-export default bindActionCreators({switchPlayer, makeMove, checkOverlayHint, removeHint, undo, reset}, dispatch);

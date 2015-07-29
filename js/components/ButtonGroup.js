@@ -2,7 +2,7 @@ import React from 'react';
 import Button from './Button';
 import isEndOfGame from '../lib/isEndOfGame';
 import { Stack } from 'immutable';
-import gameActions from '../actions/gameActions';
+import * as gameActions from '../actions/gameActions';
 
 export default class ButtonGroup {
    static propTypes = {

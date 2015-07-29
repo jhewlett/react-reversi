@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import Board from './Board';
 import PlayerInfo from './PlayerInfo';
@@ -8,9 +7,7 @@ import ButtonGroup from './ButtonGroup';
 import Player from '../lib/Player';
 import { getScore } from '../lib/Board';
 import { Stack, Map, List } from 'immutable';
-import store from '../store';
 
-@connect(state => state.game)
 export default class Game {
    static propTypes = {
       boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
