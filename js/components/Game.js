@@ -5,7 +5,6 @@ import PlayerInfo from './PlayerInfo';
 import WinnerMessage from './WinnerMessage';
 import ButtonGroup from './ButtonGroup';
 import Player from '../lib/Player';
-import { getScore } from '../lib/Board';
 import { Stack, Map, List } from 'immutable';
 
 export default class Game {
@@ -13,17 +12,19 @@ export default class Game {
       boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
       playerHint: React.PropTypes.instanceOf(Map).isRequired,
       board: React.PropTypes.instanceOf(List).isRequired,
-      currentPlayer: React.PropTypes.number.isRequired
+      currentPlayer: React.PropTypes.number.isRequired,
+      score: React.PropTypes.shape({
+         player1: React.PropTypes.number.isRequired,
+         player2: React.PropTypes.number.isRequired
+      }).isRequired
    }
    render() {
-      const score = getScore(this.props.board);
-
       return (
          <div>
-            <PlayerInfo currentPlayer={this.props.currentPlayer} score={score} />
-            <WinnerMessage score={score} />
+            <PlayerInfo currentPlayer={this.props.currentPlayer} score={this.props.score} />
+            <WinnerMessage score={this.props.score} />
             <Board board={this.props.board} playerHint={this.props.playerHint} />
-            <ButtonGroup score={score} boardHistory={this.props.boardHistory} />
+            <ButtonGroup score={this.props.score} boardHistory={this.props.boardHistory} />
          </div>
       );
    }
