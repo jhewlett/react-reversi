@@ -1,5 +1,5 @@
 import { SWITCH_PLAYER, MAKE_MOVE, CHECK_OVERLAY_HINT, REMOVE_HINT, UNDO, RESET } from '../constants/ActionTypes';
-import Dispatcher from '../Dispatcher'
+import Dispatcher from '../Dispatcher';
 
 export function switchPlayer() {
    Dispatcher.onNext({

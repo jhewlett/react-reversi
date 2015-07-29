@@ -1,3 +1,3 @@
-import Rx from 'rx'
+import Rx from 'rx';
 
-export default new Rx.Subject()
+export default new Rx.Subject();
