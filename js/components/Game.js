@@ -10,24 +10,24 @@ import { getScore } from '../lib/Board';
 import { Stack, Map, List } from 'immutable';
 import store from '../store';
 
-@connect(state => state.game)
-export default class Game {
-   static propTypes = {
-      boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
-      playerHint: React.PropTypes.instanceOf(Map).isRequired,
-      board: React.PropTypes.instanceOf(List).isRequired,
-      currentPlayer: React.PropTypes.number.isRequired
-   }
-   render() {
-      const score = getScore(this.props.board);
+function Game(props) {
+  const score = getScore(props.board);
 
-      return (
-         <div>
-            <PlayerInfo currentPlayer={this.props.currentPlayer} score={score} />
-            <WinnerMessage score={score} />
-            <Board board={this.props.board} playerHint={this.props.playerHint} />
-            <ButtonGroup score={score} boardHistory={this.props.boardHistory} />
-         </div>
-      );
-   }
+  return (
+    <div>
+      <PlayerInfo currentPlayer={props.currentPlayer} score={score} />
+      <WinnerMessage score={score} />
+      <Board board={props.board} playerHint={props.playerHint} />
+      <ButtonGroup score={score} boardHistory={props.boardHistory} />
+    </div>
+  );
 }
+
+Game.propTypes = {
+  boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
+  playerHint: React.PropTypes.instanceOf(Map).isRequired,
+  board: React.PropTypes.instanceOf(List).isRequired,
+  currentPlayer: React.PropTypes.number.isRequired
+}
+
+export default connect(state => state.game)(Game)

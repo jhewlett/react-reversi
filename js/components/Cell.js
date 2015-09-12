@@ -5,27 +5,25 @@ import extend from 'object-assign';
 import { List, Map } from 'immutable';
 import gameActions from '../actions/gameActions';
 
-export default class Cell {
-   static propTypes = {
-      row: React.PropTypes.number.isRequired,
-      col: React.PropTypes.number.isRequired,
-      owner: React.PropTypes.number.isRequired,
-      playerHint: React.PropTypes.instanceOf(Map).isRequired
-   }
-   handleClick() {
-      gameActions.makeMove(this.props.row, this.props.col);
-   }
-   handleMouseOver() {
-      gameActions.checkOverlayHint(this.props.row, this.props.col);
-   }
-   handleMouseOut() {
-      gameActions.removeHint();
-   }
-   render() {
-      const styles = buildStyles(this.props.owner, this.props.playerHint, this.props.row, this.props.col);
+export default function Cell(props) {
+  const styles = buildStyles(props.owner, props.playerHint, props.row, props.col);
 
-      return <td style={styles} onClick={this.handleClick.bind(this)} onMouseOver={this.handleMouseOver.bind(this)} onMouseOut={this.handleMouseOut.bind(this)}></td>;
-   }
+  return (
+    <td
+      style={styles}
+      onClick={() => gameActions.makeMove(props.row, props.col)}
+      onMouseOver={() => gameActions.checkOverlayHint(props.row, props.col)}
+      onMouseOut={() => gameActions.removeHint()}
+    >
+    </td>
+  );
+}
+
+Cell.propTypes = {
+   row: React.PropTypes.number.isRequired,
+   col: React.PropTypes.number.isRequired,
+   owner: React.PropTypes.number.isRequired,
+   playerHint: React.PropTypes.instanceOf(Map).isRequired
 }
 
 function buildStyles(owner, playerHint, row, col) {
