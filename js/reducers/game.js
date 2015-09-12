@@ -1,5 +1,5 @@
 import Player from '../lib/Player';
-import Board from '../lib/Board';
+import { getScore, default as Board } from '../lib/Board';
 import isEndOfGame from '../lib/isEndOfGame';
 import { Stack, Map } from 'immutable';
 import { SWITCH_PLAYER, MAKE_MOVE, CHECK_OVERLAY_HINT, REMOVE_HINT, UNDO, RESET } from '../constants/ActionTypes';
@@ -106,4 +106,14 @@ export default function game(state = newGame(), action) {
    return handlers[action.type]
       ? handlers[action.type](state, action)
       : state;
+}
+
+export function getGame(state) {
+  const slice = state.game;
+  const score = getScore(slice.board)
+
+  return {
+    score,
+    ...slice
+  }
 }

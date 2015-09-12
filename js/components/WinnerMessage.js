@@ -1,22 +1,24 @@
 import React from 'react';
 
-export default function WinnerMessage(props) {
-  const styles = {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 19,
-    height: 22
-  };
+const styles = {
+  textAlign: 'center',
+  fontWeight: 'bold',
+  fontSize: 19,
+  height: 22
+};
 
-  return <p style={styles}>{getWinnerMessage(props.score)}</p>;
-}
+const WinnerMessage = (props) => (
+  <p style={styles}>{getWinnerMessage(props.score)}</p>
+);
+
+export default WinnerMessage;
 
 WinnerMessage.propTypes = {
   score: React.PropTypes.shape({
     player1: React.PropTypes.number.isRequired,
     player2: React.PropTypes.number.isRequired
   }).isRequired
-}
+};
 
 function getWinnerMessage(score) {
    if (score.player1 === 0) {

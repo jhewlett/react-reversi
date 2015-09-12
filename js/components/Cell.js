@@ -24,7 +24,7 @@ Cell.propTypes = {
    col: React.PropTypes.number.isRequired,
    owner: React.PropTypes.number.isRequired,
    playerHint: React.PropTypes.instanceOf(Map).isRequired
-}
+};
 
 function buildStyles(owner, playerHint, row, col) {
    const isHint = playerHint.get('row') === row && playerHint.get('col') === col;

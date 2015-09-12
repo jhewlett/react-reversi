@@ -5,31 +5,31 @@ import cellStyle from '../styles/cell';
 import globals from '../styles/globals';
 
 export default function PlayerInfo(props) {
-    const styles = buildStyles(props.currentPlayer);
+  const styles = buildStyles(props.currentPlayer);
 
-    return (
-       <table style={styles.playerTable}>
-          <tbody>
-             <tr>
-                <td style={styles.player1.label}>Player 1</td>
-                   <td style={styles.player1.score}>{props.score.player1}</td>
-                </tr>
-             <tr>
-                <td style={styles.player2.label}>Player 2</td>
-                <td style={styles.player2.score}>{props.score.player2}</td>
-             </tr>
-          </tbody>
-       </table>
-    );
+  return (
+    <table style={styles.playerTable}>
+      <tbody>
+        <tr>
+          <td style={styles.player1.label}>Player 1</td>
+          <td style={styles.player1.score}>{props.score.player1}</td>
+        </tr>
+        <tr>
+          <td style={styles.player2.label}>Player 2</td>
+          <td style={styles.player2.score}>{props.score.player2}</td>
+        </tr>
+      </tbody>
+    </table>
+  );
 }
 
 PlayerInfo.propTypes = {
-   currentPlayer: React.PropTypes.number.isRequired,
-   score: React.PropTypes.shape({
-      player1: React.PropTypes.number.isRequired,
-      player2: React.PropTypes.number.isRequired
-   }).isRequired
-}
+  currentPlayer: React.PropTypes.number.isRequired,
+  score: React.PropTypes.shape({
+    player1: React.PropTypes.number.isRequired,
+    player2: React.PropTypes.number.isRequired
+  }).isRequired
+};
 
 function buildStyles(currentPlayer) {
    return {
