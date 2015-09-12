@@ -1,8 +1,8 @@
 react-reversi
 =============
 
-Implementation of the game of Reversi (Othello) in React.js. As a proof of concept, all styles are inline and are implemented in javascript.
+Implementation of the game of Reversi (Othello) in React.js.
 
-Credits
--------------
-Doing all styles in JS inspired by <a href="https://github.com/vjeux">vjeux</a>' excellent <a href="https://speakerdeck.com/vjeux/react-css-in-js">'CSS in JS' talk</a>.
+I mostly use this as a playground for trying out the latest libs and techniques.
+
+Right now it's using [[Redux|https://github.com/rackt/react-redux]] for data flow, inline styles, and functions-as-components from React v0.14.
