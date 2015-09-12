@@ -7,7 +7,8 @@
     "test": "specs"
   },
   "scripts": {
-    "specs": "BABEL_JEST_STAGE=0 jest"
+    "specs": "BABEL_JEST_STAGE=0 jest",
+    "start": "webpack-dev-server --port 3100"
   },
   "author": "Justin Hewlett",
   "license": "MIT",
@@ -16,15 +17,17 @@
     "babel-jest": "^5.3.0",
     "babel-loader": "^5.3.1",
     "jest-cli": "^0.4.0",
-    "webpack": "~1.7.2"
+    "webpack": "^1.12.0",
+    "webpack-dev-server": "^1.10.1"
   },
   "dependencies": {
-    "react-redux": "^0.2.1",
-    "redux": "^1.0.0-rc",
-    "immutable": "^3.6.4",
-    "lodash": "^3.5.0",
-    "object-assign": "~2.0.0",
-    "react": "^0.13.1"
+    "immutable": "^3.7.5",
+    "lodash": "^3.10.1",
+    "object-assign": "^2.1.1",
+    "react": "^0.14.0-rc1",
+    "react-dom": "^0.14.0-rc1",
+    "react-redux": "^2.0.0",
+    "redux": "^2.0.0"
   },
   "jest": {
     "scriptPreprocessor": "./node_modules/babel-jest",
