@@ -2,7 +2,6 @@ import React from 'react';
 import Button from './Button';
 import isEndOfGame from '../lib/isEndOfGame';
 import { Stack } from 'immutable';
-import gameActions from '../actions/gameActions';
 
 const styles = {
    textAlign: 'center',
@@ -15,9 +14,9 @@ export default function ButtonGroup(props) {
 
   return (
      <div style={styles}>
-        <Button action={gameActions.switchPlayer} disabled={gameOver}>Pass</Button>
-        <Button action={gameActions.undo} disabled={!hasMoves || gameOver}>Undo</Button>
-        <Button action={gameActions.reset} disabled={!hasMoves}>Reset</Button>
+        <Button action={props.actions.switchPlayer} disabled={gameOver}>Pass</Button>
+        <Button action={props.actions.undo} disabled={!hasMoves || gameOver}>Undo</Button>
+        <Button action={props.actions.reset} disabled={!hasMoves}>Reset</Button>
      </div>
   );
 }
@@ -27,5 +26,6 @@ ButtonGroup.propTypes = {
      player1: React.PropTypes.number.isRequired,
      player2: React.PropTypes.number.isRequired
   }).isRequired,
-  boardHistory: React.PropTypes.instanceOf(Stack).isRequired
+  boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
+  actions: React.PropTypes.object.isRequired
 };

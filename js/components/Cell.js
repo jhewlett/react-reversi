@@ -3,7 +3,6 @@ import Player from '../lib/Player';
 import cellStyle from '../styles/cell';
 import extend from 'object-assign';
 import { List, Map } from 'immutable';
-import gameActions from '../actions/gameActions';
 
 export default function Cell(props) {
   const styles = buildStyles(props.owner, props.playerHint, props.row, props.col);
@@ -11,9 +10,9 @@ export default function Cell(props) {
   return (
     <td
       style={styles}
-      onClick={() => gameActions.makeMove(props.row, props.col)}
-      onMouseOver={() => gameActions.checkOverlayHint(props.row, props.col)}
-      onMouseOut={() => gameActions.removeHint()}
+      onClick={() => props.actions.makeMove(props.row, props.col)}
+      onMouseOver={() => props.actions.checkOverlayHint(props.row, props.col)}
+      onMouseOut={() => props.actions.removeHint()}
     >
     </td>
   );
@@ -23,7 +22,8 @@ Cell.propTypes = {
    row: React.PropTypes.number.isRequired,
    col: React.PropTypes.number.isRequired,
    owner: React.PropTypes.number.isRequired,
-   playerHint: React.PropTypes.instanceOf(Map).isRequired
+   playerHint: React.PropTypes.instanceOf(Map).isRequired,
+   actions: React.PropTypes.object.isRequired
 };
 
 function buildStyles(owner, playerHint, row, col) {

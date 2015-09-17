@@ -12,6 +12,7 @@ const Row = (props) => (
             col={c}
             owner={Board.getStatus(props.board, props.row, c)}
             playerHint={props.playerHint}
+            actions={props.actions}
             key={c}
       />
     )}
@@ -24,4 +25,5 @@ Row.propTypes = {
   row: React.PropTypes.number.isRequired,
   board: React.PropTypes.instanceOf(List).isRequired,
   playerHint: React.PropTypes.instanceOf(Map).isRequired,
+  actions: React.PropTypes.object.isRequired
 };

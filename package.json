@@ -7,16 +7,23 @@
     "test": "specs"
   },
   "scripts": {
-    "specs": "BABEL_JEST_STAGE=0 jest",
-    "start": "webpack-dev-server --port 3100"
+    "start": "webpack-dev-server --port 3100",
+    "test": "mocha --opts ./mocha.opts",
+    "test-watch": "mocha --opts ./mocha.opts --watch"
   },
   "author": "Justin Hewlett",
   "license": "MIT",
   "devDependencies": {
+    "babel": "^5.8.23",
     "babel-core": "^5.6.20",
     "babel-jest": "^5.3.0",
     "babel-loader": "^5.3.1",
-    "jest-cli": "^0.4.0",
+    "babel-runtime": "^5.8.24",
+    "chai": "^3.2.0",
+    "legit-tests": "^0.3.3",
+    "mocha": "^2.3.2",
+    "mocha-babel": "^3.0.0",
+    "react-addons-test-utils": "^0.14.0-rc1",
     "webpack": "^1.12.0",
     "webpack-dev-server": "^1.10.1"
   },
@@ -28,19 +35,5 @@
     "react-dom": "^0.14.0-rc1",
     "react-redux": "^2.0.0",
     "redux": "^2.0.0"
-  },
-  "jest": {
-    "scriptPreprocessor": "./node_modules/babel-jest",
-    "testFileExtensions": [
-      "js"
-    ],
-    "moduleFileExtensions": [
-      "js"
-    ],
-    "testDirectoryName": "specs",
-    "unmockedModulePathPatterns": [
-      "./js",
-      "./node_modules"
-    ]
   }
 }
