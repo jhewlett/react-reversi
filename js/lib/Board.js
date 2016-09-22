@@ -5,7 +5,7 @@ import Player from './Player';
 
 const _directions = directions();
 
-function makeMove(board, i, j, color) {
+export function makeMove(board, i, j, color) {
    if (getStatus(board, i, j) !== Player.None) return board;
 
    function makeMoveInAllDirections(board, directions) {
@@ -38,7 +38,7 @@ function colorCapturedCells(board, i, j, color, direction) {
    return colorCapturedCells(boardWithMove, next.row, next.col, color, direction);
 }
 
-function canMakeMove(board, i, j, color) {
+export function canMakeMove(board, i, j, color) {
    return getStatus(board, i, j) === Player.None
       && _directions.some(d => surroundsOppositePlayer(board, i, j, color, d))
 }
@@ -69,22 +69,22 @@ function lineContainsColor(board, i, j, color, direction) {
    return lineContainsColor(board, next.row, next.col, color, direction);
 }
 
-function getScore(board) {
+export function getScore(board) {
    return {
       player1: board.count(item => item === Player.One),
       player2: board.count(item => item === Player.Two)
    };
 }
 
-function getStatus(board, i, j) {
+export function getStatus(board, i, j) {
    return board.get(i * 8 + j);
 }
 
-function setCell(board, i, j, color) {
+export function setCell(board, i, j, color) {
    return board.set(i * 8 + j, color);
 }
 
-const newGameBoard = List(
+export const newGameBoard = List(
    [0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -94,12 +94,3 @@ const newGameBoard = List(
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
 ]);
-
-export default {
-   getStatus,
-   canMakeMove,
-   makeMove,
-   setCell,
-   getScore,
-   newGameBoard
-};
