@@ -1,11 +1,11 @@
-import React from 'react';
-import Player from '../lib/Player';
-import extend from 'object-assign';
-import cellStyle from '../styles/cell';
-import globals from '../styles/globals';
+import React from 'react'
+import Player from '../lib/Player'
+import extend from 'object-assign'
+import cellStyle from '../styles/cell'
+import globals from '../styles/globals'
 
 export default function PlayerInfo(props) {
-  const styles = buildStyles(props.currentPlayer);
+  const styles = buildStyles(props.currentPlayer)
 
   return (
     <table style={styles.playerTable}>
@@ -20,7 +20,7 @@ export default function PlayerInfo(props) {
         </tr>
       </tbody>
     </table>
-  );
+  )
 }
 
 PlayerInfo.propTypes = {
@@ -29,38 +29,44 @@ PlayerInfo.propTypes = {
     player1: React.PropTypes.number.isRequired,
     player2: React.PropTypes.number.isRequired
   }).isRequired
-};
+}
 
 function buildStyles(currentPlayer) {
-   return {
-      playerTable: {
-         marginLeft: 'auto',
-         marginRight: 'auto',
-         marginTop: 30
+  return {
+    playerTable: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: 30
+    },
+    player1: {
+      label: {
+        fontWeight: currentPlayer === Player.One ? 'bold' : 'normal',
+        width: 120,
+        fontSize: globals.fontSize
       },
-      player1: {
-         label: {
-            fontWeight: currentPlayer === Player.One ? 'bold' : 'normal',
-            width: 120,
-            fontSize: globals.fontSize
-         },
-         score: extend({
-            color: 'white',
-            fontSize: globals.fontSize,
-            textAlign: 'center'
-         }, cellStyle(Player.One))
+      score: extend(
+        {
+          color: 'white',
+          fontSize: globals.fontSize,
+          textAlign: 'center'
+        },
+        cellStyle(Player.One)
+      )
+    },
+    player2: {
+      label: {
+        fontWeight: currentPlayer === Player.Two ? 'bold' : 'normal',
+        width: 120,
+        fontSize: globals.fontSize
       },
-      player2: {
-         label: {
-            fontWeight: currentPlayer === Player.Two ? 'bold' : 'normal',
-            width: 120,
-            fontSize: globals.fontSize
-         },
-         score: extend({
-            color: 'white',
-            fontSize: globals.fontSize,
-            textAlign: 'center'
-         }, cellStyle(Player.Two))
-      }
-   };
+      score: extend(
+        {
+          color: 'white',
+          fontSize: globals.fontSize,
+          textAlign: 'center'
+        },
+        cellStyle(Player.Two)
+      )
+    }
+  }
 }

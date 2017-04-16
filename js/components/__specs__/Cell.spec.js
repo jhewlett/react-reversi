@@ -25,12 +25,16 @@ describe('Cell', () => {
           col={3}
           owner={Player.One}
           playerHint={Map()}
-          actions={{ }}/>);
+          actions={{}}
+        />
+      )
     })
 
     it('should render red with full opacity', () => {
       expect(component.props.style.opacity).to.equal(1)
-      expect(component.props.style.backgroundImage).to.equal('url("img/red.png")')
+      expect(component.props.style.backgroundImage).to.equal(
+        'url("img/red.png")'
+      )
     })
   })
 
@@ -45,12 +49,16 @@ describe('Cell', () => {
           col={5}
           owner={Player.None}
           playerHint={Map({ row: 3, col: 5, player: Player.Two })}
-          actions={{ }}/>);
+          actions={{}}
+        />
+      )
     })
 
     it('should render blue with partial opacity', () => {
       expect(component.props.style.opacity).to.equal(0.6)
-      expect(component.props.style.backgroundImage).to.equal('url("img/blue.png")')
+      expect(component.props.style.backgroundImage).to.equal(
+        'url("img/blue.png")'
+      )
     })
   })
 
@@ -65,12 +73,16 @@ describe('Cell', () => {
           col={5}
           owner={Player.One}
           playerHint={Map({ row: 3, col: 5, player: Player.Two })}
-          actions={{ }}/>);
+          actions={{}}
+        />
+      )
     })
 
     it('should render owner', () => {
       expect(component.props.style.opacity).to.equal(1)
-      expect(component.props.style.backgroundImage).to.equal('url("img/red.png")')
+      expect(component.props.style.backgroundImage).to.equal(
+        'url("img/red.png")'
+      )
     })
   })
 })

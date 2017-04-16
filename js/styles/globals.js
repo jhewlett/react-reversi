@@ -1,3 +1,3 @@
 export default {
-   fontSize: 24
-};
+  fontSize: 24
+}
