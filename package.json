@@ -30,6 +30,7 @@
     "immutable": "^3.7.5",
     "lodash": "^3.10.1",
     "object-assign": "^2.1.1",
+    "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^4.4.5",

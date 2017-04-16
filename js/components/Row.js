@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Cell from './Cell'
 import * as Board from '../lib/Board.js'
@@ -23,8 +24,8 @@ const Row = props => (
 export default Row
 
 Row.propTypes = {
-  row: React.PropTypes.number.isRequired,
-  board: React.PropTypes.instanceOf(List).isRequired,
-  playerHint: React.PropTypes.instanceOf(Map).isRequired,
-  actions: React.PropTypes.object.isRequired
+  row: PropTypes.number.isRequired,
+  board: PropTypes.instanceOf(List).isRequired,
+  playerHint: PropTypes.instanceOf(Map).isRequired,
+  actions: PropTypes.object.isRequired
 }

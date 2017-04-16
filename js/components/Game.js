@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -13,11 +14,11 @@ import { getGame } from '../reducers/game'
 
 class Game extends React.Component {
   static propTypes = {
-    boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
-    playerHint: React.PropTypes.instanceOf(Map).isRequired,
-    board: React.PropTypes.instanceOf(List).isRequired,
-    currentPlayer: React.PropTypes.number.isRequired,
-    actions: React.PropTypes.object.isRequired
+    boardHistory: PropTypes.instanceOf(Stack).isRequired,
+    playerHint: PropTypes.instanceOf(Map).isRequired,
+    board: PropTypes.instanceOf(List).isRequired,
+    currentPlayer: PropTypes.number.isRequired,
+    actions: PropTypes.object.isRequired
   }
 
   render() {

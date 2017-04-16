@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Row from './Row'
 import { List, Map } from 'immutable'
@@ -28,7 +29,7 @@ const Board = props => (
 export default Board
 
 Board.propTypes = {
-  board: React.PropTypes.instanceOf(List).isRequired,
-  playerHint: React.PropTypes.instanceOf(Map).isRequired,
-  actions: React.PropTypes.object.isRequired
+  board: PropTypes.instanceOf(List).isRequired,
+  playerHint: PropTypes.instanceOf(Map).isRequired,
+  actions: PropTypes.object.isRequired
 }

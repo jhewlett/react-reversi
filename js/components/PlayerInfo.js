@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Player from '../lib/Player'
 import extend from 'object-assign'
@@ -24,10 +25,10 @@ export default function PlayerInfo(props) {
 }
 
 PlayerInfo.propTypes = {
-  currentPlayer: React.PropTypes.number.isRequired,
-  score: React.PropTypes.shape({
-    player1: React.PropTypes.number.isRequired,
-    player2: React.PropTypes.number.isRequired
+  currentPlayer: PropTypes.number.isRequired,
+  score: PropTypes.shape({
+    player1: PropTypes.number.isRequired,
+    player2: PropTypes.number.isRequired
   }).isRequired
 }
 

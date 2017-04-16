@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Button from './Button'
 import isEndOfGame from '../lib/isEndOfGame'
@@ -26,10 +27,10 @@ export default function ButtonGroup(props) {
 }
 
 ButtonGroup.propTypes = {
-  score: React.PropTypes.shape({
-    player1: React.PropTypes.number.isRequired,
-    player2: React.PropTypes.number.isRequired
+  score: PropTypes.shape({
+    player1: PropTypes.number.isRequired,
+    player2: PropTypes.number.isRequired
   }).isRequired,
-  boardHistory: React.PropTypes.instanceOf(Stack).isRequired,
-  actions: React.PropTypes.object.isRequired
+  boardHistory: PropTypes.instanceOf(Stack).isRequired,
+  actions: PropTypes.object.isRequired
 }

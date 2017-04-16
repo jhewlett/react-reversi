@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 export default function Button(props) {
@@ -13,7 +14,7 @@ export default function Button(props) {
 }
 
 Button.propTypes = {
-  children: React.PropTypes.string.isRequired,
-  action: React.PropTypes.func.isRequired,
-  disabled: React.PropTypes.bool.isRequired
+  children: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired
 }

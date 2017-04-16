@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const styles = {
@@ -14,9 +15,9 @@ const WinnerMessage = props => (
 export default WinnerMessage
 
 WinnerMessage.propTypes = {
-  score: React.PropTypes.shape({
-    player1: React.PropTypes.number.isRequired,
-    player2: React.PropTypes.number.isRequired
+  score: PropTypes.shape({
+    player1: PropTypes.number.isRequired,
+    player2: PropTypes.number.isRequired
   }).isRequired
 }
 

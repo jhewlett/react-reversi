@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Player from '../lib/Player'
 import cellStyle from '../styles/cell'
@@ -23,11 +24,11 @@ export default function Cell(props) {
 }
 
 Cell.propTypes = {
-  row: React.PropTypes.number.isRequired,
-  col: React.PropTypes.number.isRequired,
-  owner: React.PropTypes.number.isRequired,
-  playerHint: React.PropTypes.instanceOf(Map).isRequired,
-  actions: React.PropTypes.object.isRequired
+  row: PropTypes.number.isRequired,
+  col: PropTypes.number.isRequired,
+  owner: PropTypes.number.isRequired,
+  playerHint: PropTypes.instanceOf(Map).isRequired,
+  actions: PropTypes.object.isRequired
 }
 
 function buildStyles(owner, playerHint, row, col) {
