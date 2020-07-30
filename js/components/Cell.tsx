@@ -1,7 +1,6 @@
 import * as React from 'react'
-import Player, { CellOwner } from '../lib/Player'
 import cellStyle from '../styles/cell'
-import { Row, PlayerHint, Col } from '../reducers/game'
+import { Row, PlayerHint, Col, Player, CellOwner } from '../domain-types'
 
 type CellProps = {
   row: Row

@@ -7,7 +7,8 @@ import Board from './Board'
 import PlayerInfo from './PlayerInfo'
 import WinnerMessage from './WinnerMessage'
 import ButtonGroup from './ButtonGroup'
-import { getGame, PlayerType, GameBoard, GameBoardHistory, PlayerHint, Score, Row, Col } from '../reducers/game'
+import { getGame } from '../reducers/game'
+import { PlayerType, GameBoard, GameBoardHistory, PlayerHint, Score, Row, Col } from '../domain-types'
 
 type GameProps = {
   boardHistory: GameBoardHistory

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Cell from './Cell'
 import * as Board from '../lib/Board'
-import { Row, PlayerHint, GameBoard, Col } from '../reducers/game'
+import { Row, PlayerHint, GameBoard, Col } from '../domain-types'
 
 const range = [0, 1, 2, 3, 4, 5, 6, 7] as const
 

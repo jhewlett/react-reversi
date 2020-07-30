@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Score } from '../reducers/game'
+import { Score } from '../domain-types'
 
 const styles = {
   textAlign: 'center',

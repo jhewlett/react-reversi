@@ -1,14 +1,14 @@
 import { List } from 'immutable'
 
 import directions from './Direction'
-import Player from './Player'
+import { Player, Row, Col, CellOwner, GameBoard, Score } from '../domain-types'
 
 const _directions = directions()
 
-export function makeMove(board, i, j, color) {
+export function makeMove(board: GameBoard, i: Row, j: Col, color: CellOwner) : GameBoard {
   if (getStatus(board, i, j) !== Player.None) return board
 
-  function makeMoveInAllDirections(board, directions) {
+  function makeMoveInAllDirections(board: GameBoard, directions: typeof _directions) : GameBoard {
     if (!directions.length) return board
 
     const head = directions[0]
@@ -26,7 +26,7 @@ export function makeMove(board, i, j, color) {
   return makeMoveInAllDirections(board, _directions)
 }
 
-function colorCapturedCells(board, i, j, color, direction) {
+function colorCapturedCells(board: GameBoard, i: Row, j: Col, color: CellOwner, direction: typeof _directions[number]) : GameBoard {
   const boardWithMove = setCell(board, i, j, color)
 
   const next = direction.getNext(i, j)
@@ -38,26 +38,26 @@ function colorCapturedCells(board, i, j, color, direction) {
   return colorCapturedCells(boardWithMove, next.row, next.col, color, direction)
 }
 
-export function canMakeMove(board, i, j, color) {
+export function canMakeMove(board: GameBoard, i: Row, j: Col, color: CellOwner) : boolean {
   return (
     getStatus(board, i, j) === Player.None &&
     _directions.some(d => surroundsOppositePlayer(board, i, j, color, d))
   )
 }
 
-function surroundsOppositePlayer(board, i, j, color, direction) {
+function surroundsOppositePlayer(board: GameBoard, i: Row, j: Col, color: CellOwner, direction: typeof _directions[number]) : boolean {
   const oppositeColor = color === Player.One ? Player.Two : Player.One
 
   const next = direction.getNext(i, j)
 
   return (
-    next &&
+    !!next &&
     getStatus(board, next.row, next.col) === oppositeColor &&
     lineContainsColor(board, i, j, color, direction)
   )
 }
 
-function lineContainsColor(board, i, j, color, direction) {
+function lineContainsColor(board: GameBoard, i: Row, j: Col, color: CellOwner, direction: typeof _directions[number]) : boolean {
   const next = direction.getNext(i, j)
 
   if (!next || getStatus(board, next.row, next.col) === Player.None) {
@@ -71,23 +71,23 @@ function lineContainsColor(board, i, j, color, direction) {
   return lineContainsColor(board, next.row, next.col, color, direction)
 }
 
-export function getScore(board) {
+export function getScore(board: GameBoard) : Score {
   return {
     player1: board.count(item => item === Player.One),
     player2: board.count(item => item === Player.Two)
   }
 }
 
-export function getStatus(board, i, j) {
+export function getStatus(board: GameBoard, i: Row, j: Col) : CellOwner {
   return board.get(i * 8 + j)
 }
 
-export function setCell(board, i, j, color) {
+export function setCell(board: GameBoard, i: Row, j: Col, color: CellOwner) : GameBoard {
   return board.set(i * 8 + j, color)
 }
 
 // prettier-ignore
-export const newGameBoard = List([
+export const newGameBoard : GameBoard = List([
   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,

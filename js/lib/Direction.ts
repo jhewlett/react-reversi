@@ -1,13 +1,15 @@
-function direction(rowIncrement, colIncrement) {
-  function getNext(i, j) {
+import { Row, Col } from "../domain-types"
+
+function direction(rowIncrement: -1 | 0 | 1, colIncrement: -1 | 0 | 1) {
+  function getNext(i: Row, j: Col) : { row: Row, col: Col} | null {
     const nextI = i + rowIncrement
     const nextJ = j + colIncrement
 
     if (nextI < 0 || nextI > 7 || nextJ < 0 || nextJ > 7) {
-      return false
+      return null
     }
 
-    return { row: i + rowIncrement, col: j + colIncrement }
+    return { row: nextI as Row, col: nextJ as Col }
   }
 
   return {

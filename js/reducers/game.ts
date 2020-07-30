@@ -1,25 +1,8 @@
-import Player from '../lib/Player'
 import * as Board from '../lib/Board'
 import isEndOfGame from '../lib/isEndOfGame'
-import { Stack, Record, List } from 'immutable'
+import { Stack } from 'immutable'
 import { MakeMoveAction, CheckOverlayHintAction, Action as GameAction } from '../actions/gameActions'
-
-export type GameBoard = List<0 | 1 | 2>
-export type Row = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
-export type Col = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
-export type PlayerType = 1 | 2
-export class PlayerHint extends Record({ row: undefined, col: undefined, player: undefined}) {
-  constructor(params?: { row: Row, col: Col, player: PlayerType}) {
-    params ? super(params) : super();
-  }
-}
-export type GameBoardHistory = Stack<GameBoard>
-
-//todo: move to Domain?
-export type Score = {
-  player1: number,
-  player2: number
-}
+import { PlayerType, GameBoard, PlayerHint, GameBoardHistory, Player } from '../domain-types'
 
 type GameState = {
   currentPlayer: PlayerType

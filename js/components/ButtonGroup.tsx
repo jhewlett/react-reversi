@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Button from './Button'
 import isEndOfGame from '../lib/isEndOfGame'
-import { GameBoardHistory, Score } from '../reducers/game'
+import { GameBoardHistory, Score } from '../domain-types'
 
 const styles = {
   textAlign: 'center',

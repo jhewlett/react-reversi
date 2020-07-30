@@ -1,4 +1,4 @@
-import { Row, Col } from "../reducers/game"
+import { Row, Col } from "../domain-types"
 
 export type CheckOverlayHintAction = { type: 'CHECK_OVERLAY_HINT', row: Row, col: Col }
 export type MakeMoveAction = | { type: 'MAKE_MOVE', row: Row, col: Col }

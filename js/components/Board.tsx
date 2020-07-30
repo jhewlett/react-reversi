@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Row from './Row'
-import { GameBoard, PlayerHint, Row as RowType, Col } from '../reducers/game'
+import { GameBoard, PlayerHint, Row as RowType, Col } from '../domain-types'
 
 const styles = {
   marginLeft: 'auto',
