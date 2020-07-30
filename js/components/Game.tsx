@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -8,19 +7,25 @@ import Board from './Board'
 import PlayerInfo from './PlayerInfo'
 import WinnerMessage from './WinnerMessage'
 import ButtonGroup from './ButtonGroup'
-import Player from '../lib/Player'
-import { Stack, Map, List } from 'immutable'
-import { getGame } from '../reducers/game'
+import { getGame, PlayerType, GameBoard, GameBoardHistory, PlayerHint, Score, Row, Col } from '../reducers/game'
 
-class Game extends React.Component {
-  static propTypes = {
-    boardHistory: PropTypes.instanceOf(Stack).isRequired,
-    playerHint: PropTypes.instanceOf(Map).isRequired,
-    board: PropTypes.instanceOf(List).isRequired,
-    currentPlayer: PropTypes.number.isRequired,
-    actions: PropTypes.object.isRequired
+type GameProps = {
+  boardHistory: GameBoardHistory
+  playerHint: PlayerHint | null
+  board: GameBoard
+  currentPlayer: PlayerType
+  actions: {
+    switchPlayer: () => {},
+    undo: () => {},
+    reset: () => {}
+    makeMove: (row: Row, col: Col) => {},
+    checkOverlayHint: (row: Row, col: Col) => {},
+    removeHint: () => {}
   }
+  score: Score
+}
 
+class Game extends React.Component<GameProps> {
   render() {
     return (
       <div>

@@ -1,15 +1,24 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import * as React from 'react'
 import Button from './Button'
 import isEndOfGame from '../lib/isEndOfGame'
-import { Stack } from 'immutable'
+import { GameBoardHistory, Score } from '../reducers/game'
 
 const styles = {
   textAlign: 'center',
   marginTop: 30
+} as const
+
+type ButtonGroupProps = {
+  score: Score,
+  boardHistory: GameBoardHistory,
+  actions: {
+    switchPlayer: () => { } //todo: better?
+    undo: () => { }
+    reset: () => { }
+  }
 }
 
-export default function ButtonGroup(props) {
+export default function ButtonGroup(props: ButtonGroupProps) {
   const gameOver = isEndOfGame(props.score.player1, props.score.player2)
   const hasMoves = props.boardHistory.size > 1
 
@@ -24,13 +33,4 @@ export default function ButtonGroup(props) {
       <Button action={props.actions.reset} disabled={!hasMoves}>Reset</Button>
     </div>
   )
-}
-
-ButtonGroup.propTypes = {
-  score: PropTypes.shape({
-    player1: PropTypes.number.isRequired,
-    player2: PropTypes.number.isRequired
-  }).isRequired,
-  boardHistory: PropTypes.instanceOf(Stack).isRequired,
-  actions: PropTypes.object.isRequired
 }

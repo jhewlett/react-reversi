@@ -1,27 +1,24 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import * as React from 'react'
+import { Score } from '../reducers/game'
 
 const styles = {
   textAlign: 'center',
   fontWeight: 'bold',
   fontSize: 19,
   height: 22
+} as const
+
+type Props = {
+  score: Score
 }
 
-const WinnerMessage = props => (
+const WinnerMessage = (props: Props) => (
   <p style={styles}>{getWinnerMessage(props.score)}</p>
 )
 
 export default WinnerMessage
 
-WinnerMessage.propTypes = {
-  score: PropTypes.shape({
-    player1: PropTypes.number.isRequired,
-    player2: PropTypes.number.isRequired
-  }).isRequired
-}
-
-function getWinnerMessage(score) {
+function getWinnerMessage(score: Score) {
   if (score.player1 === 0) {
     return 'Player 2 wins!'
   } else if (score.player2 === 0) {

@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import * as React from 'react'
 
-export default function Button(props) {
+type ButtonProps = {
+  children: React.ReactChild
+  action: () => void  //todo: better type?
+  disabled: boolean
+}
+
+export default function Button(props : ButtonProps) {
   const styles = {
     cursor: props.disabled ? 'default' : 'pointer',
     width: 100,
@@ -11,10 +16,4 @@ export default function Button(props) {
   return props.disabled
     ? <button style={styles} disabled>{props.children}</button>
     : <button style={styles} onClick={props.action}>{props.children}</button>
-}
-
-Button.propTypes = {
-  children: PropTypes.string.isRequired,
-  action: PropTypes.func.isRequired,
-  disabled: PropTypes.bool.isRequired
 }
