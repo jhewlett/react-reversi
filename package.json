@@ -10,7 +10,7 @@
     "start": "webpack-dev-server --port 3100",
     "test": "jest",
     "test-watch": "jest --watch",
-    "prettier": "prettier --single-quote --trailing-comma none --semi false --write \"js/**/*.js\"",
+    "prettier": "prettier --single-quote --trailing-comma none --semi false --write \"js/**/*.ts?\"",
     "typecheck": "tsc --noEmit"
   },
   "author": "Justin Hewlett",

@@ -7,8 +7,8 @@ import { Row, PlayerHint, GameBoard, Col } from '../domain-types'
 const range = [0, 1, 2, 3, 4, 5, 6, 7] as const
 
 type RowProps = {
-  row: Row,
-  board: GameBoard,
+  row: Row
+  board: GameBoard
   playerHint: PlayerHint | null
 }
 

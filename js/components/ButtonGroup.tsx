@@ -12,7 +12,7 @@ const styles = {
 } as const
 
 type ButtonGroupProps = {
-  score: Score,
+  score: Score
   boardHistory: GameBoardHistory
 }
 
@@ -30,7 +30,9 @@ export default function ButtonGroup(props: ButtonGroupProps) {
       <Button action={() => dispatch(undo())} disabled={!hasMoves || gameOver}>
         Undo
       </Button>
-      <Button action={() => dispatch(reset())} disabled={!hasMoves}>Reset</Button>
+      <Button action={() => dispatch(reset())} disabled={!hasMoves}>
+        Reset
+      </Button>
     </div>
   )
 }

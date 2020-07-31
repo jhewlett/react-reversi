@@ -32,8 +32,14 @@ export default function Cell(props: CellProps) {
   )
 }
 
-export function buildStyles(owner: CellOwner, playerHint: PlayerHint | null, row: Row, col: Col) {
-  const isHint = playerHint && playerHint.get('row') === row && playerHint.get('col') === col
+export function buildStyles(
+  owner: CellOwner,
+  playerHint: PlayerHint | null,
+  row: Row,
+  col: Col
+) {
+  const isHint =
+    playerHint && playerHint.get('row') === row && playerHint.get('col') === col
 
   let cellAppearance
   let opacity
@@ -42,7 +48,7 @@ export function buildStyles(owner: CellOwner, playerHint: PlayerHint | null, row
     cellAppearance = owner
     opacity = 1
   } else if (isHint) {
-    cellAppearance = playerHint!.get('player')  //todo: better
+    cellAppearance = playerHint!.get('player') //todo: better
     opacity = 0.6
   } else {
     cellAppearance = Player.None

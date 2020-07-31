@@ -4,7 +4,7 @@ import { PlayerType, Score } from '../domain-types'
 import cellStyle from '../styles/cell'
 
 type PlayerInfoProps = {
-  currentPlayer: PlayerType,
+  currentPlayer: PlayerType
   score: Score
 }
 

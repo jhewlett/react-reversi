@@ -15,7 +15,7 @@ type BoardProps = {
   playerHint: PlayerHint | null
 }
 
-const Board = (props : BoardProps) => (
+const Board = (props: BoardProps) => (
   <table style={styles}>
     <tbody>
       {([0, 1, 2, 3, 4, 5, 6, 7] as const).map(r => (
