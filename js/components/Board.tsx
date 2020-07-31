@@ -1,6 +1,7 @@
 import * as React from 'react'
+
 import Row from './Row'
-import { GameBoard, PlayerHint, Row as RowType, Col } from '../domain-types'
+import { GameBoard, PlayerHint } from '../domain-types'
 
 const styles = {
   marginLeft: 'auto',
@@ -12,11 +13,6 @@ const styles = {
 type BoardProps = {
   board: GameBoard
   playerHint: PlayerHint | null
-  actions: {
-    makeMove: (row: RowType, col: Col) => {},
-    checkOverlayHint: (row: RowType, col: Col) => {},
-    removeHint: () => {}
-  }  //todo: better type
 }
 
 const Board = (props : BoardProps) => (
@@ -26,7 +22,6 @@ const Board = (props : BoardProps) => (
         <Row
           row={r}
           board={props.board}
-          actions={props.actions}
           playerHint={props.playerHint}
           key={r}
         />

@@ -2,7 +2,7 @@ import * as React from 'react'
 
 type ButtonProps = {
   children: React.ReactChild
-  action: () => void  //todo: better type?
+  action: () => void
   disabled: boolean
 }
 

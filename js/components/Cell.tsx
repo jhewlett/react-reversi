@@ -1,20 +1,20 @@
 import * as React from 'react'
+import { useDispatch } from 'react-redux'
+
 import cellStyle from '../styles/cell'
 import { Row, PlayerHint, Col, Player, CellOwner } from '../domain-types'
+import { makeMove, checkOverlayHint, removeHint } from '../actions/gameActions'
 
 type CellProps = {
   row: Row
   col: Col
   owner: 0 | 1 | 2
   playerHint: PlayerHint | null
-  actions: {
-    makeMove: (row: Row, col: Col) => void,
-    checkOverlayHint: (row: Row, col: Col) => void,
-    removeHint: () => void
-   }
 }
 
 export default function Cell(props: CellProps) {
+  const dispatch = useDispatch()
+
   const styles = buildStyles(
     props.owner,
     props.playerHint,
@@ -25,14 +25,14 @@ export default function Cell(props: CellProps) {
   return (
     <td
       style={styles}
-      onClick={() => props.actions.makeMove(props.row, props.col)}
-      onMouseOver={() => props.actions.checkOverlayHint(props.row, props.col)}
-      onMouseOut={() => props.actions.removeHint()}
+      onClick={() => dispatch(makeMove(props.row, props.col))}
+      onMouseOver={() => dispatch(checkOverlayHint(props.row, props.col))}
+      onMouseOut={() => dispatch(removeHint())}
     />
   )
 }
 
-function buildStyles(owner: CellOwner, playerHint: PlayerHint | null, row: Row, col: Col) {
+export function buildStyles(owner: CellOwner, playerHint: PlayerHint | null, row: Row, col: Col) {
   const isHint = playerHint && playerHint.get('row') === row && playerHint.get('col') === col
 
   let cellAppearance
