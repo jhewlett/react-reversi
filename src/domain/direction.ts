@@ -1,4 +1,4 @@
-import { Row, Col } from "../domain-types"
+import { Row, Col } from "./types"
 
 function direction(rowIncrement: -1 | 0 | 1, colIncrement: -1 | 0 | 1) {
   function getNext(i: Row, j: Col) : { row: Row, col: Col} | null {

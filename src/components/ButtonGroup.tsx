@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useDispatch } from 'react-redux'
 
 import Button from './Button'
-import isEndOfGame from '../lib/isEndOfGame'
-import { GameBoardHistory, Score } from '../domain-types'
+import isEndOfGame from '../domain/isEndOfGame'
+import { GameBoardHistory, Score } from '../domain/types'
 import { switchPlayer, undo, reset } from '../actions/gameActions'
 
 const styles = {
@@ -17,7 +17,7 @@ type ButtonGroupProps = {
 }
 
 export default function ButtonGroup(props: ButtonGroupProps) {
-  const gameOver = isEndOfGame(props.score.player1, props.score.player2)
+  const gameOver = isEndOfGame(props.score.player1, props.score.player2)    //todo: make this a selector?
   const hasMoves = props.boardHistory.size > 1
 
   const dispatch = useDispatch()

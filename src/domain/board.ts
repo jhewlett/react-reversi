@@ -1,7 +1,7 @@
 import { List } from 'immutable'
 
-import directions from './Direction'
-import { Player, Row, Col, CellOwner, GameBoard, Score } from '../domain-types'
+import directions from './direction'
+import { Player, Row, Col, CellOwner, GameBoard, Score } from './types'
 
 const _directions = directions()
 

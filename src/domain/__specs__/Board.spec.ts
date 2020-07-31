@@ -1,6 +1,6 @@
-import * as Board from '../Board'
+import * as Board from '../board'
 
-import { Player, Row, Col, GameBoard } from '../../domain-types'
+import { Player, Row, Col, GameBoard } from '../types'
 
 const board = Board.newGameBoard
 

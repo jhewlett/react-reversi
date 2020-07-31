@@ -1,4 +1,4 @@
-import { Player, CellOwner } from '../domain-types'
+import { Player, CellOwner } from '../domain/types'
 
 function getBackgroundImage(player: CellOwner) {
   if (player === Player.One) return 'url("img/red.png")'

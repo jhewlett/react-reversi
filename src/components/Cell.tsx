@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useDispatch } from 'react-redux'
 
 import cellStyle from '../styles/cell'
-import { Row, PlayerHint, Col, Player, CellOwner } from '../domain-types'
+import { Row, PlayerHint, Col, Player, CellOwner } from '../domain/types'
 import { makeMove, checkOverlayHint, removeHint } from '../actions/gameActions'
 
 type CellProps = {

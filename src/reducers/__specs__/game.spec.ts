@@ -1,6 +1,6 @@
-import * as Board from '../../lib/Board'
+import * as Board from '../../domain/board'
 import game, { GameState } from '../game'
-import { Player } from '../../domain-types'
+import { Player } from '../../domain/types'
 import * as gameActions from '../../actions/gameActions'
 
 describe('game', () => {

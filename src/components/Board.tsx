@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import Row from './Row'
-import { GameBoard, PlayerHint } from '../domain-types'
+import { GameBoard, PlayerHint } from '../domain/types'
 
 const styles = {
   marginLeft: 'auto',

@@ -1,8 +1,8 @@
-import * as Board from '../lib/Board'
-import isEndOfGame from '../lib/isEndOfGame'
+import * as Board from '../domain/board'
+import isEndOfGame from '../domain/isEndOfGame'
 import { Stack } from 'immutable'
 import { MakeMoveAction, CheckOverlayHintAction, Action as GameAction } from '../actions/gameActions'
-import { PlayerType, GameBoard, PlayerHint, GameBoardHistory, Player } from '../domain-types'
+import { PlayerType, GameBoard, PlayerHint, GameBoardHistory, Player } from '../domain/types'
 
 export type GameState = {
   currentPlayer: PlayerType
