@@ -4,7 +4,7 @@ import { Stack } from 'immutable'
 import { MakeMoveAction, CheckOverlayHintAction, Action as GameAction } from '../actions/gameActions'
 import { PlayerType, GameBoard, PlayerHint, GameBoardHistory, Player } from '../domain-types'
 
-type GameState = {
+export type GameState = {
   currentPlayer: PlayerType
   board: GameBoard
   boardHistory: GameBoardHistory
@@ -14,8 +14,8 @@ type GameState = {
 function newGame() : GameState {
   return {
     currentPlayer: Player.One,
-    board: Board.newGameBoard as GameBoard,
-    boardHistory: Stack<GameBoard>().push(Board.newGameBoard as GameBoard),
+    board: Board.newGameBoard,
+    boardHistory: Stack<GameBoard>().push(Board.newGameBoard),
     playerHint: null
   }
 }

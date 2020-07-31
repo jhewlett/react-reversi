@@ -8,9 +8,9 @@ type CellProps = {
   owner: 0 | 1 | 2
   playerHint: PlayerHint | null
   actions: {
-    makeMove: (row: Row, col: Col) => {},
-    checkOverlayHint: (row: Row, col: Col) => {},
-    removeHint: () => {}
+    makeMove: (row: Row, col: Col) => void,
+    checkOverlayHint: (row: Row, col: Col) => void,
+    removeHint: () => void
    }
 }
 
