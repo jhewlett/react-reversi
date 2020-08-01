@@ -1,7 +1,7 @@
 import * as React from 'react'
-import globals from '../styles/globals'
-import { PlayerType, Score } from '../domain/types'
-import cellStyle from '../styles/cell'
+import globals from '../../styles/globals'
+import { PlayerType, Score } from '../../domain/types'
+import cellStyle from '../../styles/cell'
 
 type PlayerInfoProps = {
   currentPlayer: PlayerType

@@ -1,5 +1,5 @@
 import { buildStyles } from '../Cell'
-import { Player, PlayerHint } from '../../domain/types'
+import { Player, PlayerHint } from '../../../domain/types'
 
 describe('buildStyles', () => {
   describe('Owned by player 1', () => {

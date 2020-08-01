@@ -7,7 +7,7 @@ export type RemoveHintAction = { type: 'REMOVE_HINT' }
 export type UndoAction = { type: 'UNDO' }
 export type ResetAction = { type: 'RESET' }
 
-export type Action =
+export type GameAction =
 | SwitchPlayerAction
 | MakeMoveAction
 | CheckOverlayHintAction

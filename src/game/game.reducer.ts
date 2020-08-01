@@ -1,7 +1,7 @@
 import * as Board from '../domain/board'
 import isEndOfGame from '../domain/isEndOfGame'
 import { Stack } from 'immutable'
-import { MakeMoveAction, CheckOverlayHintAction, Action as GameAction } from '../actions/gameActions'
+import { MakeMoveAction, CheckOverlayHintAction, GameAction } from './game.actions'
 import { PlayerType, GameBoard, PlayerHint, GameBoardHistory, Player } from '../domain/types'
 
 export type GameState = {
@@ -120,19 +120,5 @@ export default function game(state = newGame(), action: GameAction) {
     case "UNDO": return undo(state)
     case "RESET": return reset()
     default: return state
-  }
-}
-
-type State = {
-  game: GameState
-}
-
-export function getGame(state: State) {
-  const { game } = state
-  const score = Board.getScore(game.board)
-
-  return {
-    score,
-    ...game
   }
 }

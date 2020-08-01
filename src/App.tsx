@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
 import store from './store'
-import Game from './components/Game'
+import Game from './game/components/Game'
 
 const app = (
   <Provider store={store}>

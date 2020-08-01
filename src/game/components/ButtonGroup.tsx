@@ -2,9 +2,9 @@ import * as React from 'react'
 import { useDispatch } from 'react-redux'
 
 import Button from './Button'
-import isEndOfGame from '../domain/isEndOfGame'
-import { GameBoardHistory, Score } from '../domain/types'
-import { switchPlayer, undo, reset } from '../actions/gameActions'
+import isEndOfGame from '../../domain/isEndOfGame'
+import { GameBoardHistory, Score } from '../../domain/types'
+import { switchPlayer, undo, reset } from '../game.actions'
 
 const styles = {
   textAlign: 'center',

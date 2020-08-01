@@ -5,7 +5,7 @@ import Board from './Board'
 import PlayerInfo from './PlayerInfo'
 import WinnerMessage from './WinnerMessage'
 import ButtonGroup from './ButtonGroup'
-import { getGame } from '../reducers/game'
+import { getGame } from '../game.selectors'
 
 const Game = () => {
   const {

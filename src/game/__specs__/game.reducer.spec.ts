@@ -1,7 +1,7 @@
 import * as Board from '../../domain/board'
-import game, { GameState } from '../game'
+import game, { GameState } from '../game.reducer'
 import { Player } from '../../domain/types'
-import * as gameActions from '../../actions/gameActions'
+import * as gameActions from '../game.actions'
 
 describe('game', () => {
   describe('when making a move', () => {
